@@ -1,0 +1,16 @@
+Document: {
+	header(DocumentHeader): {},
+	body(DocumentBody): {
+		ElementNode: {
+			name: p,
+			type: Normal,
+			children: [],
+			attributes: [
+				AttributeNode: {
+					attribute: class,
+					value: "{{asdf}}",
+				}
+			],
+		},
+	},
+}
