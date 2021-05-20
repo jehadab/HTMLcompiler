@@ -1,9 +1,27 @@
-<p class="{{asdf}}"></p>
-<header>
-    <pp></pp>
-</header>
+<html>
+<head>
+    <ul class="navProvider" cp-if="isauth">
+    </ul>
+    <ul class="navProvider" cp-if="isauth">
+    </ul>
+</head>
 <body>
-<h3 >
-    hi
-</h3>
+<ul class="navProvider" cp-for="x in [1,4,5];i=index">
+    <ul class="navProvider" cp-show="showItem()">
+        <ul class="navProvider" cp-show="showItem()">
+
+        </ul>
+        <ul class="navProvider" cp-show="showItem()">
+
+        </ul>
+    </ul>
+
+</ul>
+<ul class="navProvider" cp-show="showItem()">
+
+</ul>
+<ul class="navProvider" cp-show="showItem()">
+    <li>{{i}} : {{i + x - 3}}</li>
+</ul>
 </body>
+</html>

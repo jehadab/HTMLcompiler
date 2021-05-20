@@ -1,4 +1,4 @@
-// Generated from HTMLLexer.g4 by ANTLR 4.9
+// Generated from C:/Users/Dell/untitled/Grammar\HTMLLexer.g4 by ANTLR 4.9.1
 
 package misc;
 
@@ -13,7 +13,7 @@ import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class HTMLLexer extends Lexer {
-	static { RuntimeMetaData.checkVersion("4.9", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.9.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =

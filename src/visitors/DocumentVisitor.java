@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+
+import SymboleTable.Scope;
 import misc.HTMLParser.ArrayLoopRawContext;
 import misc.HTMLParser.AttributeNodeContext;
 import misc.HTMLParser.BodyContext;
@@ -44,7 +46,7 @@ import models.statements.*;
 public class DocumentVisitor extends Visitor<AbstractASTNode>{ 
 	
 	protected static Stack<Boolean> switchExists;
-	
+	private Stack<Scope> scopesStack = new Stack<>();
 	public DocumentVisitor() {
 		if (switchExists == null)
 			switchExists = new Stack<Boolean>();
@@ -61,8 +63,12 @@ public class DocumentVisitor extends Visitor<AbstractASTNode>{
 
 	@Override
 	public AbstractASTNode visitDocument(DocumentContext ctx) {
+		Scope s = new Scope(null);
+		s.setId("global");
+		scopesStack.push(s);
 		DocumentHeader header = (DocumentHeader) visit(ctx.getChild(0));
 		DocumentBody body = (DocumentBody) visit(ctx.getChild(1));
+		this.showSymboleTable();
 		return new Document(header, body);
 	}
 
@@ -103,6 +109,21 @@ public class DocumentVisitor extends Visitor<AbstractASTNode>{
 
 	@Override
 	public AbstractASTNode visitExpDirective(ExpDirectiveContext ctx) {
+		if(ctx.getChild(0).getText().equals("cp-if") ) {
+			Scope scope = new Scope(scopesStack.peek());
+			scope.setId(ctx.getChild(0).getText()+"_"+scope.hashCode());
+			this.symboletable.addScope(scope);
+			scopesStack.push(scope);
+
+		}
+
+		if(ctx.getChild(0).getText().equals("cp-show") ) {
+			Scope scope = new Scope(scopesStack.peek());
+			scope.setId(ctx.getChild(0).getText()+"_"+scope.hashCode());
+			this.symboletable.addScope(scope);
+			scopesStack.push(scope);
+
+		}
 		AbstractASTNode value = expressionVisitor.visit(ctx.getChild(3));
 		return new Directive(ctx.getChild(0).getText(), value);
 	}
@@ -110,6 +131,13 @@ public class DocumentVisitor extends Visitor<AbstractASTNode>{
 	@Override
 	public AbstractASTNode visitStmtDirective(StmtDirectiveContext ctx) {
 		AbstractASTNode value = visit(ctx.getChild(3));
+		if(ctx.getChild(0).getText().equals("cp-for"))
+		{
+			Scope scope = new Scope(scopesStack.peek());
+			scope.setId(ctx.getChild(0).getText()+"_"+scope.hashCode());
+			this.symboletable.addScope(scope);
+			scopesStack.push(scope);
+		}
 		return new Directive(ctx.getChild(0).getText(), value);
 	}
 
@@ -235,6 +263,8 @@ public class DocumentVisitor extends Visitor<AbstractASTNode>{
 		if (switchElement)
 			switchExists.pop();
 		ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]), contents.toArray(new DocumentNode[contents.size()]));
+		if(!scopesStack.peek().getId().equals("global"))
+			scopesStack.pop();
 		return element;
 	}
 
