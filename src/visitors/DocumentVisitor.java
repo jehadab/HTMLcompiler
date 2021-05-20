@@ -93,8 +93,11 @@ public class DocumentVisitor extends Visitor<AbstractASTNode>{
 	public AbstractASTNode visitBody(BodyContext ctx) {
 		List<DocumentNode> contents = new ArrayList<DocumentNode>();
 		DocumentBody body = new DocumentBody(contents);
-		for (int index = 0; index < ctx.getChildCount(); index++)
+
+		for (int index = 0; index < ctx.getChildCount(); index++){
 			contents.add((DocumentNode) visit(ctx.getChild(index)));
+			System.out.println(contents.get(index));
+		}
 		return body;
 	}
 

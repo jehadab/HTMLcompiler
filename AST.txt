@@ -2,6 +2,7 @@ Document: {
 	header(DocumentHeader): {},
 	body(DocumentBody): {
 		ElementNode: {
+<<<<<<< HEAD
 			name: p,
 			type: Normal,
 			children: [],
@@ -11,6 +12,7 @@ Document: {
 					value: "{{asdf}}",
 				}
 			],
+
 		},
 	},
 }
