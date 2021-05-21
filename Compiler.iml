@@ -14,16 +14,14 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
-      <library name="antlr-4.9-complete.jar">
+    <orderEntry type="module-library" exported="">
+      <library>
         <CLASSES>
-          <root url="file://C:/Users/Luqman/Downloads/antlr-4.9-complete.jar" />
+          <root url="jar://$MODULE_DIR$/../antlr-4.9.2-complete.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="antlr-runtime-4.7.2" level="project" />
-    <orderEntry type="library" name="antlr-4.7.2-complete" level="project" />
   </component>
 </module>

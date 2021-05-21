@@ -1,9 +1,17 @@
-<p class="{{asdf}}"></p>
-<header>
-    <pp></pp>
-</header>
-<body>
-<h3 >
-    hi
-</h3>
-</body>
+<html>
+<head>
+    <nav class="globalNav" data-module="nav">
+        <header>
+            <div id="navAuth" cp-if="isAuthenitcated">
+                <ul class="navProvider">
+                    <li id="mvpdLogo"></li>
+                </ul>
+            </div>
+            <div id="navNotAuth" cp-if="! isAuthenitcated">
+                <p>Not auth</p>
+            </div>
+        </header>
+    </nav>
+</head>
+<body></body>
+</html>
