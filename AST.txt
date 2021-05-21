@@ -44,6 +44,36 @@ Document: {
 														}
 													],
 												},
+												ElementNode: {
+													name: div,
+													type: Normal,
+													children: [
+														ElementNode: {
+															name: p,
+															type: Normal,
+															children: [
+																TextNode: {
+																	textValue: Not auth,
+																}
+															],
+															attributes: [],
+														},
+													],
+													attributes: [
+														AttributeNode: {
+															attribute: id,
+															value: "navNotAuth",
+														},
+														Directive: {
+															type: cp-if,
+															value(ExclamationExpression): {
+																oprand(ReferenceExpression): {
+																	reference: isAuthenitcated,
+																},
+															},
+														}
+													],
+												},
 											],
 											attributes: [
 												AttributeNode: {
@@ -54,36 +84,6 @@ Document: {
 													type: cp-if,
 													value(ReferenceExpression): {
 														reference: isAuthenitcated,
-													},
-												}
-											],
-										},
-										ElementNode: {
-											name: div,
-											type: Normal,
-											children: [
-												ElementNode: {
-													name: p,
-													type: Normal,
-													children: [
-														TextNode: {
-															textValue: Not auth,
-														}
-													],
-													attributes: [],
-												},
-											],
-											attributes: [
-												AttributeNode: {
-													attribute: id,
-													value: "navNotAuth",
-												},
-												Directive: {
-													type: cp-if,
-													value(ExclamationExpression): {
-														oprand(ReferenceExpression): {
-															reference: isAuthenitcated,
-														},
 													},
 												}
 											],

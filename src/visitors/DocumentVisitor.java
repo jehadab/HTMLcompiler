@@ -66,9 +66,12 @@ public class DocumentVisitor extends Visitor<AbstractASTNode>{
 		Scope s = new Scope(null);
 		s.setId("global");
 		scopesStack.push(s);
+		symboletable.addScope(s);
 		DocumentHeader header = (DocumentHeader) visit(ctx.getChild(0));
 		DocumentBody body = (DocumentBody) visit(ctx.getChild(1));
-		this.showSymboleTable();
+		showSymboleTable();
+		scopesStack.pop();
+		symboletable.getScopes();
 		return new Document(header, body);
 	}
 
@@ -112,7 +115,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode>{
 		if(ctx.getChild(0).getText().equals("cp-if") ) {
 			Scope scope = new Scope(scopesStack.peek());
 			scope.setId(ctx.getChild(0).getText()+"_"+scope.hashCode());
-			this.symboletable.addScope(scope);
+			symboletable.addScope(scope);
 			scopesStack.push(scope);
 
 		}
@@ -120,24 +123,27 @@ public class DocumentVisitor extends Visitor<AbstractASTNode>{
 		if(ctx.getChild(0).getText().equals("cp-show") ) {
 			Scope scope = new Scope(scopesStack.peek());
 			scope.setId(ctx.getChild(0).getText()+"_"+scope.hashCode());
-			this.symboletable.addScope(scope);
+			symboletable.addScope(scope);
 			scopesStack.push(scope);
+
 
 		}
 		AbstractASTNode value = expressionVisitor.visit(ctx.getChild(3));
+		scopesStack.pop();
 		return new Directive(ctx.getChild(0).getText(), value);
 	}
 
 	@Override
 	public AbstractASTNode visitStmtDirective(StmtDirectiveContext ctx) {
-		AbstractASTNode value = visit(ctx.getChild(3));
 		if(ctx.getChild(0).getText().equals("cp-for"))
 		{
 			Scope scope = new Scope(scopesStack.peek());
 			scope.setId(ctx.getChild(0).getText()+"_"+scope.hashCode());
-			this.symboletable.addScope(scope);
+			symboletable.addScope(scope);
 			scopesStack.push(scope);
 		}
+		AbstractASTNode value = visit(ctx.getChild(3));
+		scopesStack.pop();
 		return new Directive(ctx.getChild(0).getText(), value);
 	}
 
@@ -263,8 +269,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode>{
 		if (switchElement)
 			switchExists.pop();
 		ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]), contents.toArray(new DocumentNode[contents.size()]));
-		if(!scopesStack.peek().getId().equals("global"))
-			scopesStack.pop();
+
 		return element;
 	}
 
