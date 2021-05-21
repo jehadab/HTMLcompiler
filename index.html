@@ -1,17 +1,37 @@
 <html>
 <head>
-    <nav class="globalNav" data-module="nav">
-        <header>
-            <div id="navAuth" cp-if="isAuthenitcated">
-                <ul class="navProvider">
-                    <li id="mvpdLogo"></li>
-                </ul>
-            <div id="navNotAuth" cp-if="! isAuthenitcated">
-                <p>Not auth</p>
-            </div>
-            </div>
-        </header>
-    </nav>
+    <ul class="navProvider" cp-if="isauth">
+    </ul>
+    <ul class="navProvider" cp-if="isauth">
+        <ul class="navProvider" cp-if="isauth">
+            <ul class="navProvider" cp-show="showItem()">
+            </ul>
+            <ul class="navProvider" cp-show="showItem()">
+            </ul>
+        </ul>
+        <ul class="navProvider" cp-for="x in [1,4,5];i=index">
+        </ul>
+    </ul>
+    <ul class="navProvider" cp-if="isauth">
+    </ul>
 </head>
-<body></body>
+<body>
+<ul class="navProvider" cp-for="x in [1,4,5];i=index">
+    <ul class="navProvider" cp-show="showItem()">
+        <ul class="navProvider" cp-show="showItem()">
+
+        </ul>
+        <ul class="navProvider" cp-show="showItem()">
+
+        </ul>
+    </ul>
+
+</ul>
+<ul class="navProvider" cp-show="showItem()">
+
+</ul>
+<ul class="navProvider" cp-show="showItem()">
+    <li>{{i}} : {{i + x - 3}}</li>
+</ul>
+</body>
 </html>
