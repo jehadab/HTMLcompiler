@@ -9,111 +9,74 @@ Document: {
 					name: head,
 					type: Normal,
 					children: [
-						ElementNode: {
-							name: nav,
-							type: Normal,
-							children: [
-								ElementNode: {
-									name: header,
-									type: Normal,
-									children: [
-										ElementNode: {
-											name: div,
-											type: Normal,
-											children: [
-												ElementNode: {
-													name: ul,
-													type: Normal,
-													children: [
-														ElementNode: {
-															name: li,
-															type: Normal,
-															children: [],
-															attributes: [
-																AttributeNode: {
-																	attribute: id,
-																	value: "mvpdLogo",
-																}
-															],
-														},
-													],
-													attributes: [
-														AttributeNode: {
-															attribute: class,
-															value: "navProvider",
-														}
-													],
-												},
-												ElementNode: {
-													name: div,
-													type: Normal,
-													children: [
-														ElementNode: {
-															name: p,
-															type: Normal,
-															children: [
-																TextNode: {
-																	textValue: Not auth,
-																}
-															],
-															attributes: [],
-														},
-													],
-													attributes: [
-														AttributeNode: {
-															attribute: id,
-															value: "navNotAuth",
-														},
-														Directive: {
-															type: cp-if,
-															value(ExclamationExpression): {
-																oprand(ReferenceExpression): {
-																	reference: isAuthenitcated,
-																},
-															},
-														}
-													],
-												},
-											],
-											attributes: [
-												AttributeNode: {
-													attribute: id,
-													value: "navAuth",
-												},
-												Directive: {
-													type: cp-if,
-													value(ReferenceExpression): {
-														reference: isAuthenitcated,
-													},
-												}
-											],
-										},
-									],
-									attributes: [],
-								},
-							],
-							attributes: [
-								AttributeNode: {
-									attribute: class,
-									value: "globalNav",
-								},
-								AttributeNode: {
-									attribute: data-module,
-									value: "nav",
-								}
-							],
-						},
 					],
 					attributes: [],
 				},
 				ElementNode: {
 					name: body,
 					type: Normal,
-					children: [],
+					children: [
+						ElementNode: {
+							name: ul,
+							type: Normal,
+							children: [
+								ElementNode: {
+									name: ul,
+									type: Normal,
+									children: [
+									],
+									attributes: [
+										AttributeNode: {
+											attribute: class,
+											value: "navProvider",
+										},
+										Directive: {
+											type: cp-show,
+											value(FunctionCallExpression): {
+												function(ReferenceExpression): {
+													reference: showItem,
+												},
+											},
+										}
+									],
+								},
+								ElementNode: {
+									name: ul,
+									type: Normal,
+									children: [
+									],
+									attributes: [
+										AttributeNode: {
+											attribute: class,
+											value: "navProvider",
+										},
+										Directive: {
+											type: cp-model,
+											value(ReferenceExpression): {
+												reference: showItem,
+											},
+										}
+									],
+								},
+							],
+							attributes: [
+								AttributeNode: {
+									attribute: class,
+									value: "navProvider",
+								},
+								Directive: {
+									type: cp-app,
+									value(ReferenceExpression): {
+										reference: app,
+									},
+								}
+							],
+						},
+					],
 					attributes: [],
 				},
 			],
 			attributes: [],
-		},
+		},,
 	},
 }

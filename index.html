@@ -1,37 +1,16 @@
 <html>
 <head>
-    <ul class="navProvider" cp-if="isauth">
-    </ul>
-    <ul class="navProvider" cp-if="isauth">
-        <ul class="navProvider" cp-if="isauth">
-            <ul class="navProvider" cp-show="showItem()">
-            </ul>
-            <ul class="navProvider" cp-show="showItem()">
-            </ul>
-        </ul>
-        <ul class="navProvider" cp-for="x in [1,4,5];i=index">
-        </ul>
-    </ul>
-    <ul class="navProvider" cp-if="isauth">
-    </ul>
+
 </head>
 <body>
-<ul class="navProvider" cp-for="x in [1,4,5];i=index">
+<ul class="navProvider" cp-app="app">
     <ul class="navProvider" cp-show="showItem()">
-        <ul class="navProvider" cp-show="showItem()">
 
-        </ul>
-        <ul class="navProvider" cp-show="showItem()">
+    </ul>
+    <ul class="navProvider" cp-model="showItem">
 
-        </ul>
     </ul>
 
-</ul>
-<ul class="navProvider" cp-show="showItem()">
-
-</ul>
-<ul class="navProvider" cp-show="showItem()">
-    <li>{{i}} : {{i + x - 3}}</li>
 </ul>
 </body>
 </html>
