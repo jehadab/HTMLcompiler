@@ -13,6 +13,96 @@ Document: {
 							name: ul,
 							type: Normal,
 							children: [
+								ElementNode: {
+									name: ul,
+									type: Normal,
+									children: [
+										ElementNode: {
+											name: ul,
+											type: Normal,
+											children: [
+											],
+											attributes: [
+												AttributeNode: {
+													attribute: class,
+													value: "navProvider",
+												},
+												Directive: {
+													type: cp-show,
+													value(FunctionCallExpression): {
+														function(ReferenceExpression): {
+															reference: showItem,
+														},
+													},
+												}
+											],
+										},
+										ElementNode: {
+											name: ul,
+											type: Normal,
+											children: [
+											],
+											attributes: [
+												AttributeNode: {
+													attribute: class,
+													value: "navProvider",
+												},
+												Directive: {
+													type: cp-if,
+													value(ReferenceExpression): {
+														reference: isauth,
+													},
+												}
+											],
+										},
+									],
+									attributes: [
+										AttributeNode: {
+											attribute: class,
+											value: "navProvider",
+										},
+										Directive: {
+											type: cp-show,
+											value(FunctionCallExpression): {
+												function(ReferenceExpression): {
+													reference: showItem,
+												},
+											},
+										}
+									],
+								},
+								ElementNode: {
+									name: ul,
+									type: Normal,
+									children: [],
+									attributes: [
+										AttributeNode: {
+											attribute: class,
+											value: "navProvider",
+										},
+										Directive: {
+											type: cp-for,
+											value(ArrayLoopStatement): {
+												loopVariable: x,
+												indexed: true,
+												indexVariable: i,
+												loopOn(ArrayLiteral): {
+													elements: [
+														NumberLiteral: {
+															value: 1.0,
+														},
+														NumberLiteral: {
+															value: 4.0,
+														},
+														NumberLiteral: {
+															value: 5.0,
+														}
+													],
+												},
+											},
+										}
+									],
+								},
 							],
 							attributes: [
 								AttributeNode: {
@@ -52,169 +142,6 @@ Document: {
 					name: body,
 					type: Normal,
 					children: [
-						ElementNode: {
-							name: ul,
-							type: Normal,
-							children: [
-								ElementNode: {
-									name: ul,
-									type: Normal,
-									children: [
-										ElementNode: {
-											name: ul,
-											type: Normal,
-											children: [
-											],
-											attributes: [
-												AttributeNode: {
-													attribute: class,
-													value: "navProvider",
-												},
-												Directive: {
-													type: cp-show,
-													value(FunctionCallExpression): {
-														function(ReferenceExpression): {
-															reference: showItem,
-														},
-													},
-												}
-											],
-										},
-										ElementNode: {
-											name: ul,
-											type: Normal,
-											children: [
-											],
-											attributes: [
-												AttributeNode: {
-													attribute: class,
-													value: "navProvider",
-												},
-												Directive: {
-													type: cp-show,
-													value(FunctionCallExpression): {
-														function(ReferenceExpression): {
-															reference: showItem,
-														},
-													},
-												}
-											],
-										},
-									],
-									attributes: [
-										AttributeNode: {
-											attribute: class,
-											value: "navProvider",
-										},
-										Directive: {
-											type: cp-show,
-											value(FunctionCallExpression): {
-												function(ReferenceExpression): {
-													reference: showItem,
-												},
-											},
-										}
-									],
-								},
-							],
-							attributes: [
-								AttributeNode: {
-									attribute: class,
-									value: "navProvider",
-								},
-								Directive: {
-									type: cp-for,
-									value(ArrayLoopStatement): {
-										loopVariable: x,
-										indexed: true,
-										indexVariable: i,
-										loopOn(ArrayLiteral): {
-											elements: [
-												NumberLiteral: {
-													value: 1.0,
-												},
-												NumberLiteral: {
-													value: 4.0,
-												},
-												NumberLiteral: {
-													value: 5.0,
-												}
-											],
-										},
-									},
-								}
-							],
-						},
-						ElementNode: {
-							name: ul,
-							type: Normal,
-							children: [
-							],
-							attributes: [
-								AttributeNode: {
-									attribute: class,
-									value: "navProvider",
-								},
-								Directive: {
-									type: cp-show,
-									value(FunctionCallExpression): {
-										function(ReferenceExpression): {
-											reference: showItem,
-										},
-									},
-								}
-							],
-						},
-						ElementNode: {
-							name: ul,
-							type: Normal,
-							children: [
-								ElementNode: {
-									name: li,
-									type: Normal,
-									children: [
-										MustachNode: {
-											Exp(ReferenceExpression): {
-												reference: i,
-											},
-										},
-										TextNode: {
-											textValue:  : ,
-										},
-										MustachNode: {
-											Exp(MinusExpression): {
-												leftOprand(AdditionExpression): {
-													leftOprand(ReferenceExpression): {
-														reference: i,
-													},
-													rightOprand(ReferenceExpression): {
-														reference: x,
-													},
-												},
-												rightOprand(NumberLiteral): {
-													value: 3.0,
-												},
-											},
-										}
-									],
-									attributes: [],
-								},
-							],
-							attributes: [
-								AttributeNode: {
-									attribute: class,
-									value: "navProvider",
-								},
-								Directive: {
-									type: cp-show,
-									value(FunctionCallExpression): {
-										function(ReferenceExpression): {
-											reference: showItem,
-										},
-									},
-								}
-							],
-						},
 					],
 					attributes: [],
 				},

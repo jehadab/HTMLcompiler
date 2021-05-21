@@ -68,6 +68,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode>{
 		scopesStack.push(s);
 		DocumentHeader header = (DocumentHeader) visit(ctx.getChild(0));
 		DocumentBody body = (DocumentBody) visit(ctx.getChild(1));
+
 		this.showSymboleTable();
 		return new Document(header, body);
 	}
@@ -110,6 +111,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode>{
 	@Override
 	public AbstractASTNode visitExpDirective(ExpDirectiveContext ctx) {
 		if(ctx.getChild(0).getText().equals("cp-if") ) {
+
 			Scope scope = new Scope(scopesStack.peek());
 			scope.setId(ctx.getChild(0).getText()+"_"+scope.hashCode());
 			this.symboletable.addScope(scope);
@@ -118,10 +120,12 @@ public class DocumentVisitor extends Visitor<AbstractASTNode>{
 		}
 
 		if(ctx.getChild(0).getText().equals("cp-show") ) {
+
 			Scope scope = new Scope(scopesStack.peek());
 			scope.setId(ctx.getChild(0).getText()+"_"+scope.hashCode());
 			this.symboletable.addScope(scope);
 			scopesStack.push(scope);
+
 
 		}
 		AbstractASTNode value = expressionVisitor.visit(ctx.getChild(3));
@@ -133,10 +137,13 @@ public class DocumentVisitor extends Visitor<AbstractASTNode>{
 		AbstractASTNode value = visit(ctx.getChild(3));
 		if(ctx.getChild(0).getText().equals("cp-for"))
 		{
+
 			Scope scope = new Scope(scopesStack.peek());
 			scope.setId(ctx.getChild(0).getText()+"_"+scope.hashCode());
 			this.symboletable.addScope(scope);
 			scopesStack.push(scope);
+
+
 		}
 		return new Directive(ctx.getChild(0).getText(), value);
 	}
@@ -233,6 +240,8 @@ public class DocumentVisitor extends Visitor<AbstractASTNode>{
 
 	@Override
 	public AbstractASTNode visitNormalElement(NormalElementContext ctx) {
+        boolean pop = false ;
+        String n ="";
 		String tagName = ctx.getChild(1).getText();
 		String tagClose;
 		if (ctx.getChild(2) instanceof ElementAttributesContext) {
@@ -246,11 +255,23 @@ public class DocumentVisitor extends Visitor<AbstractASTNode>{
 		
 		if (ctx.getChild(2) instanceof ElementAttributesContext)
 			attributes = getAttributes((ElementAttributesContext) ctx.getChild(2));
+        for(int i=0;i<attributes.size();i++)
+        {
+
+            if(attributes.get(i) instanceof Directive)
+                n = ((Directive)attributes.get(i)).getName();
+
+            if(n.equals("cp-if") || n.equals("cp-for") || n.equals("cp-show"))
+            {
+                pop=true;
+            }
+        }
 		boolean switchElement = false;
 		for (AbstractASTNode node: attributes)
 			if (node instanceof Directive && testName(((Directive) node).getName(), "cp-switch")) {
 				switchExists.push(true);
 				switchElement = true;
+
 			}
 		for (AbstractASTNode node: attributes)
 			if (node instanceof Directive && (testName(((Directive) node).getName(), "cp-switch-case")||testName(((Directive) node).getName(), "cp-switchDefault")))
@@ -263,8 +284,17 @@ public class DocumentVisitor extends Visitor<AbstractASTNode>{
 		if (switchElement)
 			switchExists.pop();
 		ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]), contents.toArray(new DocumentNode[contents.size()]));
-		if(!scopesStack.peek().getId().equals("global"))
-			scopesStack.pop();
+
+
+		if(!scopesStack.peek().getId().equals("global")  && pop==true )
+		{
+
+//			System.out.println("what we poped from the stack"+scopesStack.pop().getId());
+            scopesStack.pop();
+
+		}
+
+
 		return element;
 	}
 
@@ -316,5 +346,8 @@ public class DocumentVisitor extends Visitor<AbstractASTNode>{
 	protected boolean testName(String openTag, String closeTag) {
 		return openTag.compareToIgnoreCase(closeTag) == 0;
 	}
+	public  void  pop_or_not  (){
+	 visited = true;
+    }
 
 }

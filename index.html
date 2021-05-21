@@ -3,6 +3,16 @@
     <ul class="navProvider" cp-if="isauth">
     </ul>
     <ul class="navProvider" cp-if="isauth">
+        <ul class="navProvider" cp-if="isauth">
+            <ul class="navProvider" cp-show="showItem()">
+            </ul>
+            <ul class="navProvider" cp-show="showItem()">
+            </ul>
+        </ul>
+        <ul class="navProvider" cp-for="x in [1,4,5];i=index">
+        </ul>
+    </ul>
+    <ul class="navProvider" cp-if="isauth">
     </ul>
 </head>
 <body>
