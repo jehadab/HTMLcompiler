@@ -7,7 +7,7 @@ bin
 *.class
 .classpath
 .project
-
+out
 
 # Log file
 *.log
