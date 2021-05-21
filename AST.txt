@@ -9,17 +9,50 @@ Document: {
 					name: head,
 					type: Normal,
 					children: [
+						TextNode: {
+							textValue: 03
+						    ,
+						},
+						ElementNode: {
+							name: ul,
+							type: Normal,
+							children: [
+							],
+							attributes: [
+								AttributeNode: {
+									attribute: class,
+									value: "navProvider",
+								},
+								Directive: {
+									type: cp-if,
+									value(ReferenceExpression): {
+										reference: isauth,
+									},
+								}
+							],
+						},
 					],
-					attributes: [],
+					attributes: [
+						Directive: {
+							type: cp-app,
+							value(ReferenceExpression): {
+								reference: myapp,
+							},
+						}
+					],
 				},
 				ElementNode: {
 					name: body,
 					type: Normal,
 					children: [
 						ElementNode: {
-							name: ul,
+							name: div,
 							type: Normal,
 							children: [
+								TextNode: {
+									textValue: 50
+								    ,
+								},
 								ElementNode: {
 									name: ul,
 									type: Normal,
@@ -44,6 +77,36 @@ Document: {
 									name: ul,
 									type: Normal,
 									children: [
+										ElementNode: {
+											name: li,
+											type: Normal,
+											children: [
+												MustachNode: {
+													Exp(ReferenceExpression): {
+														reference: i,
+													},
+												},
+												TextNode: {
+													textValue:  : ,
+												},
+												MustachNode: {
+													Exp(MinusExpression): {
+														leftOprand(AdditionExpression): {
+															leftOprand(ReferenceExpression): {
+																reference: i,
+															},
+															rightOprand(ReferenceExpression): {
+																reference: x,
+															},
+														},
+														rightOprand(NumberLiteral): {
+															value: 3.0,
+														},
+													},
+												}
+											],
+											attributes: [],
+										},
 									],
 									attributes: [
 										AttributeNode: {
@@ -51,23 +114,21 @@ Document: {
 											value: "navProvider",
 										},
 										Directive: {
-											type: cp-model,
-											value(ReferenceExpression): {
-												reference: showItem,
+											type: cp-show,
+											value(FunctionCallExpression): {
+												function(ReferenceExpression): {
+													reference: showItem,
+												},
 											},
 										}
 									],
 								},
 							],
 							attributes: [
-								AttributeNode: {
-									attribute: class,
-									value: "navProvider",
-								},
 								Directive: {
 									type: cp-app,
 									value(ReferenceExpression): {
-										reference: app,
+										reference: myapp2,
 									},
 								}
 							],
@@ -77,6 +138,6 @@ Document: {
 				},
 			],
 			attributes: [],
-		},,
+		},
 	},
 }

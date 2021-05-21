@@ -1,16 +1,17 @@
 <html>
-<head>
+<head cp-app="myapp">21
+    <ul class="navProvider" cp-if="isauth">03
 
+    </ul>
 </head>
 <body>
-<ul class="navProvider" cp-app="app">
+<div cp-app="myapp2">50
+    <ul class="navProvider" cp-show="showItem()">77
+
+    </ul>
     <ul class="navProvider" cp-show="showItem()">
-
+        <li>{{i}} : {{i + x - 3}}</li>
     </ul>
-    <ul class="navProvider" cp-model="showItem">
-
-    </ul>
-
-</ul>
+</div>
 </body>
 </html>
