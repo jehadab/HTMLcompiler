@@ -80,13 +80,13 @@ public class ExpressionVisitor extends Visitor<Expression>{
 	@Override
 	public Expression visitFunctionCall(FunctionCallContext ctx) {
 		if (ctx.getChildCount() == 3)
-		 return new FunctionCallExpression(visit(ctx.getChild(0)));
-		
+			return new FunctionCallExpression(visit(ctx.getChild(0)));
+
 		List<Expression> parameters = new ArrayList<Expression>();
 		for (int index = 0; index < ctx.getChild(2).getChildCount(); index += 2 ) {
 			parameters.add(visit(ctx.getChild(2).getChild(index)));
 		}
-		return new FunctionCallExpression(visit(ctx.getChild(0)), parameters); 
+		return new FunctionCallExpression(visit(ctx.getChild(0)), parameters);
 	}
 
 	@Override
@@ -128,7 +128,7 @@ public class ExpressionVisitor extends Visitor<Expression>{
 		Expression oprand = visit(ctx.getChild(0));
 		return new PostDecrementExpression(oprand);
 	}
-	
+
 	@Override
 	public Expression visitPreDecrementExpression(PreDecrementExpressionContext ctx) {
 		Expression oprand = visit(ctx.getChild(1));
@@ -214,7 +214,7 @@ public class ExpressionVisitor extends Visitor<Expression>{
 
 	@Override
 	public Expression visitCompound(HTMLParser.CompoundContext ctx) {
-		return visit(ctx.getChild(0)); 
+		return visit(ctx.getChild(0));
 	}
 
 	@Override
@@ -283,7 +283,7 @@ public class ExpressionVisitor extends Visitor<Expression>{
 		return new AccessByProperty(property, method);
 	}
 
-	@Override 
+	@Override
 	public Expression visitStringLiteral(HTMLParser.StringLiteralContext ctx) {
 		String string = ctx.getChild(1).getText();
 		return new StringLiteral(string);
@@ -293,7 +293,7 @@ public class ExpressionVisitor extends Visitor<Expression>{
 	public Expression visitParenthesized(HTMLParser.ParenthesizedContext ctx) {
 		return visit(ctx.getChild(1));
 	}
-	
+
 	protected ObjectProperty analyze(ObjectPropertyContext ctx) {
 		String name = ctx.getChild(0).getText();
 		Expression expression = visit(ctx.getChild(2));

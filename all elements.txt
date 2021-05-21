@@ -1,0 +1,23 @@
+Scoped Elements:
+HTML
+head?
+Body
+header
+footer
+h1 , h2 .....
+nav
+div
+ul
+Paragraph
+
+Title
+
+element :
+
+
+Directive :
+cp-if
+cp-for
+
+
+Elements without scopes:
