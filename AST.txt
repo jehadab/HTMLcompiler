@@ -17,60 +17,50 @@ Document: {
 					type: Normal,
 					children: [
 						ElementNode: {
-							name: ul,
+							name: ol,
 							type: Normal,
 							children: [
 								ElementNode: {
-									name: ul,
+									name: li,
 									type: Normal,
 									children: [
-									],
-									attributes: [
-										AttributeNode: {
-											attribute: class,
-											value: "navProvider",
-										},
-										Directive: {
-											type: cp-show,
-											value(FunctionCallExpression): {
-												function(ReferenceExpression): {
-													reference: showItem,
+										ElementNode: {
+											name: ul,
+											type: Normal,
+											children: [
+												ElementNode: {
+													name: li,
+													type: Normal,
+													children: [
+														ElementNode: {
+															name: ol,
+															type: Normal,
+															children: [],
+															attributes: [],
+														},
+														ElementNode: {
+															name: ul,
+															type: Normal,
+															children: [],
+															attributes: [],
+														},
+													],
+													attributes: [],
 												},
-											},
-										}
-									],
-								},
-								ElementNode: {
-									name: ul,
-									type: Normal,
-									children: [
-									],
-									attributes: [
-										AttributeNode: {
-											attribute: class,
-											value: "navProvider",
+												ElementNode: {
+													name: ul,
+													type: Normal,
+													children: [],
+													attributes: [],
+												},
+											],
+											attributes: [],
 										},
-										Directive: {
-											type: cp-model,
-											value(ReferenceExpression): {
-												reference: showItem,
-											},
-										}
 									],
+									attributes: [],
 								},
 							],
-							attributes: [
-								AttributeNode: {
-									attribute: class,
-									value: "navProvider",
-								},
-								Directive: {
-									type: cp-app,
-									value(ReferenceExpression): {
-										reference: app,
-									},
-								}
-							],
+							attributes: [],
 						},
 					],
 					attributes: [],
