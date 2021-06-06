@@ -29,4 +29,10 @@ public class Visitor<T> extends HTMLParserBaseVisitor<T> {
 
 		}
 	}
+	public static  void print_linkedlist(){
+		for (int i=0;i<symboletable.getids().size();i++)
+		{
+			System.out.println("value of id "+ symboletable.getids().get(i).getValue());
+		}
+	}
 }

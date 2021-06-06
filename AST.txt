@@ -9,131 +9,111 @@ Document: {
 					name: head,
 					type: Normal,
 					children: [
-						TextNode: {
-							textValue: 03
-						    ,
-						},
 						ElementNode: {
-							name: ul,
+							name: nav,
 							type: Normal,
 							children: [
-							],
-							attributes: [
-								AttributeNode: {
-									attribute: class,
-									value: "navProvider",
-								},
-								Directive: {
-									type: cp-if,
-									value(ReferenceExpression): {
-										reference: isauth,
-									},
-								}
-							],
-						},
-					],
-					attributes: [
-						Directive: {
-							type: cp-app,
-							value(ReferenceExpression): {
-								reference: myapp,
-							},
-						}
-					],
-				},
-				ElementNode: {
-					name: body,
-					type: Normal,
-					children: [
-						ElementNode: {
-							name: div,
-							type: Normal,
-							children: [
-								TextNode: {
-									textValue: 50
-								    ,
-								},
 								ElementNode: {
-									name: ul,
-									type: Normal,
-									children: [
-									],
-									attributes: [
-										AttributeNode: {
-											attribute: class,
-											value: "navProvider",
-										},
-										Directive: {
-											type: cp-show,
-											value(FunctionCallExpression): {
-												function(ReferenceExpression): {
-													reference: showItem,
-												},
-											},
-										}
-									],
-								},
-								ElementNode: {
-									name: ul,
+									name: header,
 									type: Normal,
 									children: [
 										ElementNode: {
-											name: li,
+											name: div,
 											type: Normal,
 											children: [
-												MustachNode: {
-													Exp(ReferenceExpression): {
-														reference: i,
-													},
-												},
-												TextNode: {
-													textValue:  : ,
-												},
-												MustachNode: {
-													Exp(MinusExpression): {
-														leftOprand(AdditionExpression): {
-															leftOprand(ReferenceExpression): {
-																reference: i,
-															},
-															rightOprand(ReferenceExpression): {
-																reference: x,
-															},
+												ElementNode: {
+													name: ul,
+													type: Normal,
+													children: [
+														ElementNode: {
+															name: li,
+															type: Normal,
+															children: [],
+															attributes: [
+																AttributeNode: {
+																	attribute: id,
+																	value: "globalNav",
+																}
+															],
 														},
-														rightOprand(NumberLiteral): {
-															value: 3.0,
+													],
+													attributes: [
+														AttributeNode: {
+															attribute: class,
+															value: "navProvider",
+														}
+													],
+												},
+											],
+											attributes: [
+												AttributeNode: {
+													attribute: id,
+													value: "navAuth",
+												},
+												Directive: {
+													type: cp-if,
+													value(ReferenceExpression): {
+														reference: isAuthenitcated,
+													},
+												}
+											],
+										},
+										ElementNode: {
+											name: div,
+											type: Normal,
+											children: [
+												ElementNode: {
+													name: p,
+													type: Normal,
+													children: [
+														TextNode: {
+															textValue: Not auth,
+														}
+													],
+													attributes: [],
+												},
+											],
+											attributes: [
+												AttributeNode: {
+													attribute: id,
+													value: "Auth",
+												},
+												Directive: {
+													type: cp-if,
+													value(ExclamationExpression): {
+														oprand(ReferenceExpression): {
+															reference: isAuthenitcated,
 														},
 													},
 												}
 											],
-											attributes: [],
 										},
 									],
-									attributes: [
-										AttributeNode: {
-											attribute: class,
-											value: "navProvider",
-										},
-										Directive: {
-											type: cp-show,
-											value(FunctionCallExpression): {
-												function(ReferenceExpression): {
-													reference: showItem,
-												},
-											},
-										}
-									],
+									attributes: [],
 								},
 							],
 							attributes: [
-								Directive: {
-									type: cp-app,
-									value(ReferenceExpression): {
-										reference: myapp2,
-									},
+								AttributeNode: {
+									attribute: class,
+									value: "globalNav",
+								},
+								AttributeNode: {
+									attribute: data-module,
+									value: "nav",
+								},
+								AttributeNode: {
+									attribute: id,
+									value: "globalNav",
 								}
 							],
 						},
 					],
+					attributes: [],
+				},
+				ElementNode: {
+					name: body,
+					type: Normal,
+					children: [],
 					attributes: [],
 				},
 			],

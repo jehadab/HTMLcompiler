@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Stack;
 
 
+import SymboleTable.Id;
 import SymboleTable.Scope;
 import misc.HTMLParser.ArrayLoopRawContext;
 import misc.HTMLParser.AttributeNodeContext;
@@ -72,6 +73,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         DocumentBody body = (DocumentBody) visit(ctx.getChild(1));
         showSymboleTable();
         symboletable.getScopes();
+        print_linkedlist();
         return new Document(header, body);
     }
 
@@ -279,8 +281,6 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
 
         if (!scopesStack.peek().getId().equals("global") && isElementDirective) {
-
-//			System.out.println("what we poped from the stack"+scopesStack.pop().getId());
             scopesStack.pop();
 
         }
@@ -307,10 +307,23 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
     }
 
     public List<AbstractASTNode> getAttributes(ElementAttributesContext ctx) {
+
         List<AbstractASTNode> attributes = new ArrayList<AbstractASTNode>();
         for (int index = 0; index < ctx.getChildCount(); index++) {
             attributes.add(visit(ctx.getChild(index)));
+
+            if(ctx.getChild(index).getChild(0).toString().equals("id"))
+            {
+
+                Id id = new Id(ctx.getChild(index).getChild(2).toString());
+                if(CheckidValue(id)==false)
+                {symboletable.addId(id);}
+                else {
+                    System.err.println("id attribute must be uniqe on document level");
+                }
+            }
         }
+
         return attributes;
     }
 
@@ -336,6 +349,17 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
     protected boolean testName(String openTag, String closeTag) {
         return openTag.compareToIgnoreCase(closeTag) == 0;
     }
-
+    // fucntion for semantic-check Q1
+    public boolean CheckidValue(Id id ){
+        boolean  exits= false;
+    for(int i=0;i<symboletable.getids().size();i++)
+        {
+           if(id.getValue().equals(symboletable.getids().get(i).getValue()))
+           {
+               exits=true;
+           }
+        }
+    return exits;
+    }
 
 }
