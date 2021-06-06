@@ -32,7 +32,7 @@ Document: {
 															attributes: [
 																AttributeNode: {
 																	attribute: id,
-																	value: "globalNav",
+																	value: "GlobalNav",
 																}
 															],
 														},
@@ -76,7 +76,7 @@ Document: {
 											attributes: [
 												AttributeNode: {
 													attribute: id,
-													value: "Auth",
+													value: "NAuth",
 												},
 												Directive: {
 													type: cp-if,
