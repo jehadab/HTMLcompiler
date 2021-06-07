@@ -17,66 +17,136 @@ Document: {
 					type: Normal,
 					children: [
 						ElementNode: {
-							name: ul,
+							name: a,
 							type: Normal,
-							children: [
-								ElementNode: {
-									name: ul,
-									type: Normal,
-									children: [
-									],
-									attributes: [
-										AttributeNode: {
-											attribute: class,
-											value: "navProvider",
-										},
-										Directive: {
-											type: cp-show,
-											value(FunctionCallExpression): {
-												function(ReferenceExpression): {
-													reference: showItem,
-												},
-											},
-										}
-									],
-								},
-								ElementNode: {
-									name: ul,
-									type: Normal,
-									children: [
-									],
-									attributes: [
-										AttributeNode: {
-											attribute: class,
-											value: "navProvider",
-										},
-										Directive: {
-											type: cp-model,
-											value(ReferenceExpression): {
-												reference: showItem,
-											},
-										}
-									],
-								},
-							],
+							children: [],
 							attributes: [
 								AttributeNode: {
 									attribute: class,
-									value: "navProvider",
-								},
-								Directive: {
-									type: cp-app,
-									value(ReferenceExpression): {
-										reference: app,
-									},
+									value: "testing",
 								}
 							],
+						},
+						ElementNode: {
+							name: a,
+							type: Normal,
+							children: [],
+							attributes: [
+								AttributeNode: {
+									attribute: href,
+									value: "klkkm",
+								}
+							],
+						},
+						ElementNode: {
+							name: a,
+							type: Normal,
+							children: [],
+							attributes: [
+								AttributeNode: {
+									attribute: class,
+									value: "testing",
+								}
+							],
+						},
+						ElementNode: {
+							name: a,
+							type: Normal,
+							children: [],
+							attributes: [
+								AttributeNode: {
+									attribute: href,
+									value: "klkkm",
+								}
+							],
+						},
+						ElementNode: {
+							name: div,
+							type: Normal,
+							children: [
+								ElementNode: {
+									name: a,
+									type: Normal,
+									children: [
+										ElementNode: {
+											name: a,
+											type: Normal,
+											children: [],
+											attributes: [
+												AttributeNode: {
+													attribute: id,
+													value: "kjkjn",
+												}
+											],
+										},
+									],
+									attributes: [
+										AttributeNode: {
+											attribute: href,
+											value: "llklk",
+										}
+									],
+								},
+								ElementNode: {
+									name: a,
+									type: Normal,
+									children: [
+										ElementNode: {
+											name: a,
+											type: Normal,
+											children: [
+												ElementNode: {
+													name: a,
+													type: Normal,
+													children: [],
+													attributes: [
+														AttributeNode: {
+															attribute: class,
+															value: "gg",
+														}
+													],
+												},
+											],
+											attributes: [
+												AttributeNode: {
+													attribute: href,
+													value: "ggg",
+												}
+											],
+										},
+									],
+									attributes: [
+										AttributeNode: {
+											attribute: class,
+											value: "nkk",
+										}
+									],
+								},
+							],
+							attributes: [],
+						},
+						ElementNode: {
+							name: a,
+							type: Normal,
+							children: [],
+							attributes: [
+								AttributeNode: {
+									attribute: class,
+									value: "hhlklk",
+								}
+							],
+						},
+						ElementNode: {
+							name: a,
+							type: Normal,
+							children: [],
+							attributes: [],
 						},
 					],
 					attributes: [],
 				},
 			],
 			attributes: [],
-		},,
+		},
 	},
 }

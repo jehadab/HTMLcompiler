@@ -234,8 +234,14 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
     @Override
     public AbstractASTNode visitNormalElement(NormalElementContext ctx) {
         boolean isElementDirective = false;
+        String Directive_name="";
         String tagName = ctx.getChild(1).getText();
         String tagClose;
+        if(tagName.equals("a"))
+        {
+            a_tag=true;
+        }
+
         if (ctx.getChild(2) instanceof ElementAttributesContext) {
             tagClose = ctx.getChild(6).getText();
         } else
@@ -247,14 +253,34 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
         if (ctx.getChild(2) instanceof ElementAttributesContext)
             attributes = getAttributes((ElementAttributesContext) ctx.getChild(2));
+            if(attributes.size()==0)
+            {
+                if(a_tag==true)
+                {
+                    is_herf=false;
+                    System.err.println("Anchor tag must has href attribute");
+                }
 
+            }
         for (int i = 0; i < attributes.size(); i++) {
 
-            if (attributes.get(i) instanceof Directive) {
+//            if (attributes.get(i) instanceof Directive) {
+//
+//                if (!ctx.getChild(0).getText().equals("cp-model")) {
+//
+//                    isElementDirective = true;
+//
+//                }
+//            }
+            if(attributes.get(i) instanceof Directive) {
+                Directive_name = ((Directive) attributes.get(i)).getName();
 
-                if (!ctx.getChild(0).getText().equals("cp-model")) {
+                if (!Directive_name.equals("cp-model")) {
                     isElementDirective = true;
+
                 }
+
+
             }
 
         }
@@ -307,19 +333,34 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
     }
 
     public List<AbstractASTNode> getAttributes(ElementAttributesContext ctx) {
+
         List<AbstractASTNode> attributes = new ArrayList<AbstractASTNode>();
+
         for (int index = 0; index < ctx.getChildCount(); index++) {
             attributes.add(visit(ctx.getChild(index)));
         }
+
+        if(is_herf==false && a_tag==true)
+        {
+            System.err.println("Anchor tag must has href attribute");
+        }
+        is_herf=false;
+        a_tag=false;
         return attributes;
     }
 
     @Override
     public AbstractASTNode visitAttributeNode(AttributeNodeContext ctx) {
+
         String name = ctx.getChild(0).getText();
         String value = null;
         if (ctx.getChildCount() > 1)
             value = ctx.getChild(2).getText();
+       if(name.equals("href") && a_tag==true)
+       {
+           is_herf=true;
+       }
+
         return new AttributeNode(name, value);
     }
 

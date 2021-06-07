@@ -7,7 +7,8 @@ import SymboleTable.SymboleTable;
 import misc.HTMLParserBaseVisitor;
 
 public class Visitor<T> extends HTMLParserBaseVisitor<T> {
-    static boolean  visited =false  ;
+	static  public boolean  a_tag=false;
+	static public boolean is_herf=false;
 	static public SymboleTable symboletable = new SymboleTable();
 	static DocumentVisitor documentVisitor = new DocumentVisitor();
 	static ExpressionVisitor expressionVisitor = new ExpressionVisitor();
