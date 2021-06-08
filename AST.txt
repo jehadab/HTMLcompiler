@@ -9,19 +9,6 @@ Document: {
 					name: head,
 					type: Normal,
 					children: [
-						ElementNode: {
-							name: div,
-							type: Normal,
-							children: [],
-							attributes: [
-								Directive: {
-									type: cp-show,
-									value(ReferenceExpression): {
-										reference: show,
-									},
-								}
-							],
-						},
 					],
 					attributes: [],
 				},
