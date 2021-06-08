@@ -70,8 +70,8 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         Scope s = new Scope(null);
         s.setId("global");
         scopesStack.push(s);
-//        Tag t = new Tag(null);
-//        tagsStack.push(t);
+        Tag tag = new Tag("firsttag");
+        tagsStack.push(tag);
         DocumentHeader header = (DocumentHeader) visit(ctx.getChild(0));
         DocumentBody body = (DocumentBody) visit(ctx.getChild(1));
         showSymboleTable();
