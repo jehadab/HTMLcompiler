@@ -7,6 +7,7 @@ import java.util.Stack;
 
 import SymboleTable.Id;
 import SymboleTable.Scope;
+import SymboleTable.Tag;
 import misc.HTMLParser.ArrayLoopRawContext;
 import misc.HTMLParser.AttributeNodeContext;
 import misc.HTMLParser.BodyContext;
@@ -48,6 +49,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     protected static Stack<Boolean> switchExists;
     private Stack<Scope> scopesStack = new Stack<>();
+    private Stack<Tag> tagsStack = new Stack<>();
 
     public DocumentVisitor() {
         if (switchExists == null)
@@ -69,6 +71,8 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         Scope s = new Scope(null);
         s.setId("global");
         scopesStack.push(s);
+//        Tag t = new Tag(null);
+//        tagsStack.push(t);
         DocumentHeader header = (DocumentHeader) visit(ctx.getChild(0));
         DocumentBody body = (DocumentBody) visit(ctx.getChild(1));
         showSymboleTable();
@@ -238,6 +242,19 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         boolean isElementDirective = false;
         String tagName = ctx.getChild(1).getText();
         String tagClose;
+
+
+        if((tagName.equals("ol") || tagName.equals("ul"))&& tagsStack.peek().getTagname().equals("li"))
+        {
+            System.err.println("li tag should not be outside ul/ol");
+        }
+        if(tagName.equals("ol")|| tagName.equals("li")|| tagName.equals("ul"))
+        {
+
+            Tag t = new Tag(tagName);
+            tagsStack.push(t);
+        }
+
         if (ctx.getChild(2) instanceof ElementAttributesContext) {
             tagClose = ctx.getChild(6).getText();
         } else
@@ -285,7 +302,15 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
         }
 
+        if(tagName.equals("ul") || tagName.equals("li") || tagName.equals("ol"))
+        {
+            if( !tagsStack.peek().getTagname().equals("firsttag"))
+            {
+                tagsStack.pop();
 
+
+            }
+        }
         return element;
     }
 
