@@ -251,8 +251,8 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         if(tagName.equals("ol")|| tagName.equals("li")|| tagName.equals("ul"))
         {
 
-            Tag t = new Tag(tagName);
-            tagsStack.push(t);
+            Tag tag = new Tag(tagName);
+            tagsStack.push(tag);
         }
 
         if (ctx.getChild(2) instanceof ElementAttributesContext) {
