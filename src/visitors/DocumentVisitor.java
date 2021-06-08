@@ -73,7 +73,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         DocumentBody body = (DocumentBody) visit(ctx.getChild(1));
         showSymboleTable();
         symboletable.getScopes();
-        print_linkedlist();
+//        print_linkedlist();
         return new Document(header, body);
     }
 
