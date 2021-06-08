@@ -17,99 +17,46 @@ Document: {
 					type: Normal,
 					children: [
 						ElementNode: {
-							name: div,
+							name: a,
 							type: Normal,
 							children: [],
 							attributes: [
-								Directive: {
-									type: cp-model,
-									value(ReferenceExpression): {
-										reference: show,
-									},
-								},
-								Directive: {
-									type: cp-for,
-									value(ArrayLoopStatement): {
-										loopVariable: obj,
-										indexed: true,
-										indexVariable: i,
-										loopOn(ReferenceExpression): {
-											reference: t,
-										},
-									},
-								},
 								AttributeNode: {
 									attribute: class,
-									value: "ljkl",
+									value: "testing",
 								}
 							],
 						},
 						ElementNode: {
-							name: div,
+							name: a,
 							type: Normal,
 							children: [],
 							attributes: [
-								Directive: {
-									type: cp-show,
-									value(ReferenceExpression): {
-										reference: show,
-									},
-								},
-								Directive: {
-									type: cp-if,
-									value(ReferenceExpression): {
-										reference: isauth,
-									},
-								},
-								Directive: {
-									type: cp-show,
-									value(ReferenceExpression): {
-										reference: isauth,
-									},
-								},
-								Directive: {
-									type: cp-hide,
-									value(ReferenceExpression): {
-										reference: isauth,
-									},
+								AttributeNode: {
+									attribute: href,
+									value: "klkkm",
 								}
 							],
 						},
 						ElementNode: {
-							name: div,
+							name: a,
 							type: Normal,
 							children: [],
 							attributes: [
-								Directive: {
-									type: cp-for,
-									value(ArrayLoopStatement): {
-										loopVariable: obj,
-										indexed: true,
-										indexVariable: i,
-										loopOn(ReferenceExpression): {
-											reference: t,
-										},
-									},
-								},
-								Directive: {
-									type: cp-model,
-									value(ReferenceExpression): {
-										reference: show,
-									},
-								},
 								AttributeNode: {
 									attribute: class,
-									value: "bhbhbjh",
-								},
+									value: "testing",
+								}
+							],
+						},
+						ElementNode: {
+							name: a,
+							type: Normal,
+							children: [],
+							attributes: [
 								AttributeNode: {
-									attribute: id,
-									value: "nnlkk",
-								},
-								Directive: {
-									type: cp-show,
-									value(ReferenceExpression): {
-										reference: show,
-									},
+									attribute: href,
+									value: "klkkm",
 								}
 							],
 						},
@@ -118,122 +65,88 @@ Document: {
 							type: Normal,
 							children: [
 								ElementNode: {
-									name: h1,
+									name: a,
 									type: Normal,
 									children: [
-										TextNode: {
-											textValue:  displayed ,
-										}
+										ElementNode: {
+											name: a,
+											type: Normal,
+											children: [],
+											attributes: [
+												AttributeNode: {
+													attribute: id,
+													value: "kjkjn",
+												}
+											],
+										},
 									],
 									attributes: [
-										Directive: {
-											type: cp-switch-case,
-											value(NumberLiteral): {
-												value: 1.0,
-											},
+										AttributeNode: {
+											attribute: href,
+											value: "llklk",
 										}
 									],
 								},
 								ElementNode: {
-									name: h2,
+									name: a,
 									type: Normal,
 									children: [
-										TextNode: {
-											textValue:  displayed ,
-										}
+										ElementNode: {
+											name: a,
+											type: Normal,
+											children: [
+												ElementNode: {
+													name: a,
+													type: Normal,
+													children: [],
+													attributes: [
+														AttributeNode: {
+															attribute: class,
+															value: "gg",
+														}
+													],
+												},
+											],
+											attributes: [
+												AttributeNode: {
+													attribute: href,
+													value: "ggg",
+												}
+											],
+										},
 									],
 									attributes: [
-										Directive: {
-											type: cp-switch-case,
-											value(NumberLiteral): {
-												value: 2.0,
-											},
-										}
-									],
-								},
-								ElementNode: {
-									name: h3,
-									type: Normal,
-									children: [
-										TextNode: {
-											textValue:  displayed ,
-										}
-									],
-									attributes: [
-										Directive: {
-											type: cp-switch-case,
-											value(NumberLiteral): {
-												value: 3.0,
-											},
-										}
-									],
-								},
-								ElementNode: {
-									name: h4,
-									type: Normal,
-									children: [
-										TextNode: {
-											textValue:  displayed ,
-										}
-									],
-									attributes: [
-										Directive: {
-											type: cp-switch-case,
-											value(NumberLiteral): {
-												value: 4.0,
-											},
-										}
-									],
-								},
-								ElementNode: {
-									name: h2,
-									type: Normal,
-									children: [
-										TextNode: {
-											textValue:  displayed ,
-										}
-									],
-									attributes: [
-										Directive: {
-											type: cp-switchDefault,
+										AttributeNode: {
+											attribute: class,
+											value: "nkk",
 										}
 									],
 								},
 							],
+							attributes: [],
+						},
+						ElementNode: {
+							name: a,
+							type: Normal,
+							children: [],
 							attributes: [
-								Directive: {
-									type: cp-model,
-									value(ReferenceExpression): {
-										reference: show,
-									},
-								},
-								Directive: {
-									type: cp-switch,
-									value(AccessExpression): {
-										object(ReferenceExpression): {
-											reference: object,
-										},
-										method(AccessByProperty): {
-											property: user,
-											method(AccessByProperty): {
-												property: type,
-											},
-										},
-									},
-								},
-								Directive: {
-									type: cp-show,
-									value(ReferenceExpression): {
-										reference: isauth,
-									},
+								AttributeNode: {
+									attribute: class,
+									value: "hhlklk",
 								}
 							],
+						},
+						ElementNode: {
+							name: a,
+							type: Normal,
+							children: [],
+							attributes: [],
 						},
 					],
 					attributes: [],
 				},
 			],
 			attributes: [],
-		},,
+		},
 	},
 }
