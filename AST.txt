@@ -17,7 +17,7 @@ Document: {
 					type: Normal,
 					children: [
 						ElementNode: {
-							name: ol,
+							name: div,
 							type: Normal,
 							children: [
 								ElementNode: {
@@ -25,21 +25,15 @@ Document: {
 									type: Normal,
 									children: [
 										ElementNode: {
-											name: ul,
+											name: div,
 											type: Normal,
 											children: [
 												ElementNode: {
-													name: li,
+													name: ul,
 													type: Normal,
 													children: [
 														ElementNode: {
-															name: ol,
-															type: Normal,
-															children: [],
-															attributes: [],
-														},
-														ElementNode: {
-															name: ul,
+															name: li,
 															type: Normal,
 															children: [],
 															attributes: [],
@@ -47,13 +41,13 @@ Document: {
 													],
 													attributes: [],
 												},
-												ElementNode: {
-													name: ul,
-													type: Normal,
-													children: [],
-													attributes: [],
-												},
 											],
+											attributes: [],
+										},
+										ElementNode: {
+											name: ul,
+											type: Normal,
+											children: [],
 											attributes: [],
 										},
 									],
@@ -67,6 +61,6 @@ Document: {
 				},
 			],
 			attributes: [],
-		},,
+		},
 	},
 }

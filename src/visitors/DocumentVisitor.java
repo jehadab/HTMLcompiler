@@ -240,32 +240,18 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         boolean isElementDirective = false;
         String tagName = ctx.getChild(1).getText();
         String tagClose;
-//        System.out.println(" if the ");
-      if(tagsStack.empty())
-      {
-          if(tagName.equals("ol")|| tagName.equals("li")|| tagName.equals("ul"))
-          {
-              Tag t = new Tag(tagName);
-              tagsStack.push(t);
-          }
-      }
-      if(!tagsStack.empty())
-      {
-          if((tagName.equals("ol") || tagName.equals("ul"))&& tagsStack.peek().getTagname().equals("li"))
-          {
-              System.err.println("li tag should not be outside ul/ol");
-              Tag t = new Tag(tagName);
-              tagsStack.push(t);
 
-          }
 
-          if(tagName.equals("ol")|| tagName.equals("li")|| tagName.equals("ul"))
-          {
-              Tag t = new Tag(tagName);
-              tagsStack.push(t);
-          }
+        if((tagName.equals("ol") || tagName.equals("ul"))&& tagsStack.peek().getTagname().equals("li"))
+        {
+            System.err.println("li tag should not be outside ul/ol");
+        }
+        if(tagName.equals("ol")|| tagName.equals("li")|| tagName.equals("ul"))
+        {
 
-      }
+            Tag t = new Tag(tagName);
+            tagsStack.push(t);
+        }
 
         if (ctx.getChild(2) instanceof ElementAttributesContext) {
             tagClose = ctx.getChild(6).getText();
@@ -316,9 +302,14 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
         }
 
-        if((tagName.equals("li")|| tagName.equals("ul")|| tagName.equals("ol")) )
+        if(tagName.equals("ul") || tagName.equals("li") || tagName.equals("ol"))
         {
-            tagsStack.pop();
+            if( !tagsStack.peek().getTagname().equals("firsttag"))
+            {
+                tagsStack.pop();
+
+
+            }
         }
         return element;
     }
