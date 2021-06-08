@@ -17,50 +17,6 @@ Document: {
 					type: Normal,
 					children: [
 						ElementNode: {
-							name: a,
-							type: Normal,
-							children: [],
-							attributes: [
-								AttributeNode: {
-									attribute: class,
-									value: "testing",
-								}
-							],
-						},
-						ElementNode: {
-							name: a,
-							type: Normal,
-							children: [],
-							attributes: [
-								AttributeNode: {
-									attribute: href,
-									value: "klkkm",
-								}
-							],
-						},
-						ElementNode: {
-							name: a,
-							type: Normal,
-							children: [],
-							attributes: [
-								AttributeNode: {
-									attribute: class,
-									value: "testing",
-								}
-							],
-						},
-						ElementNode: {
-							name: a,
-							type: Normal,
-							children: [],
-							attributes: [
-								AttributeNode: {
-									attribute: href,
-									value: "klkkm",
-								}
-							],
-						},
-						ElementNode: {
 							name: div,
 							type: Normal,
 							children: [
@@ -68,57 +24,11 @@ Document: {
 									name: a,
 									type: Normal,
 									children: [
-										ElementNode: {
-											name: a,
-											type: Normal,
-											children: [],
-											attributes: [
-												AttributeNode: {
-													attribute: id,
-													value: "kjkjn",
-												}
-											],
-										},
 									],
 									attributes: [
 										AttributeNode: {
 											attribute: href,
 											value: "llklk",
-										}
-									],
-								},
-								ElementNode: {
-									name: a,
-									type: Normal,
-									children: [
-										ElementNode: {
-											name: a,
-											type: Normal,
-											children: [
-												ElementNode: {
-													name: a,
-													type: Normal,
-													children: [],
-													attributes: [
-														AttributeNode: {
-															attribute: class,
-															value: "gg",
-														}
-													],
-												},
-											],
-											attributes: [
-												AttributeNode: {
-													attribute: href,
-													value: "ggg",
-												}
-											],
-										},
-									],
-									attributes: [
-										AttributeNode: {
-											attribute: class,
-											value: "nkk",
 										}
 									],
 								},
