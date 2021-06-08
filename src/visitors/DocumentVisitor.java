@@ -112,14 +112,18 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     @Override
     public AbstractASTNode visitExpDirective(ExpDirectiveContext ctx) {
+        ElementDirective_number++;
+        if(ElementDirective_number ==1) {
+            if (!ctx.getChild(0).getText().equals("cp-model")) {
 
-        if (!ctx.getChild(0).getText().equals("cp-model")) {
-            Scope scope = new Scope(scopesStack.peek());
-            scope.setId(ctx.getChild(0).getText() + "_" + scope.hashCode());
-            symboletable.addScope(scope);
-            scopesStack.push(scope);
+                Scope scope = new Scope(scopesStack.peek());
+                scope.setId(ctx.getChild(0).getText() + "_" + scope.hashCode());
+                symboletable.addScope(scope);
+                scopesStack.push(scope);
+
+
+            }
         }
-
         AbstractASTNode value = expressionVisitor.visit(ctx.getChild(3));
 
         return new Directive(ctx.getChild(0).getText(), value);
@@ -128,11 +132,12 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
     @Override
     public AbstractASTNode visitStmtDirective(StmtDirectiveContext ctx) {
         if (ctx.getChild(0).getText().equals("cp-for")) {
-
-            Scope scope = new Scope(scopesStack.peek());
+            ElementDirective_number++;
+            if(ElementDirective_number==1)
+            {Scope scope = new Scope(scopesStack.peek());
             scope.setId(ctx.getChild(0).getText() + "_" + scope.hashCode());
             symboletable.addScope(scope);
-            scopesStack.push(scope);
+            scopesStack.push(scope);}
 
 
         }
@@ -233,7 +238,9 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     @Override
     public AbstractASTNode visitNormalElement(NormalElementContext ctx) {
+        int ElementDirective_counter =0;
         boolean isElementDirective = false;
+        ElementDirective_number=0;
         String tagName = ctx.getChild(1).getText();
         String tagClose;
         if (ctx.getChild(2) instanceof ElementAttributesContext) {
@@ -257,6 +264,22 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
                 }
             }
 
+        }
+
+        if(attributes.size()!=0)
+        {
+            for (int i = 0; i < attributes.size(); i++) {
+
+            if (attributes.get(i) instanceof Directive) {
+
+                ElementDirective_counter++;
+            }
+
+        }
+        }
+        if(ElementDirective_counter>1)
+        {
+            System.err.println("Each html element has at most one structural attribute");
         }
         boolean switchElement = false;
         for (AbstractASTNode node : attributes)
