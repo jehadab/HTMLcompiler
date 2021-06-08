@@ -253,9 +253,10 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
         if (ctx.getChild(2) instanceof ElementAttributesContext)
             attributes = getAttributes((ElementAttributesContext) ctx.getChild(2));
-            if(attributes.size()==0)
+
+            if(a_tag==true)
             {
-                if(a_tag==true)
+                if(attributes.size()==0)
                 {
                     is_herf=false;
                     System.err.println("Anchor tag must has href attribute");
@@ -311,7 +312,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
         }
 
-
+        a_tag=false;
         return element;
     }
 
@@ -345,7 +346,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
             System.err.println("Anchor tag must has href attribute");
         }
         is_herf=false;
-        a_tag=false;
+
         return attributes;
     }
 
