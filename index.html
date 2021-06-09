@@ -1,16 +1,28 @@
-<html>
+<html cp-app="xxx">
 <head>
-
+    {{y}}
+    <nav class="globalNav" data-module="nav">
+        <header>
+            <div>
+                <ul class="navProvider" cp-for="x in [1,4,5];i=index">
+                    <li>{{i}} </li>
+                    <div>
+                        {{kk}}
+                    </div>
+                </ul>
+            </div>
+        </header>
+        {{p}}
+    </nav>
 </head>
 <body>
-<ul class="navProvider" cp-app="app">
-    <ul class="navProvider" cp-show="showItem()">
-
-    </ul>
-    <ul class="navProvider" cp-model="showItem">
-
-    </ul>
-
-</ul>
+<div cp-if="isauth">
+  {{z}}
+    <div cp-if="dd">
+        {{u}}
+    </div>
+</div>
+{{f}}
 </body>
+{{a}}
 </html>

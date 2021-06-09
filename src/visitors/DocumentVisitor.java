@@ -6,6 +6,7 @@ import java.util.Stack;
 
 
 import SymboleTable.Scope;
+import SymboleTable.Symbole;
 import misc.HTMLParser.ArrayLoopRawContext;
 import misc.HTMLParser.AttributeNodeContext;
 import misc.HTMLParser.BodyContext;
@@ -71,6 +72,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         DocumentHeader header = (DocumentHeader) visit(ctx.getChild(0));
         DocumentBody body = (DocumentBody) visit(ctx.getChild(1));
         showSymboleTable();
+        print_symbole_linked_list();
         symboletable.getScopes();
         return new Document(header, body);
     }
@@ -121,6 +123,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         }
 
         AbstractASTNode value = expressionVisitor.visit(ctx.getChild(3));
+        System.out.println(" print the value of the directive :  "+ctx.getChild(3).getText() );
 
         return new Directive(ctx.getChild(0).getText(), value);
     }
@@ -328,7 +331,14 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         MustachNode mustache;
         if (ctx.getChildCount() > 2) {
             mustache = new MustachNode(expressionVisitor.visit(ctx.getChild(1)));
-        } else
+            System.out.println("print the value of the mustach "+ctx.getChild(1).getText());
+             Symbole symbole = new Symbole(ctx.getChild(1).getText());
+             Scope SymboleScope = new Scope();
+             SymboleScope = scopesStack.peek();
+             symbole.setSymbole_scope(SymboleScope);
+            symboletable.addSymbole(symbole);
+
+         } else
             mustache = new MustachNode();
         return mustache;
     }

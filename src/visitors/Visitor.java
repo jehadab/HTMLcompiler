@@ -29,4 +29,11 @@ public class Visitor<T> extends HTMLParserBaseVisitor<T> {
 
 		}
 	}
+	public static  void print_symbole_linked_list(){
+		for (int i=0;i<symboletable.getSymboles().size();i++)
+		{
+			System.out.println(" symbole name   :"+symboletable.getSymboles().get(i).getName());
+			System.out.println(" scope id for the symbole is "+symboletable.getSymboles().get(i).getSymbole_scope().getId());
+		}
+	}
 }

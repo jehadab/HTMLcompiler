@@ -9,6 +9,111 @@ Document: {
 					name: head,
 					type: Normal,
 					children: [
+						MustachNode: {
+							Exp(ReferenceExpression): {
+								reference: y,
+							},
+						},
+						ElementNode: {
+							name: nav,
+							type: Normal,
+							children: [
+								ElementNode: {
+									name: header,
+									type: Normal,
+									children: [
+										ElementNode: {
+											name: div,
+											type: Normal,
+											children: [
+												ElementNode: {
+													name: ul,
+													type: Normal,
+													children: [
+														ElementNode: {
+															name: li,
+															type: Normal,
+															children: [
+																MustachNode: {
+																	Exp(ReferenceExpression): {
+																		reference: i,
+																	},
+																},
+																TextNode: {
+																	textValue:   : ,
+																},
+																MustachNode: {
+																	Exp(ReferenceExpression): {
+																		reference: v,
+																	},
+																},
+															],
+															attributes: [],
+														},
+														ElementNode: {
+															name: div,
+															type: Normal,
+															children: [
+																MustachNode: {
+																	Exp(ReferenceExpression): {
+																		reference: kk,
+																	},
+																},
+															],
+															attributes: [],
+														},
+													],
+													attributes: [
+														AttributeNode: {
+															attribute: class,
+															value: "navProvider",
+														},
+														Directive: {
+															type: cp-for,
+															value(ArrayLoopStatement): {
+																loopVariable: x,
+																indexed: true,
+																indexVariable: i,
+																loopOn(ArrayLiteral): {
+																	elements: [
+																		NumberLiteral: {
+																			value: 1.0,
+																		},
+																		NumberLiteral: {
+																			value: 4.0,
+																		},
+																		NumberLiteral: {
+																			value: 5.0,
+																		}
+																	],
+																},
+															},
+														}
+													],
+												},
+											],
+											attributes: [],
+										},
+									],
+									attributes: [],
+								},
+								MustachNode: {
+									Exp(ReferenceExpression): {
+										reference: p,
+									},
+								},
+							],
+							attributes: [
+								AttributeNode: {
+									attribute: class,
+									value: "globalNav",
+								},
+								AttributeNode: {
+									attribute: data-module,
+									value: "nav",
+								}
+							],
+						},
 					],
 					attributes: [],
 				},
@@ -17,66 +122,65 @@ Document: {
 					type: Normal,
 					children: [
 						ElementNode: {
-							name: ul,
+							name: div,
 							type: Normal,
 							children: [
-								ElementNode: {
-									name: ul,
-									type: Normal,
-									children: [
-									],
-									attributes: [
-										AttributeNode: {
-											attribute: class,
-											value: "navProvider",
-										},
-										Directive: {
-											type: cp-show,
-											value(FunctionCallExpression): {
-												function(ReferenceExpression): {
-													reference: showItem,
-												},
-											},
-										}
-									],
+								MustachNode: {
+									Exp(ReferenceExpression): {
+										reference: z,
+									},
 								},
 								ElementNode: {
-									name: ul,
+									name: div,
 									type: Normal,
 									children: [
+										MustachNode: {
+											Exp(ReferenceExpression): {
+												reference: u,
+											},
+										},
 									],
 									attributes: [
-										AttributeNode: {
-											attribute: class,
-											value: "navProvider",
-										},
 										Directive: {
-											type: cp-model,
+											type: cp-if,
 											value(ReferenceExpression): {
-												reference: showItem,
+												reference: dd,
 											},
 										}
 									],
 								},
 							],
 							attributes: [
-								AttributeNode: {
-									attribute: class,
-									value: "navProvider",
-								},
 								Directive: {
-									type: cp-app,
+									type: cp-if,
 									value(ReferenceExpression): {
-										reference: app,
+										reference: isauth,
 									},
 								}
 							],
 						},
+						MustachNode: {
+							Exp(ReferenceExpression): {
+								reference: f,
+							},
+						},
 					],
 					attributes: [],
 				},
+				MustachNode: {
+					Exp(ReferenceExpression): {
+						reference: a,
+					},
+				},
 			],
-			attributes: [],
-		},,
+			attributes: [
+				Directive: {
+					type: cp-app,
+					value(ReferenceExpression): {
+						reference: xxx,
+					},
+				}
+			],
+		},
 	},
 }
