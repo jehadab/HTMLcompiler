@@ -123,7 +123,9 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         }
 
         AbstractASTNode value = expressionVisitor.visit(ctx.getChild(3));
-        System.out.println(" print the value of the directive :  "+ctx.getChild(3).getText() );
+//        System.out.println(" print the value of the directive :  "+ctx.getChild(3).getText() );
+//        System.out.println(" know what is one the top of the stack   "+scopesStack.peek().getId());
+        store_symbole_scope(ctx.getChild(3).getText()  , scopesStack.peek().getParent());
 
         return new Directive(ctx.getChild(0).getText(), value);
     }
@@ -331,7 +333,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         MustachNode mustache;
         if (ctx.getChildCount() > 2) {
             mustache = new MustachNode(expressionVisitor.visit(ctx.getChild(1)));
-            System.out.println("print the value of the mustach "+ctx.getChild(1).getText());
+//            System.out.println("print the value of the mustach "+ctx.getChild(1).getText());
              Symbole symbole = new Symbole(ctx.getChild(1).getText());
              Scope SymboleScope = new Scope();
              SymboleScope = scopesStack.peek();
@@ -346,6 +348,35 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
     protected boolean testName(String openTag, String closeTag) {
         return openTag.compareToIgnoreCase(closeTag) == 0;
     }
+   public void  store_symbole_scope(String value , Scope scope)
+    {
 
+        boolean find=false;
+        if(scope.getId().equals("global"))
+        {
+            Symbole symbole = new Symbole(value);
+            Scope symbole_scope = new Scope();
+            symbole_scope.setId("global");
+            symbole.setSymbole_scope(symbole_scope);
+            symboletable.addSymbole(symbole);
+            return ;
+
+        }
+      for(int i=0;i<symboletable.getSymboles().size();i++)
+        {
+
+            if(symboletable.getSymboles().get(i).getName().equals(value))
+            {
+
+                    find=true;
+                   return;
+
+            }
+        }
+      if(find==false)
+      {
+          store_symbole_scope(value,scope.getParent());
+      }
+    }
 
 }

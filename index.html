@@ -1,28 +1,19 @@
 <html cp-app="xxx">
 <head>
-    {{y}}
-    <nav class="globalNav" data-module="nav">
-        <header>
-            <div>
-                <ul class="navProvider" cp-for="x in [1,4,5];i=index">
-                    <li>{{i}} </li>
-                    <div>
-                        {{kk}}
-                    </div>
-                </ul>
-            </div>
-        </header>
-        {{p}}
-    </nav>
+{{find}}
 </head>
 <body>
 <div cp-if="isauth">
-  {{z}}
-    <div cp-if="dd">
-        {{u}}
+    {{z}}
+    <div cp-if="find">
+        {{auth}}
     </div>
+
 </div>
-{{f}}
+<div cp-if="auth">
+    {{r}}
+
+</div>
 </body>
-{{a}}
+
 </html>
