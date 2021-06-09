@@ -142,6 +142,8 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
         }
         AbstractASTNode value = visit(ctx.getChild(3));
+//        System.out.println(" get the value of the for loop  :  "+ctx.getChild(3).getText().substring(3,4));
+        store_symbole_scope(ctx.getChild(3).getText().substring(3,4) , scopesStack.peek().getParent());
         return new Directive(ctx.getChild(0).getText(), value);
     }
 

@@ -9,10 +9,19 @@ Document: {
 					name: head,
 					type: Normal,
 					children: [
-						MustachNode: {
-							Exp(ReferenceExpression): {
-								reference: find,
-							},
+						ElementNode: {
+							name: div,
+							type: Normal,
+							children: [
+							],
+							attributes: [
+								Directive: {
+									type: cp-if,
+									value(ReferenceExpression): {
+										reference: g,
+									},
+								}
+							],
 						},
 					],
 					attributes: [],
@@ -25,55 +34,17 @@ Document: {
 							name: div,
 							type: Normal,
 							children: [
-								MustachNode: {
-									Exp(ReferenceExpression): {
-										reference: z,
-									},
-								},
-								ElementNode: {
-									name: div,
-									type: Normal,
-									children: [
-										MustachNode: {
-											Exp(ReferenceExpression): {
-												reference: auth,
-											},
+							],
+							attributes: [
+								Directive: {
+									type: cp-for,
+									value(ArrayLoopStatement): {
+										loopVariable: x,
+										indexed: true,
+										indexVariable: i,
+										loopOn(ReferenceExpression): {
+											reference: y,
 										},
-									],
-									attributes: [
-										Directive: {
-											type: cp-if,
-											value(ReferenceExpression): {
-												reference: find,
-											},
-										}
-									],
-								},
-							],
-							attributes: [
-								Directive: {
-									type: cp-if,
-									value(ReferenceExpression): {
-										reference: isauth,
-									},
-								}
-							],
-						},
-						ElementNode: {
-							name: div,
-							type: Normal,
-							children: [
-								MustachNode: {
-									Exp(ReferenceExpression): {
-										reference: r,
-									},
-								},
-							],
-							attributes: [
-								Directive: {
-									type: cp-if,
-									value(ReferenceExpression): {
-										reference: auth,
 									},
 								}
 							],
