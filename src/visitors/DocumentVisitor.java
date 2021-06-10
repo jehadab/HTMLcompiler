@@ -112,17 +112,15 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     @Override
     public AbstractASTNode visitExpDirective(ExpDirectiveContext ctx) {
-        ElementDirective_number++;
-        if(ElementDirective_number ==1) {
-            if (!ctx.getChild(0).getText().equals("cp-model")) {
-
-                Scope scope = new Scope(scopesStack.peek());
-                scope.setId(ctx.getChild(0).getText() + "_" + scope.hashCode());
-                symboletable.addScope(scope);
-                scopesStack.push(scope);
-
-
-            }
+       if(!ctx.getChild(0).getText().equals("cp-model"))
+       {
+           ElementDirective_number++;
+           if(ElementDirective_number ==1) {
+                   Scope scope = new Scope(scopesStack.peek());
+                   scope.setId(ctx.getChild(0).getText() + "_" + scope.hashCode());
+                   symboletable.addScope(scope);
+                   scopesStack.push(scope);
+       }
         }
         AbstractASTNode value = expressionVisitor.visit(ctx.getChild(3));
 
@@ -241,6 +239,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         int ElementDirective_counter =0;
         boolean isElementDirective = false;
         ElementDirective_number=0;
+        String Directive_name="";
         String tagName = ctx.getChild(1).getText();
         String tagClose;
         if (ctx.getChild(2) instanceof ElementAttributesContext) {
@@ -257,30 +256,24 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
         for (int i = 0; i < attributes.size(); i++) {
 
-            if (attributes.get(i) instanceof Directive) {
+            if(attributes.get(i) instanceof Directive) {
+                Directive_name = ((Directive) attributes.get(i)).getName();
 
-                if (!ctx.getChild(0).getText().equals("cp-model")) {
+                if (!Directive_name.equals("cp-model")) {
                     isElementDirective = true;
+                    ElementDirective_counter++;
+                    if(ElementDirective_counter>1)
+                    {
+                        System.err.println("Each html element has at most one structural attribute");
+                    }
+
                 }
+
+
             }
 
         }
 
-        if(attributes.size()!=0)
-        {
-            for (int i = 0; i < attributes.size(); i++) {
-
-            if (attributes.get(i) instanceof Directive) {
-
-                ElementDirective_counter++;
-            }
-
-        }
-        }
-        if(ElementDirective_counter>1)
-        {
-            System.err.println("Each html element has at most one structural attribute");
-        }
         boolean switchElement = false;
         for (AbstractASTNode node : attributes)
             if (node instanceof Directive && testName(((Directive) node).getName(), "cp-switch")) {
