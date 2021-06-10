@@ -1,14 +1,15 @@
-<html cp-app="xxx">
+<html   cp-app ="gg" >
 <head>
-<div cp-if="g">
-
-</div>
-
+{{x}}
+{{auth}}
 </head>
-<body>
-<div cp-for="x in y;i=index">
-
+<body cp-if="auth" >
+{{y}}
+<div cp-if="y">
+    {{x}}
+    <div cp-if="auth"></div>
 </div>
+
 </body>
 
 </html>

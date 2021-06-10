@@ -47,7 +47,7 @@ import models.statements.*;
 public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     protected static Stack<Boolean> switchExists;
-    private Stack<Scope> scopesStack = new Stack<>();
+    public static Stack<Scope> scopesStack = new Stack<>();
 
     public DocumentVisitor() {
         if (switchExists == null)
@@ -87,6 +87,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
             else
                 headers.add(new TextNode(ctx.getChild(index).getText()));
         }
+
         return header;
     }
 
@@ -121,11 +122,10 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
             symboletable.addScope(scope);
             scopesStack.push(scope);
         }
-
+        Element="Directive";
         AbstractASTNode value = expressionVisitor.visit(ctx.getChild(3));
-//        System.out.println(" print the value of the directive :  "+ctx.getChild(3).getText() );
-//        System.out.println(" know what is one the top of the stack   "+scopesStack.peek().getId());
-        store_symbole_scope(ctx.getChild(3).getText()  , scopesStack.peek().getParent());
+
+//        store_symbole_scope(ctx.getChild(3).getText()  , scopesStack.peek().getParent());
 
         return new Directive(ctx.getChild(0).getText(), value);
     }
@@ -142,8 +142,8 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
         }
         AbstractASTNode value = visit(ctx.getChild(3));
-//        System.out.println(" get the value of the for loop  :  "+ctx.getChild(3).getText().substring(3,4));
-        store_symbole_scope(ctx.getChild(3).getText().substring(3,4) , scopesStack.peek().getParent());
+
+//        store_symbole_scope(ctx.getChild(3).getText().substring(3,4) , scopesStack.peek().getParent());
         return new Directive(ctx.getChild(0).getText(), value);
     }
 
@@ -218,11 +218,17 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
     public List<AbstractASTNode> getContent(ElementContentContext ctx) {
         List<AbstractASTNode> contents = new ArrayList<AbstractASTNode>();
         for (int index = 0; index < ctx.getChildCount(); index++) {
+            if(ctx.getChild(index) instanceof  MustacheContext)
+            {
+                Element="Mustach";
+            }
             if (ctx.getChild(index) instanceof NodeContext || ctx.getChild(index) instanceof MustacheContext)
                 contents.add(visit(ctx.getChild(index)));
             else
                 contents.add(new TextNode(ctx.getChild(index).getText()));
+
         }
+
         return contents;
     }
 
@@ -258,6 +264,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         for (int i = 0; i < attributes.size(); i++) {
 
             if (attributes.get(i) instanceof Directive) {
+
 
                 if (!ctx.getChild(0).getText().equals("cp-model")) {
                     isElementDirective = true;
@@ -317,6 +324,8 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         List<AbstractASTNode> attributes = new ArrayList<AbstractASTNode>();
         for (int index = 0; index < ctx.getChildCount(); index++) {
             attributes.add(visit(ctx.getChild(index)));
+
+
         }
         return attributes;
     }
@@ -324,9 +333,11 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
     @Override
     public AbstractASTNode visitAttributeNode(AttributeNodeContext ctx) {
         String name = ctx.getChild(0).getText();
+
         String value = null;
         if (ctx.getChildCount() > 1)
             value = ctx.getChild(2).getText();
+
         return new AttributeNode(name, value);
     }
 
@@ -335,12 +346,8 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         MustachNode mustache;
         if (ctx.getChildCount() > 2) {
             mustache = new MustachNode(expressionVisitor.visit(ctx.getChild(1)));
-//            System.out.println("print the value of the mustach "+ctx.getChild(1).getText());
-             Symbole symbole = new Symbole(ctx.getChild(1).getText());
-             Scope SymboleScope = new Scope();
-             SymboleScope = scopesStack.peek();
-             symbole.setSymbole_scope(SymboleScope);
-            symboletable.addSymbole(symbole);
+
+
 
          } else
             mustache = new MustachNode();
@@ -350,35 +357,6 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
     protected boolean testName(String openTag, String closeTag) {
         return openTag.compareToIgnoreCase(closeTag) == 0;
     }
-   public void  store_symbole_scope(String value , Scope scope)
-    {
 
-        boolean find=false;
-        if(scope.getId().equals("global"))
-        {
-            Symbole symbole = new Symbole(value);
-            Scope symbole_scope = new Scope();
-            symbole_scope.setId("global");
-            symbole.setSymbole_scope(symbole_scope);
-            symboletable.addSymbole(symbole);
-            return ;
-
-        }
-      for(int i=0;i<symboletable.getSymboles().size();i++)
-        {
-
-            if(symboletable.getSymboles().get(i).getName().equals(value))
-            {
-
-                    find=true;
-                   return;
-
-            }
-        }
-      if(find==false)
-      {
-          store_symbole_scope(value,scope.getParent());
-      }
-    }
 
 }
