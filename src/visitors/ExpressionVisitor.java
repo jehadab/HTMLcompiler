@@ -263,7 +263,8 @@ public class ExpressionVisitor extends Visitor<Expression>{
 
 	@Override
 	public Expression visitReferenceExpression(ReferenceExpressionContext ctx) {
-
+//        System.out.println(" pritn th evaraibel here   :"+ctx.getChild(0).getText() );
+//        System.out.println(" pritn the elemnt here   :"+Element );
         if(Element.equals("Mustach")) {
             Symbole symbole = new Symbole(ctx.getChild(0).getText());
             Scope SymboleScope = new Scope();

@@ -11,7 +11,7 @@ Document: {
 					children: [
 						MustachNode: {
 							Exp(ReferenceExpression): {
-								reference: x,
+								reference: z,
 							},
 						},
 						MustachNode: {
@@ -26,52 +26,70 @@ Document: {
 					name: body,
 					type: Normal,
 					children: [
-						MustachNode: {
-							Exp(ReferenceExpression): {
-								reference: y,
-							},
-						},
 						ElementNode: {
 							name: div,
 							type: Normal,
 							children: [
 								MustachNode: {
 									Exp(ReferenceExpression): {
-										reference: x,
+										reference: i,
 									},
 								},
-								ElementNode: {
-									name: div,
-									type: Normal,
-									children: [],
-									attributes: [
-										Directive: {
-											type: cp-if,
-											value(ReferenceExpression): {
-												reference: auth,
+								TextNode: {
+									textValue:  : ,
+								},
+								MustachNode: {
+									Exp(MinusExpression): {
+										leftOprand(AdditionExpression): {
+											leftOprand(ReferenceExpression): {
+												reference: i,
 											},
-										}
-									],
+											rightOprand(ReferenceExpression): {
+												reference: x,
+											},
+										},
+										rightOprand(NumberLiteral): {
+											value: 3.0,
+										},
+									},
 								},
 							],
 							attributes: [
 								Directive: {
 									type: cp-if,
-									value(ReferenceExpression): {
-										reference: y,
+									value(ExclamationExpression): {
+										oprand(ReferenceExpression): {
+											reference: auth,
+										},
 									},
 								}
 							],
 						},
-					],
-					attributes: [
-						Directive: {
-							type: cp-if,
-							value(ReferenceExpression): {
-								reference: auth,
+						MustachNode: {
+							Exp(ReferenceExpression): {
+								reference: i,
 							},
-						}
+						},
+						TextNode: {
+							textValue:  : ,
+						},
+						MustachNode: {
+							Exp(MinusExpression): {
+								leftOprand(AdditionExpression): {
+									leftOprand(ReferenceExpression): {
+										reference: i,
+									},
+									rightOprand(ReferenceExpression): {
+										reference: x,
+									},
+								},
+								rightOprand(NumberLiteral): {
+									value: 3.0,
+								},
+							},
+						},
 					],
+					attributes: [],
 				},
 			],
 			attributes: [

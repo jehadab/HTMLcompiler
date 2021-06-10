@@ -161,6 +161,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     @Override
     public AbstractASTNode visitIndexedArrayLoop(IndexedArrayLoopContext ctx) {
+        Element="Directive";
         AbstractASTNode arrayToLoopOn = expressionVisitor.visit(ctx.getChild(2));
         String loopVariable = ctx.getChild(0).getText();
         String indexVariable = ctx.getChild(4).getText();
