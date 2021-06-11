@@ -248,6 +248,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
     @Override
     public AbstractASTNode visitNormalElement(NormalElementContext ctx) {
         boolean isElementDirective = false;
+        String Directive_name="";
         String tagName = ctx.getChild(1).getText();
         String tagClose;
         if (ctx.getChild(2) instanceof ElementAttributesContext) {
@@ -265,9 +266,9 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         for (int i = 0; i < attributes.size(); i++) {
 
             if (attributes.get(i) instanceof Directive) {
+    Directive_name = ((Directive) attributes.get(i)).getName();
+                if (!Directive_name.equals("cp-model")) {
 
-
-                if (!ctx.getChild(0).getText().equals("cp-model")) {
                     isElementDirective = true;
                 }
             }

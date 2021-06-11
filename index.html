@@ -1,14 +1,16 @@
 <html   cp-app ="gg" >
 <head>
 {{z}}
+{{o}}
 {{auth}}
 </head>
 <body>
-<div cp-if="!auth">
+{{object}}
+<div cp-if="o">
+    {{v > 18 ? 'Adult' : 'young' }}
 
-    {{i}} : {{i + x - 3}}
 </div>
-{{i}} : {{i + x - 3}}
+
 </body>
 
 </html>
