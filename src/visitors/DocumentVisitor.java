@@ -118,6 +118,12 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
             scope.setId(ctx.getChild(0).getText() + "_" + scope.hashCode());
             symboletable.addScope(scope);
             scopesStack.push(scope);
+           if(ctx.getChild(0).getText().equals("cp-app"))
+               cppapp_number++;
+           if(cppapp_number>1)
+           {
+               System.err.println("Nested cp-app is forbidden.");
+           }
         }
 
         AbstractASTNode value = expressionVisitor.visit(ctx.getChild(3));

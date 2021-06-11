@@ -17,66 +17,23 @@ Document: {
 					type: Normal,
 					children: [
 						ElementNode: {
-							name: ul,
+							name: div,
 							type: Normal,
-							children: [
-								ElementNode: {
-									name: ul,
-									type: Normal,
-									children: [
-									],
-									attributes: [
-										AttributeNode: {
-											attribute: class,
-											value: "navProvider",
-										},
-										Directive: {
-											type: cp-show,
-											value(FunctionCallExpression): {
-												function(ReferenceExpression): {
-													reference: showItem,
-												},
-											},
-										}
-									],
-								},
-								ElementNode: {
-									name: ul,
-									type: Normal,
-									children: [
-									],
-									attributes: [
-										AttributeNode: {
-											attribute: class,
-											value: "navProvider",
-										},
-										Directive: {
-											type: cp-model,
-											value(ReferenceExpression): {
-												reference: showItem,
-											},
-										}
-									],
-								},
-							],
-							attributes: [
-								AttributeNode: {
-									attribute: class,
-									value: "navProvider",
-								},
-								Directive: {
-									type: cp-app,
-									value(ReferenceExpression): {
-										reference: app,
-									},
-								}
-							],
+							children: [],
+							attributes: [],
 						},
 					],
 					attributes: [],
 				},
 			],
-			attributes: [],
+			attributes: [
+				Directive: {
+					type: cp-app,
+					value(ReferenceExpression): {
+						reference: xx,
+					},
+				}
+			],
 		},,
 	},
 }
