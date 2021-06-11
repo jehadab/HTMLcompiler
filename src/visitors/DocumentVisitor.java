@@ -226,7 +226,13 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
         if (ctx.getChild(2) instanceof ElementAttributesContext)
             attributes = getAttributes((ElementAttributesContext) ctx.getChild(2));
-
+        if(tagName.equals("img"))
+        {
+            if(is_src==false)
+                {
+                    System.err.println("img tag must has src attribute.");
+                }
+        }
         ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]));
         return element;
     }
@@ -234,8 +240,11 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
     @Override
     public AbstractASTNode visitNormalElement(NormalElementContext ctx) {
         boolean isElementDirective = false;
+        String Directive_name = "";
+
         String tagName = ctx.getChild(1).getText();
         String tagClose;
+
         if (ctx.getChild(2) instanceof ElementAttributesContext) {
             tagClose = ctx.getChild(6).getText();
         } else
@@ -247,15 +256,20 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
         if (ctx.getChild(2) instanceof ElementAttributesContext)
             attributes = getAttributes((ElementAttributesContext) ctx.getChild(2));
-
+        if(tagName.equals("img"))
+            if(is_src==false)
+            {
+                System.err.println(" img tag must has src attribute.");
+            }
         for (int i = 0; i < attributes.size(); i++) {
 
             if (attributes.get(i) instanceof Directive) {
-
-                if (!ctx.getChild(0).getText().equals("cp-model")) {
+                Directive_name = ((Directive) attributes.get(i)).getName();
+                if (!Directive_name.equals("cp-model")) {
                     isElementDirective = true;
                 }
             }
+
 
         }
         boolean switchElement = false;
@@ -292,6 +306,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
     @Override
     public AbstractASTNode visitSelfClosedElement(SelfClosedElementContext ctx) {
         String tagName = ctx.getChild(1).getText();
+
         List<AbstractASTNode> attributes = new ArrayList<AbstractASTNode>();
 
         if (ctx.getChild(2) instanceof ElementAttributesContext)
@@ -308,18 +323,26 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     public List<AbstractASTNode> getAttributes(ElementAttributesContext ctx) {
         List<AbstractASTNode> attributes = new ArrayList<AbstractASTNode>();
+
         for (int index = 0; index < ctx.getChildCount(); index++) {
             attributes.add(visit(ctx.getChild(index)));
         }
+
         return attributes;
     }
 
     @Override
     public AbstractASTNode visitAttributeNode(AttributeNodeContext ctx) {
+
         String name = ctx.getChild(0).getText();
         String value = null;
         if (ctx.getChildCount() > 1)
             value = ctx.getChild(2).getText();
+        if(!name.equals("src"))
+        {
+            is_src=false;
+        }
+        else{is_src=true;}
         return new AttributeNode(name, value);
     }
 

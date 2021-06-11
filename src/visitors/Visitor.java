@@ -8,6 +8,8 @@ import misc.HTMLParserBaseVisitor;
 
 public class Visitor<T> extends HTMLParserBaseVisitor<T> {
     static boolean  visited =false  ;
+
+	boolean is_src = false;
 	static public SymboleTable symboletable = new SymboleTable();
 	static DocumentVisitor documentVisitor = new DocumentVisitor();
 	static ExpressionVisitor expressionVisitor = new ExpressionVisitor();

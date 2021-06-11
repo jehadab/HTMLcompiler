@@ -3,77 +3,72 @@ Document: {
 	body(DocumentBody): {
 		ElementNode: {
 			name: html,
+			type: SelfClosed,
+			attributes: [],
+		},,
+		ElementNode: {
+			name: head,
+			type: Normal,
+			children: [
+			],
+			attributes: [],
+		},,
+		ElementNode: {
+			name: body,
+			type: SelfClosed,
+			attributes: [],
+		},,
+		ElementNode: {
+			name: img,
+			type: SelfClosed,
+			attributes: [
+				AttributeNode: {
+					attribute: class,
+					value: "xxx",
+				}
+			],
+		},,
+		ElementNode: {
+			name: img,
+			type: SelfClosed,
+			attributes: [
+				AttributeNode: {
+					attribute: class,
+					value: "yyy",
+				}
+			],
+		},,
+		ElementNode: {
+			name: div,
 			type: Normal,
 			children: [
 				ElementNode: {
-					name: head,
+					name: img,
 					type: Normal,
 					children: [
 					],
-					attributes: [],
+					attributes: [
+						AttributeNode: {
+							attribute: class,
+							value: "dd",
+						}
+					],
 				},
 				ElementNode: {
-					name: body,
+					name: img,
 					type: Normal,
 					children: [
-						ElementNode: {
-							name: ul,
-							type: Normal,
-							children: [
-								ElementNode: {
-									name: ul,
-									type: Normal,
-									children: [
-									],
-									attributes: [
-										AttributeNode: {
-											attribute: class,
-											value: "navProvider",
-										},
-										Directive: {
-											type: cp-show,
-											value(FunctionCallExpression): {
-												function(ReferenceExpression): {
-													reference: showItem,
-												},
-											},
-										}
-									],
-								},
-								ElementNode: {
-									name: ul,
-									type: Normal,
-									children: [
-									],
-									attributes: [
-										AttributeNode: {
-											attribute: class,
-											value: "navProvider",
-										},
-										Directive: {
-											type: cp-model,
-											value(ReferenceExpression): {
-												reference: showItem,
-											},
-										}
-									],
-								},
-							],
-							attributes: [
-								AttributeNode: {
-									attribute: class,
-									value: "navProvider",
-								},
-								Directive: {
-									type: cp-app,
-									value(ReferenceExpression): {
-										reference: app,
-									},
-								}
-							],
-						},
 					],
-					attributes: [],
+					attributes: [
+						AttributeNode: {
+							attribute: class,
+							value: "ggg",
+						},
+						AttributeNode: {
+							attribute: src,
+							value: "zzz",
+						}
+					],
 				},
 			],
 			attributes: [],
