@@ -1,5 +1,9 @@
 package visitors;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -257,7 +261,24 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
         if((tagName.equals("ol") || tagName.equals("ul"))&& tagsStack.peek().getTagname().equals("li"))
         {
-            System.err.println("li tag should not be outside ul/ol");
+            try {
+//                FileWriter fstream = new FileWriter("log.txt",true);
+//                BufferedWriter out = new BufferedWriter(fstream);
+//                out.write("Line Added on: " + new java.util.Date()+"\n");
+//                out.close();
+                FileWriter fw = new FileWriter(ErrorFile , true);
+                BufferedWriter error = new BufferedWriter(fw);
+
+                error.write("erro in line:"+""+ctx.start.getLine());
+                error.write("   li tag should not be outside ul/ol");
+                error.newLine();
+                error.close();
+
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+//            System.err.println("li tag should not be outside ul/ol");
         }
         if(tagName.equals("ol")|| tagName.equals("li")|| tagName.equals("ul"))
         {
@@ -283,7 +304,20 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
                 if(attributes.size()==0)
                 {
                     is_herf=false;
-                    System.err.println("Anchor tag must has href attribute");
+                    try {
+                        FileWriter fw = new FileWriter(ErrorFile , true);
+                        BufferedWriter error = new BufferedWriter(fw);
+
+                        error.write("erro in line:"+""+ctx.start.getLine());
+                        error.write("   Anchor tag must has href attribute");
+                        error.newLine();
+                        error.close();
+
+                    } catch (IOException e) {
+                        System.out.println("An error occurred.");
+                        e.printStackTrace();
+                    }
+//                    System.err.println("Anchor tag must has href attribute");
                 }
 
             }
@@ -298,7 +332,20 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
                     ElementDirective_counter++;
                     if(ElementDirective_counter>1)
                     {
-                        System.err.println("Each html element has at most one structural attribute");
+                        try {
+                            FileWriter fw = new FileWriter(ErrorFile , true);
+                            BufferedWriter error = new BufferedWriter(fw);
+
+                            error.write("erro in line:"+""+ctx.start.getLine());
+                            error.write("   Each html element has at most one structural attribute");
+                            error.newLine();
+                            error.close();
+
+                        } catch (IOException e) {
+                            System.out.println("An error occurred.");
+                            e.printStackTrace();
+                        }
+//                        System.err.println("Each html element has at most one structural attribute");
                     }
 
                 }
@@ -377,14 +424,40 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
                 if(CheckidValue(id)==false)
                 {symboletable.addId(id);}
                 else {
-                    System.err.println("id attribute must be uniqe on document level");
+                    try {
+                        FileWriter fw = new FileWriter(ErrorFile , true);
+                        BufferedWriter error = new BufferedWriter(fw);
+
+                        error.write("erro in line:"+""+ctx.start.getLine());
+                        error.write("   id attribute must be uniqe on document level");
+                        error.newLine();
+                        error.close();
+
+                    } catch (IOException e) {
+                        System.out.println("An error occurred.");
+                        e.printStackTrace();
+                    }
+//                    System.err.println("id attribute must be uniqe on document level");
                 }
             }
         }
 
         if(is_herf==false && a_tag==true)
         {
-            System.err.println("Anchor tag must has href attribute");
+            try {
+                FileWriter fw = new FileWriter(ErrorFile , true);
+                BufferedWriter error = new BufferedWriter(fw);
+
+                error.write("erro in line:"+""+ctx.start.getLine());
+                error.write("   Anchor tag must has href attribute");
+                error.newLine();
+                error.close();
+
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+//            System.err.println("Anchor tag must has href attribute");
         }
         is_herf=false;
 

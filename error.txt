@@ -1,0 +1,5 @@
+erro in line:7   id attribute must be uniqe on document level
+erro in line:7   Each html element has at most one structural attribute
+erro in line:12   Anchor tag must has href attribute
+erro in line:16   li tag should not be outside ul/ol
+erro in line:18   li tag should not be outside ul/ol

@@ -16,7 +16,7 @@ import visitors.DocumentVisitor;
 public class Compiler {
 	static String filePath = ".\\index.html";
 	static String ASTPath = ".\\AST.txt";
-	
+
 	protected static void showGUI(ParseTree pt, HTMLParser parser) {
 		Trees.inspect(pt, parser);
 	}

@@ -7,6 +7,7 @@ import SymboleTable.SymboleTable;
 import misc.HTMLParserBaseVisitor;
 
 public class Visitor<T> extends HTMLParserBaseVisitor<T> {
+	static public  String ErrorFile =".\\error.txt";
     static boolean  visited =false  ;
     static int ElementDirective_number = 0;
 	static  public boolean  a_tag=false;

@@ -32,70 +32,29 @@ Document: {
 										}
 									],
 								},
-							],
-							attributes: [],
-						},
-						ElementNode: {
-							name: a,
-							type: Normal,
-							children: [],
-							attributes: [
-								AttributeNode: {
-									attribute: class,
-									value: "hhlklk",
-								}
-							],
-						},
-						ElementNode: {
-							name: a,
-							type: Normal,
-							children: [],
-							attributes: [],
-						},
-						ElementNode: {
-							name: div,
-							type: Normal,
-							children: [
 								ElementNode: {
-									name: div,
+									name: a,
 									type: Normal,
 									children: [],
-									attributes: [
-										Directive: {
-											type: cp-if,
-											value(ReferenceExpression): {
-												reference: ff,
-											},
-										},
-										AttributeNode: {
-											attribute: class,
-											value: "ljkl",
-										},
-										Directive: {
-											type: cp-show,
-											value(ReferenceExpression): {
-												reference: hh,
-											},
-										}
-									],
+									attributes: [],
 								},
 							],
 							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "ff",
+								},
 								Directive: {
 									type: cp-if,
 									value(ReferenceExpression): {
-										reference: isauth,
+										reference: fafw,
 									},
 								},
 								Directive: {
-									type: cp-model,
+									type: cp-show,
 									value(ReferenceExpression): {
-										reference: show,
+										reference: dsdfdfsd,
 									},
-								},
-								AttributeNode: {
-									attribute: class,
-									value: "ljkl",
 								}
 							],
 						},
@@ -104,65 +63,55 @@ Document: {
 							type: Normal,
 							children: [
 								ElementNode: {
-									name: div,
+									name: li,
 									type: Normal,
 									children: [
-									],
-									attributes: [
-										Directive: {
-											type: cp-model,
-											value(ReferenceExpression): {
-												reference: gg,
-											},
+										ElementNode: {
+											name: ul,
+											type: Normal,
+											children: [
+												ElementNode: {
+													name: li,
+													type: Normal,
+													children: [
+														ElementNode: {
+															name: ul,
+															type: Normal,
+															children: [],
+															attributes: [],
+														},
+													],
+													attributes: [],
+												},
+											],
+											attributes: [],
 										},
-										Directive: {
-											type: cp-if,
-											value(ReferenceExpression): {
-												reference: dd,
-											},
-										}
 									],
+									attributes: [],
 								},
 							],
 							attributes: [
 								Directive: {
-									type: cp-for,
-									value(ArrayLoopStatement): {
-										loopVariable: obj,
-										indexed: true,
-										indexVariable: i,
-										loopOn(ReferenceExpression): {
-											reference: t,
-										},
+									type: cp-model,
+									value(ReferenceExpression): {
+										reference: sdas,
 									},
 								},
 								Directive: {
-									type: cp-show,
+									type: cp-if,
 									value(ReferenceExpression): {
-										reference: show,
-									},
-								},
-								AttributeNode: {
-									attribute: class,
-									value: "ljkl",
-								}
-							],
-						},
-						ElementNode: {
-							name: div,
-							type: Normal,
-							children: [],
-							attributes: [
-								Directive: {
-									type: cp-show,
-									value(ReferenceExpression): {
-										reference: show,
+										reference: wdqawd,
 									},
 								}
 							],
 						},
 					],
-					attributes: [],
+					attributes: [
+						AttributeNode: {
+							attribute: id,
+							value: "ff",
+						}
+					],
 				},
 			],
 			attributes: [],
