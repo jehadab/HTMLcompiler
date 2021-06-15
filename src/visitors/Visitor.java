@@ -11,7 +11,9 @@ public class Visitor<T> extends HTMLParserBaseVisitor<T> {
     static int ElementDirective_number = 0;
 	static  public boolean  a_tag=false;
 	static public boolean is_herf=false;
-	static public SymboleTable symboletable = new SymboleTable();
+    static String Element ="";
+
+    static public SymboleTable symboletable = new SymboleTable();
 	static DocumentVisitor documentVisitor = new DocumentVisitor();
 	static ExpressionVisitor expressionVisitor = new ExpressionVisitor();
 
@@ -30,6 +32,13 @@ public class Visitor<T> extends HTMLParserBaseVisitor<T> {
 			}
 
 
+		}
+	}
+	public static  void print_symbole_linked_list(){
+		for (int i=0;i<symboletable.getSymboles().size();i++)
+		{
+			System.out.println(" symbole name   :"+symboletable.getSymboles().get(i).getName());
+			System.out.println(" scope id for the symbole is "+symboletable.getSymboles().get(i).getSymbole_scope().getId());
 		}
 	}
 //	public static  void print_linkedlist(){

@@ -9,6 +9,21 @@ Document: {
 					name: head,
 					type: Normal,
 					children: [
+						MustachNode: {
+							Exp(ReferenceExpression): {
+								reference: z,
+							},
+						},
+						MustachNode: {
+							Exp(ReferenceExpression): {
+								reference: o,
+							},
+						},
+						MustachNode: {
+							Exp(ReferenceExpression): {
+								reference: auth,
+							},
+						},
 					],
 					attributes: [],
 				},
@@ -16,147 +31,39 @@ Document: {
 					name: body,
 					type: Normal,
 					children: [
-						ElementNode: {
-							name: div,
-							type: Normal,
-							children: [
-								ElementNode: {
-									name: a,
-									type: Normal,
-									children: [
-									],
-									attributes: [
-										AttributeNode: {
-											attribute: href,
-											value: "llklk",
-										}
-									],
-								},
-							],
-							attributes: [],
-						},
-						ElementNode: {
-							name: a,
-							type: Normal,
-							children: [],
-							attributes: [
-								AttributeNode: {
-									attribute: class,
-									value: "hhlklk",
-								}
-							],
-						},
-						ElementNode: {
-							name: a,
-							type: Normal,
-							children: [],
-							attributes: [],
+						MustachNode: {
+							Exp(ReferenceExpression): {
+								reference: object,
+							},
 						},
 						ElementNode: {
 							name: div,
 							type: Normal,
 							children: [
-								ElementNode: {
-									name: div,
-									type: Normal,
-									children: [],
-									attributes: [
-										Directive: {
-											type: cp-if,
-											value(ReferenceExpression): {
-												reference: ff,
+								MustachNode: {
+									Exp(TernaryConditionalExpression): {
+										firstOprand(MoreThanComparisionExpression): {
+											leftOprand(ReferenceExpression): {
+												reference: v,
+											},
+											rightOprand(NumberLiteral): {
+												value: 18.0,
 											},
 										},
-										AttributeNode: {
-											attribute: class,
-											value: "ljkl",
+										secondOprand(StringLiteral): {
+											value: Adult,
 										},
-										Directive: {
-											type: cp-show,
-											value(ReferenceExpression): {
-												reference: hh,
-											},
-										}
-									],
+										thirdOprand(StringLiteral): {
+											value: young,
+										},
+									},
 								},
 							],
 							attributes: [
 								Directive: {
 									type: cp-if,
 									value(ReferenceExpression): {
-										reference: isauth,
-									},
-								},
-								Directive: {
-									type: cp-model,
-									value(ReferenceExpression): {
-										reference: show,
-									},
-								},
-								AttributeNode: {
-									attribute: class,
-									value: "ljkl",
-								}
-							],
-						},
-						ElementNode: {
-							name: div,
-							type: Normal,
-							children: [
-								ElementNode: {
-									name: div,
-									type: Normal,
-									children: [
-									],
-									attributes: [
-										Directive: {
-											type: cp-model,
-											value(ReferenceExpression): {
-												reference: gg,
-											},
-										},
-										Directive: {
-											type: cp-if,
-											value(ReferenceExpression): {
-												reference: dd,
-											},
-										}
-									],
-								},
-							],
-							attributes: [
-								Directive: {
-									type: cp-for,
-									value(ArrayLoopStatement): {
-										loopVariable: obj,
-										indexed: true,
-										indexVariable: i,
-										loopOn(ReferenceExpression): {
-											reference: t,
-										},
-									},
-								},
-								Directive: {
-									type: cp-show,
-									value(ReferenceExpression): {
-										reference: show,
-									},
-								},
-								AttributeNode: {
-									attribute: class,
-									value: "ljkl",
-								}
-							],
-						},
-						ElementNode: {
-							name: div,
-							type: Normal,
-							children: [],
-							attributes: [
-								Directive: {
-									type: cp-show,
-									value(ReferenceExpression): {
-										reference: show,
+										reference: o,
 									},
 								}
 							],
@@ -165,7 +72,14 @@ Document: {
 					attributes: [],
 				},
 			],
-			attributes: [],
-		},,
+			attributes: [
+				Directive: {
+					type: cp-app,
+					value(ReferenceExpression): {
+						reference: gg,
+					},
+				}
+			],
+		},
 	},
 }

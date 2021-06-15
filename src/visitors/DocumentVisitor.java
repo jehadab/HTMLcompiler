@@ -7,6 +7,7 @@ import java.util.Stack;
 
 import SymboleTable.Id;
 import SymboleTable.Scope;
+import SymboleTable.Symbole;
 import SymboleTable.Tag;
 import misc.HTMLParser.ArrayLoopRawContext;
 import misc.HTMLParser.AttributeNodeContext;
@@ -76,6 +77,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         DocumentHeader header = (DocumentHeader) visit(ctx.getChild(0));
         DocumentBody body = (DocumentBody) visit(ctx.getChild(1));
         showSymboleTable();
+        print_symbole_linked_list();
         symboletable.getScopes();
 //        print_linkedlist();
         return new Document(header, body);
@@ -91,6 +93,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
             else
                 headers.add(new TextNode(ctx.getChild(index).getText()));
         }
+
         return header;
     }
 
@@ -128,7 +131,10 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
                    scopesStack.push(scope);
        }
         }
+        Element="Directive";
         AbstractASTNode value = expressionVisitor.visit(ctx.getChild(3));
+
+//        store_symbole_scope(ctx.getChild(3).getText()  , scopesStack.peek().getParent());
 
         return new Directive(ctx.getChild(0).getText(), value);
     }
@@ -146,6 +152,8 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
         }
         AbstractASTNode value = visit(ctx.getChild(3));
+
+//        store_symbole_scope(ctx.getChild(3).getText().substring(3,4) , scopesStack.peek().getParent());
         return new Directive(ctx.getChild(0).getText(), value);
     }
 
@@ -163,6 +171,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     @Override
     public AbstractASTNode visitIndexedArrayLoop(IndexedArrayLoopContext ctx) {
+        Element="Directive";
         AbstractASTNode arrayToLoopOn = expressionVisitor.visit(ctx.getChild(2));
         String loopVariable = ctx.getChild(0).getText();
         String indexVariable = ctx.getChild(4).getText();
@@ -220,11 +229,17 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
     public List<AbstractASTNode> getContent(ElementContentContext ctx) {
         List<AbstractASTNode> contents = new ArrayList<AbstractASTNode>();
         for (int index = 0; index < ctx.getChildCount(); index++) {
+            if(ctx.getChild(index) instanceof  MustacheContext)
+            {
+                Element="Mustach";
+            }
             if (ctx.getChild(index) instanceof NodeContext || ctx.getChild(index) instanceof MustacheContext)
                 contents.add(visit(ctx.getChild(index)));
             else
                 contents.add(new TextNode(ctx.getChild(index).getText()));
+
         }
+
         return contents;
     }
 
@@ -290,10 +305,10 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
         for (int i = 0; i < attributes.size(); i++) {
 
-            if(attributes.get(i) instanceof Directive) {
-                Directive_name = ((Directive) attributes.get(i)).getName();
-
+            if (attributes.get(i) instanceof Directive) {
+    Directive_name = ((Directive) attributes.get(i)).getName();
                 if (!Directive_name.equals("cp-model")) {
+
                     isElementDirective = true;
                     ElementDirective_counter++;
                     if(ElementDirective_counter>1)
@@ -396,6 +411,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
     public AbstractASTNode visitAttributeNode(AttributeNodeContext ctx) {
 
         String name = ctx.getChild(0).getText();
+
         String value = null;
         if (ctx.getChildCount() > 1)
             value = ctx.getChild(2).getText();
@@ -412,7 +428,10 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         MustachNode mustache;
         if (ctx.getChildCount() > 2) {
             mustache = new MustachNode(expressionVisitor.visit(ctx.getChild(1)));
-        } else
+
+
+
+         } else
             mustache = new MustachNode();
         return mustache;
     }
