@@ -6,7 +6,7 @@ import java.util.Stack;
 
 
 import SymboleTable.Id;
-.import SymboleTable.Scope;
+import SymboleTable.Scope;
 import SymboleTable.Symbole;
 import SymboleTable.Tag;
 import misc.HTMLParser.ArrayLoopRawContext;
@@ -76,6 +76,10 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         tagsStack.push(tag);
         DocumentHeader header = (DocumentHeader) visit(ctx.getChild(0));
         DocumentBody body = (DocumentBody) visit(ctx.getChild(1));
+        if(cppapp_number>1)
+        {
+            System.err.println("Nested cp-app is forbidden.");
+        }
         showSymboleTable();
         print_symbole_linked_list();
         symboletable.getScopes();
@@ -122,28 +126,23 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
     @Override
     public AbstractASTNode visitExpDirective(ExpDirectiveContext ctx) {
         Element_Directive_name=ctx.getChild(0).getText();
-       if(!ctx.getChild(0).getText().equals("cp-model"))
-       {
+       if(!ctx.getChild(0).getText().equals("cp-model")) {
            ElementDirective_number++;
-           if(ElementDirective_number ==1) {
-                   Scope scope = new Scope(scopesStack.peek());
-                   scope.setId(ctx.getChild(0).getText() + "_" + scope.hashCode());
-                   symboletable.addScope(scope);
-                   scopesStack.push(scope);
-       }
-
-        if (!ctx.getChild(0).getText().equals("cp-model")) {
-            Scope scope = new Scope(scopesStack.peek());
-            scope.setId(ctx.getChild(0).getText() + "_" + scope.hashCode());
-            symboletable.addScope(scope);
-            scopesStack.push(scope);
            if(ctx.getChild(0).getText().equals("cp-app"))
                cppapp_number++;
-           if(cppapp_number>1)
-           {
-               System.err.println("Nested cp-app is forbidden.");
+
+//           if(cppapp_number>1)
+//           {
+//               System.err.println("Nested cp-app is forbidden.");
+//           }
+           if (ElementDirective_number == 1) {
+               Scope scope = new Scope(scopesStack.peek());
+               scope.setId(ctx.getChild(0).getText() + "_" + scope.hashCode());
+               symboletable.addScope(scope);
+               scopesStack.push(scope);
            }
-        }
+       }
+
         Element="Directive";
         AbstractASTNode value = expressionVisitor.visit(ctx.getChild(3));
 
@@ -362,6 +361,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
                             System.err.println("Each html element has at most one structural attribute");
                         }
 
+
                     }
 
                 }
@@ -401,6 +401,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
                     }
                 }
+
                 a_tag = false;
                 return element;
             }

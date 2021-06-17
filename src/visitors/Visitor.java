@@ -18,7 +18,7 @@ public class Visitor<T> extends HTMLParserBaseVisitor<T> {
     static SemanticCheck semanticCheck = new SemanticCheck() ;
     static public SymboleTable symboletable = new SymboleTable();
     static int cppapp_number =0;
-	static public SymboleTable symboletable = new SymboleTable();
+
 	static DocumentVisitor documentVisitor = new DocumentVisitor();
 	static ExpressionVisitor expressionVisitor = new ExpressionVisitor();
 

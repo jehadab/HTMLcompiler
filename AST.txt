@@ -29,6 +29,12 @@ Document: {
 							value(ReferenceExpression): {
 								reference: ll,
 							},
+						},
+						Directive: {
+							type: cp-if,
+							value(ReferenceExpression): {
+								reference: jj,
+							},
 						}
 					],
 				},
