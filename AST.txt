@@ -40,38 +40,63 @@ Document: {
 		},,
 		ElementNode: {
 			name: div,
+			type: SelfClosed,
+			attributes: [],
+		},,
+		ElementNode: {
+			name: img,
+			type: SelfClosed,
+			attributes: [
+				AttributeNode: {
+					attribute: class,
+					value: "dd",
+				},
+				AttributeNode: {
+					attribute: src,
+					value: "ff",
+				}
+			],
+		},,
+		ElementNode: {
+			name: img,
+			type: Normal,
+			children: [
+			],
+			attributes: [],
+		},,
+		ElementNode: {
+			name: img,
 			type: Normal,
 			children: [
 				ElementNode: {
 					name: img,
 					type: Normal,
 					children: [
-					],
-					attributes: [
-						AttributeNode: {
-							attribute: class,
-							value: "dd",
-						}
-					],
-				},
-				ElementNode: {
-					name: img,
-					type: Normal,
-					children: [
-					],
-					attributes: [
-						AttributeNode: {
-							attribute: class,
-							value: "ggg",
+						ElementNode: {
+							name: a,
+							type: Normal,
+							children: [],
+							attributes: [
+								AttributeNode: {
+									attribute: class,
+									value: "ho",
+								}
+							],
 						},
-						AttributeNode: {
-							attribute: src,
-							value: "zzz",
-						}
 					],
+					attributes: [],
 				},
 			],
-			attributes: [],
+			attributes: [
+				AttributeNode: {
+					attribute: class,
+					value: "ggg",
+				},
+				AttributeNode: {
+					attribute: src,
+					value: "ff",
+				}
+			],
 		},,
 	},
 }
