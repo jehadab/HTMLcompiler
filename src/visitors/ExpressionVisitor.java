@@ -281,7 +281,7 @@ public class ExpressionVisitor extends Visitor<Expression>{
 					store_symbole_scope(ctx.getChild(0).getText() , DocumentVisitor.scopesStack.peek().getParent());
 			}
 			else {
-				store_symbole_scope(ctx.getChild(0).getText() , DocumentVisitor.scopesStack.peek().getParent());
+				store_symbole_scope(ctx.getChild(0).getText() , DocumentVisitor.scopesStack.peek());
 			}
 
 

@@ -20,7 +20,7 @@ Document: {
 							children: [],
 							attributes: [
 								Directive: {
-									type: cp-show,
+									type: cp-model,
 									value(ReferenceExpression): {
 										reference: zz,
 									},
