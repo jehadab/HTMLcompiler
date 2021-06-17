@@ -3,6 +3,7 @@ package visitors;
 import java.util.Stack;
 
 
+import SemanticCheck.SemanticCheck;
 import SymboleTable.SymboleTable;
 import misc.HTMLParserBaseVisitor;
 
@@ -13,6 +14,7 @@ public class Visitor<T> extends HTMLParserBaseVisitor<T> {
 	static public boolean is_herf=false;
     static String Element ="";
 
+    static SemanticCheck semanticCheck = new SemanticCheck() ;
     static public SymboleTable symboletable = new SymboleTable();
 	static DocumentVisitor documentVisitor = new DocumentVisitor();
 	static ExpressionVisitor expressionVisitor = new ExpressionVisitor();

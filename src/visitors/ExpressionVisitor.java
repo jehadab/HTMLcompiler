@@ -353,8 +353,8 @@ public class ExpressionVisitor extends Visitor<Expression>{
 		return new NotEqualComparisionExpression();
 	}
 public boolean 	findSymbole( String symbolename , Scope currentscope){
-for(int i=0;i<symboletable.getSymboles().size();i++)
-	{
+		for(int i=0;i<symboletable.getSymboles().size();i++)
+		{
 		if(symboletable.getSymboles().get(i).getName().equals(symbolename) &&
 		symboletable.getSymboles().get(i).getSymbole_scope().getId().equals(currentscope.getId())
 		)

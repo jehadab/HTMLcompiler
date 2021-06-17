@@ -49,8 +49,8 @@ import models.statements.*;
 public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     protected static Stack<Boolean> switchExists;
-    private Stack<Scope> scopesStack = new Stack<>();
-    private Stack<Tag> tagsStack = new Stack<>();
+     public static Stack<Scope> scopesStack = new Stack<>();
+    public static Stack<Tag> tagsStack = new Stack<>();
 
     public DocumentVisitor() {
         if (switchExists == null)
@@ -164,17 +164,28 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     @Override
     public AbstractASTNode visitArrayLoopRaw(ArrayLoopRawContext ctx) {
+
+        Scope currentScope = scopesStack.peek() ;
+
         AbstractASTNode arrayToLoopOn = expressionVisitor.visit(ctx.getChild(2));
         String loopVariable = ctx.getChild(0).getText();
+        semanticCheck.isVariableExist(loopVariable , currentScope);
+
         return new ArrayLoopStatement(loopVariable, (ValueExpression) arrayToLoopOn);
     }
 
     @Override
     public AbstractASTNode visitIndexedArrayLoop(IndexedArrayLoopContext ctx) {
         Element="Directive";
+        Scope currentScope = scopesStack.peek();
         AbstractASTNode arrayToLoopOn = expressionVisitor.visit(ctx.getChild(2));
         String loopVariable = ctx.getChild(0).getText();
         String indexVariable = ctx.getChild(4).getText();
+
+        semanticCheck.isVariableExist(loopVariable , currentScope);//check loopvar
+        semanticCheck.isVariableExist(indexVariable , currentScope);// check loopindex
+
+
         return new ArrayLoopStatement(loopVariable, indexVariable, (ValueExpression) arrayToLoopOn);
     }
 

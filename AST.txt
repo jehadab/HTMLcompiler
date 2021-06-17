@@ -9,21 +9,6 @@ Document: {
 					name: head,
 					type: Normal,
 					children: [
-						MustachNode: {
-							Exp(ReferenceExpression): {
-								reference: z,
-							},
-						},
-						MustachNode: {
-							Exp(ReferenceExpression): {
-								reference: o,
-							},
-						},
-						MustachNode: {
-							Exp(ReferenceExpression): {
-								reference: auth,
-							},
-						},
 					],
 					attributes: [],
 				},
@@ -31,39 +16,39 @@ Document: {
 					name: body,
 					type: Normal,
 					children: [
-						MustachNode: {
-							Exp(ReferenceExpression): {
-								reference: object,
-							},
-						},
 						ElementNode: {
 							name: div,
 							type: Normal,
 							children: [
-								MustachNode: {
-									Exp(TernaryConditionalExpression): {
-										firstOprand(MoreThanComparisionExpression): {
-											leftOprand(ReferenceExpression): {
-												reference: v,
+								ElementNode: {
+									name: div,
+									type: Normal,
+									children: [],
+									attributes: [
+										Directive: {
+											type: cp-for,
+											value(ArrayLoopStatement): {
+												loopVariable: o,
+												indexed: true,
+												indexVariable: j,
+												loopOn(ReferenceExpression): {
+													reference: aa,
+												},
 											},
-											rightOprand(NumberLiteral): {
-												value: 18.0,
-											},
-										},
-										secondOprand(StringLiteral): {
-											value: Adult,
-										},
-										thirdOprand(StringLiteral): {
-											value: young,
-										},
-									},
+										}
+									],
 								},
 							],
 							attributes: [
 								Directive: {
-									type: cp-if,
-									value(ReferenceExpression): {
-										reference: o,
+									type: cp-for,
+									value(ArrayLoopStatement): {
+										loopVariable: o,
+										indexed: true,
+										indexVariable: i,
+										loopOn(ReferenceExpression): {
+											reference: x,
+										},
 									},
 								}
 							],
