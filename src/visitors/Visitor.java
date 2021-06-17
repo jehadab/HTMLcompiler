@@ -3,6 +3,7 @@ package visitors;
 import java.util.Stack;
 
 
+import SemanticCheck.SemanticCheck;
 import SymboleTable.SymboleTable;
 import misc.HTMLParserBaseVisitor;
 
@@ -14,6 +15,7 @@ public class Visitor<T> extends HTMLParserBaseVisitor<T> {
     static String Element ="";
     static  String Element_Directive_name="";
 
+    static SemanticCheck semanticCheck = new SemanticCheck() ;
     static public SymboleTable symboletable = new SymboleTable();
 	static DocumentVisitor documentVisitor = new DocumentVisitor();
 	static ExpressionVisitor expressionVisitor = new ExpressionVisitor();

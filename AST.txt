@@ -9,11 +9,6 @@ Document: {
 					name: head,
 					type: Normal,
 					children: [
-						MustachNode: {
-							Exp(ReferenceExpression): {
-								reference: xx,
-							},
-						},
 					],
 					attributes: [],
 				},
@@ -21,70 +16,42 @@ Document: {
 					name: body,
 					type: Normal,
 					children: [
-						MustachNode: {
-							Exp(ReferenceExpression): {
-								reference: i,
-							},
-						},
-						TextNode: {
-							textValue:  : ,
-						},
-						MustachNode: {
-							Exp(MinusExpression): {
-								leftOprand(AdditionExpression): {
-									leftOprand(ReferenceExpression): {
-										reference: i,
-									},
-									rightOprand(ReferenceExpression): {
-										reference: x,
-									},
-								},
-								rightOprand(NumberLiteral): {
-									value: 3.0,
-								},
-							},
-						},
 						ElementNode: {
 							name: div,
 							type: Normal,
 							children: [
+								ElementNode: {
+									name: div,
+									type: Normal,
+									children: [],
+									attributes: [
+										Directive: {
+											type: cp-for,
+											value(ArrayLoopStatement): {
+												loopVariable: o,
+												indexed: true,
+												indexVariable: j,
+												loopOn(ReferenceExpression): {
+													reference: aa,
+												},
+											},
+										}
+									],
+								},
 							],
 							attributes: [
 								Directive: {
-									type: cp-if,
-									value(OrExpression): {
-										leftOprand(ReferenceExpression): {
-											reference: needAge,
-										},
-										rightOprand(ReferenceExpression): {
-											reference: xx,
+									type: cp-for,
+									value(ArrayLoopStatement): {
+										loopVariable: o,
+										indexed: true,
+										indexVariable: i,
+										loopOn(ReferenceExpression): {
+											reference: x,
 										},
 									},
 								}
 							],
-						},
-						MustachNode: {
-							Exp(ReferenceExpression): {
-								reference: i,
-							},
-						},
-						TextNode: {
-							textValue:  : ,
-						},
-						MustachNode: {
-							Exp(MinusExpression): {
-								leftOprand(AdditionExpression): {
-									leftOprand(ReferenceExpression): {
-										reference: i,
-									},
-									rightOprand(ReferenceExpression): {
-										reference: x,
-									},
-								},
-								rightOprand(NumberLiteral): {
-									value: 3.0,
-								},
-							},
 						},
 					],
 					attributes: [],

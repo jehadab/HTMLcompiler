@@ -24,4 +24,6 @@ public class SymboleTable {
         return this.scopes;
     }
     public ArrayList<Id> getids(){return this.ids;}
+
+
 }
