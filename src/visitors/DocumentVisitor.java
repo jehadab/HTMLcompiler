@@ -265,7 +265,13 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
         if (ctx.getChild(2) instanceof ElementAttributesContext)
             attributes = getAttributes((ElementAttributesContext) ctx.getChild(2));
-
+        if(tagName.equals("img"))
+        {
+            if(is_src==false)
+                {
+                    System.err.println("img tag must has src attribute.");
+                }
+        }
         ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]));
         return element;
     }
@@ -307,6 +313,11 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
         if (ctx.getChild(2) instanceof ElementAttributesContext)
             attributes = getAttributes((ElementAttributesContext) ctx.getChild(2));
+        if(tagName.equals("img"))
+            if(is_src==false)
+            {
+                System.err.println(" img tag must has src attribute.");
+            }
 
             if(a_tag==true)
             {
@@ -321,6 +332,8 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         for (int i = 0; i < attributes.size(); i++) {
 
             if (attributes.get(i) instanceof Directive) {
+                Directive_name = ((Directive) attributes.get(i)).getName();
+                if (!Directive_name.equals("cp-model")) {
     Directive_name = ((Directive) attributes.get(i)).getName();
                 if (!Directive_name.equals("cp-model")) {
 
@@ -332,9 +345,6 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
                     }
 
                 }
-
-
-            }
 
         }
 
@@ -379,6 +389,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
     @Override
     public AbstractASTNode visitSelfClosedElement(SelfClosedElementContext ctx) {
         String tagName = ctx.getChild(1).getText();
+
         List<AbstractASTNode> attributes = new ArrayList<AbstractASTNode>();
 
         if (ctx.getChild(2) instanceof ElementAttributesContext)
@@ -430,6 +441,11 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         String value = null;
         if (ctx.getChildCount() > 1)
             value = ctx.getChild(2).getText();
+        if(!name.equals("src"))
+        {
+            is_src=false;
+        }
+        else{is_src=true;}
        if(name.equals("href") && a_tag==true)
        {
            is_herf=true;

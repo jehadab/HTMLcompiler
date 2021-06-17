@@ -3,95 +3,75 @@ Document: {
 	body(DocumentBody): {
 		ElementNode: {
 			name: html,
+			type: SelfClosed,
+			attributes: [],
+		},,
+		ElementNode: {
+			name: head,
+			type: Normal,
+			children: [
+			],
+			attributes: [],
+		},,
+		ElementNode: {
+			name: body,
+			type: SelfClosed,
+			attributes: [],
+		},,
+		ElementNode: {
+			name: img,
+			type: SelfClosed,
+			attributes: [
+				AttributeNode: {
+					attribute: class,
+					value: "xxx",
+				}
+			],
+		},,
+		ElementNode: {
+			name: img,
+			type: SelfClosed,
+			attributes: [
+				AttributeNode: {
+					attribute: class,
+					value: "yyy",
+				}
+			],
+		},,
+		ElementNode: {
+			name: div,
 			type: Normal,
 			children: [
 				ElementNode: {
-					name: head,
+					name: img,
 					type: Normal,
 					children: [
 					],
-					attributes: [],
+					attributes: [
+						AttributeNode: {
+							attribute: class,
+							value: "dd",
+						}
+					],
 				},
 				ElementNode: {
-					name: body,
+					name: img,
 					type: Normal,
 					children: [
-						ElementNode: {
-							name: div,
-							type: Normal,
-							children: [
-								MustachNode: {
-									Exp(ReferenceExpression): {
-										reference: x,
-									},
-								},
-								ElementNode: {
-									name: div,
-									type: Normal,
-									children: [
-										ElementNode: {
-											name: div,
-											type: Normal,
-											children: [
-											],
-											attributes: [
-												Directive: {
-													type: cp-if,
-													value(ReferenceExpression): {
-														reference: dd,
-													},
-												}
-											],
-										},
-										MustachNode: {
-											Exp(ReferenceExpression): {
-												reference: x,
-											},
-										},
-									],
-									attributes: [
-										Directive: {
-											type: cp-if,
-											value(ReferenceExpression): {
-												reference: dd,
-											},
-										}
-									],
-								},
-								ElementNode: {
-									name: div,
-									type: Normal,
-									children: [
-										MustachNode: {
-											Exp(ReferenceExpression): {
-												reference: x,
-											},
-										},
-									],
-									attributes: [
-										Directive: {
-											type: cp-if,
-											value(ReferenceExpression): {
-												reference: kk,
-											},
-										}
-									],
-								},
-							],
-							attributes: [],
-						},
 					],
-					attributes: [],
+					attributes: [
+						AttributeNode: {
+							attribute: class,
+							value: "ggg",
+						},
+						AttributeNode: {
+							attribute: src,
+							value: "zzz",
+						}
+					],
 				},
 			],
-			attributes: [
-				Directive: {
-					type: cp-app,
-					value(ReferenceExpression): {
-						reference: gg,
-					},
-				}
-			],
-		},
+			attributes: [],
+		},,
 	},
 }
