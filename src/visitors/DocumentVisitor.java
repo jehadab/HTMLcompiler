@@ -203,9 +203,12 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     @Override
     public AbstractASTNode visitRawObjectLoop(RawObjectLoopContext ctx) {
+        Scope currentScope = scopesStack.peek();
         AbstractASTNode objectToLoopOn = expressionVisitor.visit(ctx.getChild(4));
         String KeyVariable = ctx.getChild(0).getText();
         String valueVariable = ctx.getChild(2).getText();
+        semanticCheck.isVariableExist(KeyVariable, currentScope);
+        semanticCheck.isVariableExist(valueVariable, currentScope);
         return new ObjectLoopStatement(KeyVariable, valueVariable, (ValueExpression) objectToLoopOn);
     }
 

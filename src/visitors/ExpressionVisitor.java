@@ -271,12 +271,13 @@ public class ExpressionVisitor extends Visitor<Expression>{
             Scope SymboleScope = new Scope();
             SymboleScope = DocumentVisitor.scopesStack.peek();
             symbole.setSymbole_scope(SymboleScope);
-            if (findSymbole(symbole.getName(), DocumentVisitor.scopesStack.peek()) == false)
-			{
-
-				symboletable.addSymbole(symbole);
-
-			}
+//            if (findSymbole(symbole.getName(), DocumentVisitor.scopesStack.peek()) == false)
+//			{
+//
+//				symboletable.addSymbole(symbole);
+//
+//			}
+			semanticCheck.isVariableExist(symbole.getName(),DocumentVisitor.scopesStack.peek());
 
         }
         if(Element.equals("Directive") )
@@ -399,13 +400,27 @@ return find;
         boolean find=false;
         if(scope.getId().equals("global"))
         {
-            Symbole symbole = new Symbole(value);
-            Scope symbole_scope = new Scope();
-            symbole_scope.setId("global");
-            symbole.setSymbole_scope(symbole_scope);
-            symboletable.addSymbole(symbole);
-            return ;
+			for(int i=0;i<symboletable.getSymboles().size();i++)
+			{
 
+				if(symboletable.getSymboles().get(i).getName().equals(value)
+						&& symboletable.getSymboles().get(i).getSymbole_scope().getId().equals("global")
+				)
+				{
+
+					find=true;
+					return;
+
+				}
+			}
+			if(find==false){
+			Symbole symbole = new Symbole(value);
+			Scope symbole_scope = new Scope();
+			symbole_scope.setId("global");
+			symbole.setSymbole_scope(symbole_scope);
+			symboletable.addSymbole(symbole);
+			return ;
+		}
         }
         for(int i=0;i<symboletable.getSymboles().size();i++)
         {

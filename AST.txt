@@ -20,54 +20,65 @@ Document: {
 							name: div,
 							type: Normal,
 							children: [
-							],
-							attributes: [
-								Directive: {
-									type: cp-for,
-									value(ArrayLoopStatement): {
-										loopVariable: o,
-										indexed: false,
-										loopOn(ReferenceExpression): {
-											reference: x,
-										},
+								MustachNode: {
+									Exp(ReferenceExpression): {
+										reference: x,
 									},
-								}
-							],
-						},
-						ElementNode: {
-							name: div,
-							type: Normal,
-							children: [],
-							attributes: [
-								Directive: {
-									type: cp-for,
-									value(ArrayLoopStatement): {
-										loopVariable: o,
-										indexed: false,
-										loopOn(ReferenceExpression): {
-											reference: aa,
+								},
+								ElementNode: {
+									name: div,
+									type: Normal,
+									children: [
+										ElementNode: {
+											name: div,
+											type: Normal,
+											children: [
+											],
+											attributes: [
+												Directive: {
+													type: cp-if,
+													value(ReferenceExpression): {
+														reference: dd,
+													},
+												}
+											],
 										},
-									},
-								}
-							],
-						},
-						ElementNode: {
-							name: div,
-							type: Normal,
-							children: [],
-							attributes: [
-								Directive: {
-									type: cp-for,
-									value(ArrayLoopStatement): {
-										loopVariable: o,
-										indexed: true,
-										indexVariable: i,
-										loopOn(ReferenceExpression): {
-											reference: aa,
+										MustachNode: {
+											Exp(ReferenceExpression): {
+												reference: x,
+											},
 										},
-									},
-								}
+									],
+									attributes: [
+										Directive: {
+											type: cp-if,
+											value(ReferenceExpression): {
+												reference: dd,
+											},
+										}
+									],
+								},
+								ElementNode: {
+									name: div,
+									type: Normal,
+									children: [
+										MustachNode: {
+											Exp(ReferenceExpression): {
+												reference: x,
+											},
+										},
+									],
+									attributes: [
+										Directive: {
+											type: cp-if,
+											value(ReferenceExpression): {
+												reference: kk,
+											},
+										}
+									],
+								},
 							],
+							attributes: [],
 						},
 					],
 					attributes: [],
