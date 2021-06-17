@@ -11,52 +11,8 @@ Document: {
 					children: [
 						MustachNode: {
 							Exp(ReferenceExpression): {
-								reference: x,
+								reference: xx,
 							},
-						},
-						ElementNode: {
-							name: div,
-							type: Normal,
-							children: [
-								ElementNode: {
-									name: a,
-									type: Normal,
-									children: [],
-									attributes: [
-										AttributeNode: {
-											attribute: href,
-											value: "lll",
-										}
-									],
-								},
-							],
-							attributes: [
-								AttributeNode: {
-									attribute: id,
-									value: "testing",
-								},
-								Directive: {
-									type: cp-model,
-									value(ReferenceExpression): {
-										reference: x,
-									},
-								}
-							],
-						},
-						ElementNode: {
-							name: a,
-							type: Normal,
-							children: [],
-							attributes: [
-								AttributeNode: {
-									attribute: id,
-									value: "few",
-								},
-								AttributeNode: {
-									attribute: class,
-									value: "fewef",
-								}
-							],
 						},
 					],
 					attributes: [],
@@ -65,201 +21,83 @@ Document: {
 					name: body,
 					type: Normal,
 					children: [
+						MustachNode: {
+							Exp(ReferenceExpression): {
+								reference: i,
+							},
+						},
+						TextNode: {
+							textValue:  : ,
+						},
+						MustachNode: {
+							Exp(MinusExpression): {
+								leftOprand(AdditionExpression): {
+									leftOprand(ReferenceExpression): {
+										reference: i,
+									},
+									rightOprand(ReferenceExpression): {
+										reference: x,
+									},
+								},
+								rightOprand(NumberLiteral): {
+									value: 3.0,
+								},
+							},
+						},
 						ElementNode: {
 							name: div,
 							type: Normal,
 							children: [
-								ElementNode: {
-									name: div,
-									type: Normal,
-									children: [],
-									attributes: [
-										Directive: {
-											type: cp-if,
-											value(ReferenceExpression): {
-												reference: ff,
-											},
-										},
-										Directive: {
-											type: cp-show,
-											value(ReferenceExpression): {
-												reference: hh,
-											},
-										}
-									],
-								},
-								ElementNode: {
-									name: a,
-									type: Normal,
-									children: [],
-									attributes: [
-										AttributeNode: {
-											attribute: class,
-											value: "gg",
-										},
-										AttributeNode: {
-											attribute: id,
-											value: "ggg",
-										},
-										AttributeNode: {
-											attribute: href,
-											value: "rrr",
-										}
-									],
-								},
 							],
 							attributes: [
-								AttributeNode: {
-									attribute: id,
-									value: "testing",
-								},
 								Directive: {
 									type: cp-if,
-									value(LessThanComparisionExpression): {
+									value(OrExpression): {
 										leftOprand(ReferenceExpression): {
-											reference: isauth,
+											reference: needAge,
 										},
 										rightOprand(ReferenceExpression): {
-											reference: p,
+											reference: xx,
 										},
 									},
-								},
-								Directive: {
-									type: cp-model,
-									value(ReferenceExpression): {
-										reference: show,
-									},
-								},
-								AttributeNode: {
-									attribute: class,
-									value: "ljkl",
 								}
 							],
 						},
-						ElementNode: {
-							name: a,
-							type: Normal,
-							children: [],
-							attributes: [],
-						},
-						ElementNode: {
-							name: div,
-							type: Normal,
-							children: [
-								ElementNode: {
-									name: ol,
-									type: Normal,
-									children: [
-										ElementNode: {
-											name: li,
-											type: Normal,
-											children: [
-												ElementNode: {
-													name: a,
-													type: Normal,
-													children: [],
-													attributes: [],
-												},
-												ElementNode: {
-													name: div,
-													type: Normal,
-													children: [
-														ElementNode: {
-															name: ul,
-															type: Normal,
-															children: [
-																ElementNode: {
-																	name: li,
-																	type: Normal,
-																	children: [
-																		ElementNode: {
-																			name: ol,
-																			type: Normal,
-																			children: [],
-																			attributes: [],
-																		},
-																		ElementNode: {
-																			name: ul,
-																			type: Normal,
-																			children: [],
-																			attributes: [],
-																		},
-																	],
-																	attributes: [],
-																},
-																ElementNode: {
-																	name: ul,
-																	type: Normal,
-																	children: [],
-																	attributes: [],
-																},
-															],
-															attributes: [],
-														},
-													],
-													attributes: [],
-												},
-											],
-											attributes: [],
-										},
-									],
-									attributes: [],
-								},
-							],
-							attributes: [],
-						},
-						ElementNode: {
-							name: div,
-							type: Normal,
-							children: [
-								ElementNode: {
-									name: li,
-									type: Normal,
-									children: [
-										ElementNode: {
-											name: div,
-											type: Normal,
-											children: [
-												ElementNode: {
-													name: ul,
-													type: Normal,
-													children: [
-														ElementNode: {
-															name: li,
-															type: Normal,
-															children: [],
-															attributes: [],
-														},
-													],
-													attributes: [],
-												},
-											],
-											attributes: [],
-										},
-										ElementNode: {
-											name: ul,
-											type: Normal,
-											children: [],
-											attributes: [],
-										},
-									],
-									attributes: [],
-								},
-							],
-							attributes: [],
-						},
-					],
-					attributes: [
-						Directive: {
-							type: cp-app,
-							value(ReferenceExpression): {
-								reference: aA,
+						MustachNode: {
+							Exp(ReferenceExpression): {
+								reference: i,
 							},
-						}
+						},
+						TextNode: {
+							textValue:  : ,
+						},
+						MustachNode: {
+							Exp(MinusExpression): {
+								leftOprand(AdditionExpression): {
+									leftOprand(ReferenceExpression): {
+										reference: i,
+									},
+									rightOprand(ReferenceExpression): {
+										reference: x,
+									},
+								},
+								rightOprand(NumberLiteral): {
+									value: 3.0,
+								},
+							},
+						},
 					],
+					attributes: [],
 				},
 			],
-			attributes: [],
+			attributes: [
+				Directive: {
+					type: cp-app,
+					value(ReferenceExpression): {
+						reference: gg,
+					},
+				}
+			],
 		},
 	},
 }

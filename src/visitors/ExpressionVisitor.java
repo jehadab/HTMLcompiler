@@ -5,6 +5,7 @@ import java.util.List;
 
 import SymboleTable.Scope;
 import SymboleTable.Symbole;
+import SymboleTable.SymboleTable;
 import misc.HTMLParser;
 import misc.HTMLParser.AccessContext;
 import misc.HTMLParser.AdditionExpressionContext;
@@ -263,7 +264,7 @@ public class ExpressionVisitor extends Visitor<Expression>{
 
 	@Override
 	public Expression visitReferenceExpression(ReferenceExpressionContext ctx) {
-//        System.out.println(" pritn th evaraibel here   :"+ctx.getChild(0).getText() );
+        System.out.println(" pritn the varaibel here   :"+ctx.getChild(0).getText() );
 //        System.out.println(" pritn the elemnt here   :"+Element );
         if(Element.equals("Mustach")) {
             Symbole symbole = new Symbole(ctx.getChild(0).getText());
@@ -271,7 +272,12 @@ public class ExpressionVisitor extends Visitor<Expression>{
             SymboleScope = DocumentVisitor.scopesStack.peek();
             symbole.setSymbole_scope(SymboleScope);
             if (findSymbole(symbole.getName(), DocumentVisitor.scopesStack.peek()) == false)
-                symboletable.addSymbole(symbole);
+			{
+
+				symboletable.addSymbole(symbole);
+
+			}
+
         }
         if(Element.equals("Directive") )
         {
@@ -361,17 +367,31 @@ public class ExpressionVisitor extends Visitor<Expression>{
 		return new NotEqualComparisionExpression();
 	}
 public boolean 	findSymbole( String symbolename , Scope currentscope){
+		boolean find=false;
+
 for(int i=0;i<symboletable.getSymboles().size();i++)
 	{
 		if(symboletable.getSymboles().get(i).getName().equals(symbolename) &&
 		symboletable.getSymboles().get(i).getSymbole_scope().getId().equals(currentscope.getId())
 		)
 		{
-			return true;
+			find=true;
+
+			break;
 		}
 
 	}
-return false;
+//
+//if(currentscope.getId().equals("global"))
+//{
+//	find=false;
+//
+//}
+//else{
+//		findSymbole(  symbolename , currentscope.getParent());
+//	}
+
+return find;
 	}
     public void  store_symbole_scope(String value , Scope scope)
     {
@@ -390,7 +410,9 @@ return false;
         for(int i=0;i<symboletable.getSymboles().size();i++)
         {
 
-            if(symboletable.getSymboles().get(i).getName().equals(value))
+            if(symboletable.getSymboles().get(i).getName().equals(value)
+			&& symboletable.getSymboles().get(i).getSymbole_scope().getId().equals(scope.getId())
+			)
             {
 
                 find=true;
