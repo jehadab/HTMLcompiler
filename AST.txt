@@ -23,7 +23,14 @@ Document: {
 							attributes: [],
 						},
 					],
-					attributes: [],
+					attributes: [
+						Directive: {
+							type: cp-app,
+							value(ReferenceExpression): {
+								reference: ll,
+							},
+						}
+					],
 				},
 			],
 			attributes: [
