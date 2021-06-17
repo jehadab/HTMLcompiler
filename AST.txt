@@ -3,98 +3,42 @@ Document: {
 	body(DocumentBody): {
 		ElementNode: {
 			name: html,
-			type: SelfClosed,
-			attributes: [],
-		},,
-		ElementNode: {
-			name: head,
-			type: Normal,
-			children: [
-			],
-			attributes: [],
-		},,
-		ElementNode: {
-			name: body,
-			type: SelfClosed,
-			attributes: [],
-		},,
-		ElementNode: {
-			name: img,
-			type: SelfClosed,
-			attributes: [
-				AttributeNode: {
-					attribute: class,
-					value: "xxx",
-				}
-			],
-		},,
-		ElementNode: {
-			name: img,
-			type: SelfClosed,
-			attributes: [
-				AttributeNode: {
-					attribute: class,
-					value: "yyy",
-				}
-			],
-		},,
-		ElementNode: {
-			name: div,
-			type: SelfClosed,
-			attributes: [],
-		},,
-		ElementNode: {
-			name: img,
-			type: SelfClosed,
-			attributes: [
-				AttributeNode: {
-					attribute: class,
-					value: "dd",
-				},
-				AttributeNode: {
-					attribute: src,
-					value: "ff",
-				}
-			],
-		},,
-		ElementNode: {
-			name: img,
-			type: Normal,
-			children: [
-			],
-			attributes: [],
-		},,
-		ElementNode: {
-			name: img,
 			type: Normal,
 			children: [
 				ElementNode: {
-					name: img,
+					name: head,
 					type: Normal,
 					children: [
-						ElementNode: {
-							name: a,
-							type: Normal,
-							children: [],
-							attributes: [
-								AttributeNode: {
-									attribute: class,
-									value: "ho",
-								}
-							],
-						},
 					],
 					attributes: [],
 				},
+				ElementNode: {
+					name: body,
+					type: Normal,
+					children: [
+						ElementNode: {
+							name: div,
+							type: Normal,
+							children: [],
+							attributes: [],
+						},
+					],
+					attributes: [
+						Directive: {
+							type: cp-app,
+							value(ReferenceExpression): {
+								reference: ll,
+							},
+						}
+					],
+				},
 			],
 			attributes: [
-				AttributeNode: {
-					attribute: class,
-					value: "ggg",
-				},
-				AttributeNode: {
-					attribute: src,
-					value: "ff",
+				Directive: {
+					type: cp-app,
+					value(ReferenceExpression): {
+						reference: xx,
+					},
 				}
 			],
 		},,
