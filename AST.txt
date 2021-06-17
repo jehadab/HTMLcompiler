@@ -17,13 +17,44 @@ Document: {
 						ElementNode: {
 							name: div,
 							type: Normal,
-							children: [],
+							children: [
+								ElementNode: {
+									name: a,
+									type: Normal,
+									children: [],
+									attributes: [
+										AttributeNode: {
+											attribute: href,
+											value: "lll",
+										}
+									],
+								},
+							],
 							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "testing",
+								},
 								Directive: {
 									type: cp-model,
 									value(ReferenceExpression): {
-										reference: zz,
+										reference: x,
 									},
+								}
+							],
+						},
+						ElementNode: {
+							name: a,
+							type: Normal,
+							children: [],
+							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "few",
+								},
+								AttributeNode: {
+									attribute: class,
+									value: "fewef",
 								}
 							],
 						},
@@ -57,8 +88,31 @@ Document: {
 										}
 									],
 								},
+								ElementNode: {
+									name: a,
+									type: Normal,
+									children: [],
+									attributes: [
+										AttributeNode: {
+											attribute: class,
+											value: "gg",
+										},
+										AttributeNode: {
+											attribute: id,
+											value: "ggg",
+										},
+										AttributeNode: {
+											attribute: href,
+											value: "rrr",
+										}
+									],
+								},
 							],
 							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "testing",
+								},
 								Directive: {
 									type: cp-if,
 									value(LessThanComparisionExpression): {
@@ -68,12 +122,6 @@ Document: {
 										rightOprand(ReferenceExpression): {
 											reference: p,
 										},
-									},
-								},
-								Directive: {
-									type: cp-if,
-									value(ReferenceExpression): {
-										reference: ss,
 									},
 								},
 								Directive: {
@@ -88,8 +136,127 @@ Document: {
 								}
 							],
 						},
+						ElementNode: {
+							name: a,
+							type: Normal,
+							children: [],
+							attributes: [],
+						},
+						ElementNode: {
+							name: div,
+							type: Normal,
+							children: [
+								ElementNode: {
+									name: ol,
+									type: Normal,
+									children: [
+										ElementNode: {
+											name: li,
+											type: Normal,
+											children: [
+												ElementNode: {
+													name: a,
+													type: Normal,
+													children: [],
+													attributes: [],
+												},
+												ElementNode: {
+													name: div,
+													type: Normal,
+													children: [
+														ElementNode: {
+															name: ul,
+															type: Normal,
+															children: [
+																ElementNode: {
+																	name: li,
+																	type: Normal,
+																	children: [
+																		ElementNode: {
+																			name: ol,
+																			type: Normal,
+																			children: [],
+																			attributes: [],
+																		},
+																		ElementNode: {
+																			name: ul,
+																			type: Normal,
+																			children: [],
+																			attributes: [],
+																		},
+																	],
+																	attributes: [],
+																},
+																ElementNode: {
+																	name: ul,
+																	type: Normal,
+																	children: [],
+																	attributes: [],
+																},
+															],
+															attributes: [],
+														},
+													],
+													attributes: [],
+												},
+											],
+											attributes: [],
+										},
+									],
+									attributes: [],
+								},
+							],
+							attributes: [],
+						},
+						ElementNode: {
+							name: div,
+							type: Normal,
+							children: [
+								ElementNode: {
+									name: li,
+									type: Normal,
+									children: [
+										ElementNode: {
+											name: div,
+											type: Normal,
+											children: [
+												ElementNode: {
+													name: ul,
+													type: Normal,
+													children: [
+														ElementNode: {
+															name: li,
+															type: Normal,
+															children: [],
+															attributes: [],
+														},
+													],
+													attributes: [],
+												},
+											],
+											attributes: [],
+										},
+										ElementNode: {
+											name: ul,
+											type: Normal,
+											children: [],
+											attributes: [],
+										},
+									],
+									attributes: [],
+								},
+							],
+							attributes: [],
+						},
 					],
-					attributes: [],
+					attributes: [
+						Directive: {
+							type: cp-app,
+							value(ReferenceExpression): {
+								reference: aA,
+							},
+						}
+					],
 				},
 			],
 			attributes: [],
