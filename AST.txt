@@ -20,25 +20,41 @@ Document: {
 							name: div,
 							type: Normal,
 							children: [
-								ElementNode: {
-									name: div,
-									type: Normal,
-									children: [],
-									attributes: [
-										Directive: {
-											type: cp-for,
-											value(ArrayLoopStatement): {
-												loopVariable: o,
-												indexed: true,
-												indexVariable: j,
-												loopOn(ReferenceExpression): {
-													reference: aa,
-												},
-											},
-										}
-									],
-								},
 							],
+							attributes: [
+								Directive: {
+									type: cp-for,
+									value(ArrayLoopStatement): {
+										loopVariable: o,
+										indexed: false,
+										loopOn(ReferenceExpression): {
+											reference: x,
+										},
+									},
+								}
+							],
+						},
+						ElementNode: {
+							name: div,
+							type: Normal,
+							children: [],
+							attributes: [
+								Directive: {
+									type: cp-for,
+									value(ArrayLoopStatement): {
+										loopVariable: o,
+										indexed: false,
+										loopOn(ReferenceExpression): {
+											reference: aa,
+										},
+									},
+								}
+							],
+						},
+						ElementNode: {
+							name: div,
+							type: Normal,
+							children: [],
 							attributes: [
 								Directive: {
 									type: cp-for,
@@ -47,7 +63,7 @@ Document: {
 										indexed: true,
 										indexVariable: i,
 										loopOn(ReferenceExpression): {
-											reference: x,
+											reference: aa,
 										},
 									},
 								}
