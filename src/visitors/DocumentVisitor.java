@@ -49,7 +49,7 @@ import models.statements.*;
 public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     protected static Stack<Boolean> switchExists;
-    private Stack<Scope> scopesStack = new Stack<>();
+    protected static Stack<Scope> scopesStack = new Stack<>();
     private Stack<Tag> tagsStack = new Stack<>();
 
     public DocumentVisitor() {
@@ -121,6 +121,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     @Override
     public AbstractASTNode visitExpDirective(ExpDirectiveContext ctx) {
+        Element_Directive_name=ctx.getChild(0).getText();
        if(!ctx.getChild(0).getText().equals("cp-model"))
        {
            ElementDirective_number++;

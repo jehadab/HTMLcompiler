@@ -12,6 +12,7 @@ public class Visitor<T> extends HTMLParserBaseVisitor<T> {
 	static  public boolean  a_tag=false;
 	static public boolean is_herf=false;
     static String Element ="";
+    static  String Element_Directive_name="";
 
     static public SymboleTable symboletable = new SymboleTable();
 	static DocumentVisitor documentVisitor = new DocumentVisitor();

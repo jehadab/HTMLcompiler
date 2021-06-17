@@ -273,9 +273,17 @@ public class ExpressionVisitor extends Visitor<Expression>{
             if (findSymbole(symbole.getName(), DocumentVisitor.scopesStack.peek()) == false)
                 symboletable.addSymbole(symbole);
         }
-        if(Element.equals("Directive"))
+        if(Element.equals("Directive") )
         {
-            store_symbole_scope(ctx.getChild(0).getText() , DocumentVisitor.scopesStack.peek().getParent());
+			if(!Element_Directive_name.equals("cp-model"))
+			{
+				if(ElementDirective_number==1)
+					store_symbole_scope(ctx.getChild(0).getText() , DocumentVisitor.scopesStack.peek().getParent());
+			}
+			else {
+				store_symbole_scope(ctx.getChild(0).getText() , DocumentVisitor.scopesStack.peek().getParent());
+			}
+
 
         }
 		return new ReferenceExpression(ctx.getChild(0).getText());
