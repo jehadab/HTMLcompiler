@@ -89,7 +89,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 //                out.close();
                 FileWriter fw = new FileWriter(ErrorFile , true);
                 BufferedWriter error = new BufferedWriter(fw);
-                line_number=ctx.start.getLine();
+
                 error.write("erro in line:"+""+line_number);
                 error.write("  Nested cp-app is forbidden." );
                 error.newLine();
@@ -151,7 +151,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
            ElementDirective_number++;
            if(ctx.getChild(0).getText().equals("cp-app"))
                cppapp_number++;
-
+           line_number=ctx.start.getLine();
 //           if(cppapp_number>1)
 //           {
 //               System.err.println("Nested cp-app is forbidden.");

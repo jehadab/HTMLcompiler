@@ -26,8 +26,8 @@ public class SemanticCheck {
                 FileWriter fw = new FileWriter(Visitor.ErrorFile , true);
                 BufferedWriter error = new BufferedWriter(fw);
 
-                error.write("erro in line:"+""+ Visitor.line_number);
-                error.write("  img tag must has src attribute." + Visitor.line_number);
+                error.write("erro in line:"+""+ Visitor.line_number+"  " );
+                error.write(  variableName +"  is declerated before in the before");
                 error.newLine();
                 error.close();
 
