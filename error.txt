@@ -1,2 +1,0 @@
-erro in line:7  x  is declerated before in the before
-erro in line:7  i  is declerated before in the before

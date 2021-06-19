@@ -20,9 +20,10 @@ public class Visitor<T> extends HTMLParserBaseVisitor<T> {
     static public SymboleTable symboletable = new SymboleTable();
     static int cppapp_number =0;
     static  public int  line_number=0;
-
+    static  public  boolean  pipElement = false;
 	static DocumentVisitor documentVisitor = new DocumentVisitor();
 	static ExpressionVisitor expressionVisitor = new ExpressionVisitor();
+	static   public String filter_method="";
 
 
 	public static void showSymboleTable() {

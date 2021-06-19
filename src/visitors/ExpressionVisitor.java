@@ -1,5 +1,8 @@
 package visitors;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -266,7 +269,15 @@ public class ExpressionVisitor extends Visitor<Expression>{
 	public Expression visitReferenceExpression(ReferenceExpressionContext ctx) {
         System.out.println(" pritn the varaibel here   :"+ctx.getChild(0).getText() );
 //        System.out.println(" pritn the elemnt here   :"+Element );
+        if(Element.equals("Mustach") && pipElement== true)
+        {
+            if(ctx.getChild(0).getText().equals("currency"))
+            {
+                filter_method="currency";
+            }
+        }
         if(Element.equals("Mustach")) {
+
             Symbole symbole = new Symbole(ctx.getChild(0).getText());
             Scope SymboleScope = new Scope();
             SymboleScope = DocumentVisitor.scopesStack.peek();
@@ -324,6 +335,29 @@ public class ExpressionVisitor extends Visitor<Expression>{
 	@Override
 	public Expression visitStringLiteral(HTMLParser.StringLiteralContext ctx) {
 		String string = ctx.getChild(1).getText();
+
+        char d = ctx.getChild(0).getText().charAt(0);
+if(filter_method.equals("currency"))
+{
+    if(ctx.APO().size()==0)
+    {
+        try {
+
+            FileWriter fw = new FileWriter(ErrorFile , true);
+            BufferedWriter error = new BufferedWriter(fw);
+            line_number=ctx.start.getLine();
+            error.write("erro in line:"+""+line_number);
+            error.write("(currency) pipe should recieve one character only" );
+            error.newLine();
+            error.close();
+
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+}
+
 		return new StringLiteral(string);
 	}
 

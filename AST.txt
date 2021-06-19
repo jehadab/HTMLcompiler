@@ -16,43 +16,25 @@ Document: {
 					name: body,
 					type: Normal,
 					children: [
-						ElementNode: {
-							name: div,
-							type: Normal,
-							children: [
-								ElementNode: {
-									name: div,
-									type: Normal,
-									children: [
-									],
-									attributes: [
-										Directive: {
-											type: cp-for,
-											value(ArrayLoopStatement): {
-												loopVariable: x,
-												indexed: true,
-												indexVariable: i,
-												loopOn(ReferenceExpression): {
-													reference: t,
-												},
-											},
-										}
-									],
+						MustachNode: {
+							Exp(FilterStatement): {
+								Oprand(ReferenceExpression): {
+									reference: l,
 								},
-							],
-							attributes: [
-								Directive: {
-									type: cp-for,
-									value(ArrayLoopStatement): {
-										loopVariable: x,
-										indexed: true,
-										indexVariable: i,
-										loopOn(ReferenceExpression): {
-											reference: t,
-										},
-									},
-								}
-							],
+								FilterMethod(ReferenceExpression): {
+									reference: currency,
+								},
+								parameters: [
+									StringLiteral: {
+										value: f,
+									}
+								],
+							},
+						},
+						MustachNode: {
+							Exp(ReferenceExpression): {
+								reference: b,
+							},
 						},
 					],
 					attributes: [],

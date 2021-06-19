@@ -248,9 +248,11 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     @Override
     public AbstractASTNode visitFilterExpression(FilterExpressionContext ctx) {
+        pipElement=true;
         Expression oprand = expressionVisitor.visit(ctx.getChild(0));
         FilterStatement filter = (FilterStatement) visit(ctx.getChild(1));
         filter.setOprand(oprand);
+
         return filter;
     }
 
@@ -267,6 +269,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         for (int index = 0; index < ctx.getChild(3).getChildCount(); index += 2) {
             parameters.add(expressionVisitor.visit(ctx.getChild(3).getChild(index)));
         }
+
         return new FilterStatement((Expression) filter, parameters);
     }
 
