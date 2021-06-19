@@ -10,6 +10,9 @@ public class Scope {
 //    }
 
 
+    public Scope() {
+    }
+
     public Scope(Scope parent) {
         this.parent = parent;
     }

@@ -11,6 +11,7 @@ import java.util.Stack;
 
 import SymboleTable.Id;
 import SymboleTable.Scope;
+import SymboleTable.Symbole;
 import SymboleTable.Tag;
 import misc.HTMLParser.ArrayLoopRawContext;
 import misc.HTMLParser.AttributeNodeContext;
@@ -52,8 +53,8 @@ import models.statements.*;
 public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     protected static Stack<Boolean> switchExists;
-    private Stack<Scope> scopesStack = new Stack<>();
-    private Stack<Tag> tagsStack = new Stack<>();
+     public static Stack<Scope> scopesStack = new Stack<>();
+    public static Stack<Tag> tagsStack = new Stack<>();
 
     public DocumentVisitor() {
         if (switchExists == null)
@@ -79,7 +80,12 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         tagsStack.push(tag);
         DocumentHeader header = (DocumentHeader) visit(ctx.getChild(0));
         DocumentBody body = (DocumentBody) visit(ctx.getChild(1));
+        if(cppapp_number>1)
+        {
+            System.err.println("Nested cp-app is forbidden.");
+        }
         showSymboleTable();
+        print_symbole_linked_list();
         symboletable.getScopes();
 //        print_linkedlist();
         return new Document(header, body);
@@ -95,6 +101,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
             else
                 headers.add(new TextNode(ctx.getChild(index).getText()));
         }
+
         return header;
     }
 
@@ -122,17 +129,28 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     @Override
     public AbstractASTNode visitExpDirective(ExpDirectiveContext ctx) {
-       if(!ctx.getChild(0).getText().equals("cp-model"))
-       {
+        Element_Directive_name=ctx.getChild(0).getText();
+       if(!ctx.getChild(0).getText().equals("cp-model")) {
            ElementDirective_number++;
-           if(ElementDirective_number ==1) {
-                   Scope scope = new Scope(scopesStack.peek());
-                   scope.setId(ctx.getChild(0).getText() + "_" + scope.hashCode());
-                   symboletable.addScope(scope);
-                   scopesStack.push(scope);
+           if(ctx.getChild(0).getText().equals("cp-app"))
+               cppapp_number++;
+
+//           if(cppapp_number>1)
+//           {
+//               System.err.println("Nested cp-app is forbidden.");
+//           }
+           if (ElementDirective_number == 1) {
+               Scope scope = new Scope(scopesStack.peek());
+               scope.setId(ctx.getChild(0).getText() + "_" + scope.hashCode());
+               symboletable.addScope(scope);
+               scopesStack.push(scope);
+           }
        }
-        }
+
+        Element="Directive";
         AbstractASTNode value = expressionVisitor.visit(ctx.getChild(3));
+
+//        store_symbole_scope(ctx.getChild(3).getText()  , scopesStack.peek().getParent());
 
         return new Directive(ctx.getChild(0).getText(), value);
     }
@@ -150,6 +168,8 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
         }
         AbstractASTNode value = visit(ctx.getChild(3));
+
+//        store_symbole_scope(ctx.getChild(3).getText().substring(3,4) , scopesStack.peek().getParent());
         return new Directive(ctx.getChild(0).getText(), value);
     }
 
@@ -160,16 +180,28 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     @Override
     public AbstractASTNode visitArrayLoopRaw(ArrayLoopRawContext ctx) {
+
+        Scope currentScope = scopesStack.peek() ;
+
         AbstractASTNode arrayToLoopOn = expressionVisitor.visit(ctx.getChild(2));
         String loopVariable = ctx.getChild(0).getText();
+        semanticCheck.isVariableExist(loopVariable , currentScope);
+
         return new ArrayLoopStatement(loopVariable, (ValueExpression) arrayToLoopOn);
     }
 
     @Override
     public AbstractASTNode visitIndexedArrayLoop(IndexedArrayLoopContext ctx) {
+        Element="Directive";
+        Scope currentScope = scopesStack.peek();
         AbstractASTNode arrayToLoopOn = expressionVisitor.visit(ctx.getChild(2));
         String loopVariable = ctx.getChild(0).getText();
         String indexVariable = ctx.getChild(4).getText();
+
+        semanticCheck.isVariableExist(loopVariable , currentScope);//check loopvar
+        semanticCheck.isVariableExist(indexVariable , currentScope);// check loopindex
+
+
         return new ArrayLoopStatement(loopVariable, indexVariable, (ValueExpression) arrayToLoopOn);
     }
 
@@ -186,9 +218,12 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     @Override
     public AbstractASTNode visitRawObjectLoop(RawObjectLoopContext ctx) {
+        Scope currentScope = scopesStack.peek();
         AbstractASTNode objectToLoopOn = expressionVisitor.visit(ctx.getChild(4));
         String KeyVariable = ctx.getChild(0).getText();
         String valueVariable = ctx.getChild(2).getText();
+        semanticCheck.isVariableExist(KeyVariable, currentScope);
+        semanticCheck.isVariableExist(valueVariable, currentScope);
         return new ObjectLoopStatement(KeyVariable, valueVariable, (ValueExpression) objectToLoopOn);
     }
 
@@ -224,11 +259,17 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
     public List<AbstractASTNode> getContent(ElementContentContext ctx) {
         List<AbstractASTNode> contents = new ArrayList<AbstractASTNode>();
         for (int index = 0; index < ctx.getChildCount(); index++) {
+            if(ctx.getChild(index) instanceof  MustacheContext)
+            {
+                Element="Mustach";
+            }
             if (ctx.getChild(index) instanceof NodeContext || ctx.getChild(index) instanceof MustacheContext)
                 contents.add(visit(ctx.getChild(index)));
             else
                 contents.add(new TextNode(ctx.getChild(index).getText()));
+
         }
+
         return contents;
     }
 
@@ -239,22 +280,32 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
         if (ctx.getChild(2) instanceof ElementAttributesContext)
             attributes = getAttributes((ElementAttributesContext) ctx.getChild(2));
+        if(tagName.equals("img"))
+        {
+            if(attributes.size()==0)
+            {
+                is_src=false;
 
+            }
+            if(is_src==false)
+                {
+                    System.err.println("img tag must has src attribute.");
+                }
+        }
         ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]));
         return element;
     }
 
     @Override
     public AbstractASTNode visitNormalElement(NormalElementContext ctx) {
-        int ElementDirective_counter =0;
+        int ElementDirective_counter = 0;
         boolean isElementDirective = false;
-        ElementDirective_number=0;
-        String Directive_name="";
+        ElementDirective_number = 0;
+        String Directive_name = "";
         String tagName = ctx.getChild(1).getText();
         String tagClose;
-        if(tagName.equals("a"))
-        {
-            a_tag=true;
+        if (tagName.equals("a")) {
+            a_tag = true;
         }
 
 
@@ -322,11 +373,23 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
             }
 
+        if (tagName.equals("img"))
+        {
+            if(attributes.size()==0)
+            {
+                is_src=false;
+
+            }
+            if (is_src == false) {
+                System.err.println(" img tag must has src attribute.");
+            }
+
+        }
+
         for (int i = 0; i < attributes.size(); i++) {
 
-            if(attributes.get(i) instanceof Directive) {
+            if (attributes.get(i) instanceof Directive) {
                 Directive_name = ((Directive) attributes.get(i)).getName();
-
                 if (!Directive_name.equals("cp-model")) {
                     isElementDirective = true;
                     ElementDirective_counter++;
@@ -348,77 +411,77 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 //                        System.err.println("Each html element has at most one structural attribute");
                     }
 
+
+                    }
+
+                }
+            }
+        }
+
+
+                boolean switchElement = false;
+                for (AbstractASTNode node : attributes)
+                    if (node instanceof Directive && testName(((Directive) node).getName(), "cp-switch")) {
+                        switchExists.push(true);
+                        switchElement = true;
+
+                    }
+                for (AbstractASTNode node : attributes)
+                    if (node instanceof Directive && (testName(((Directive) node).getName(), "cp-switch-case") || testName(((Directive) node).getName(), "cp-switchDefault")))
+                        if (switchExists.isEmpty())
+                            System.err.println("Invalid switch");
+                if (ctx.getChild(3) instanceof ElementContentContext)
+                    contents = getContent((ElementContentContext) ctx.getChild(3));
+                if (ctx.getChild(4) instanceof ElementContentContext)
+                    contents = getContent((ElementContentContext) ctx.getChild(4));
+                if (switchElement)
+                    switchExists.pop();
+                ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]), contents.toArray(new DocumentNode[contents.size()]));
+
+
+                if (!scopesStack.peek().getId().equals("global") && isElementDirective) {
+                    scopesStack.pop();
+
                 }
 
+                if (tagName.equals("ul") || tagName.equals("li") || tagName.equals("ol")) {
+                    if (!tagsStack.peek().getTagname().equals("firsttag")) {
+                        tagsStack.pop();
 
+
+                    }
+                }
+
+                a_tag = false;
+                return element;
             }
 
-        }
+            @Override
+            public AbstractASTNode visitSelfClosedElement (SelfClosedElementContext ctx){
+                String tagName = ctx.getChild(1).getText();
 
-        boolean switchElement = false;
-        for (AbstractASTNode node : attributes)
-            if (node instanceof Directive && testName(((Directive) node).getName(), "cp-switch")) {
-                switchExists.push(true);
-                switchElement = true;
+                List<AbstractASTNode> attributes = new ArrayList<AbstractASTNode>();
 
+                if (ctx.getChild(2) instanceof ElementAttributesContext)
+                    attributes = getAttributes((ElementAttributesContext) ctx.getChild(2));
+
+                ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]));
+                return element;
             }
-        for (AbstractASTNode node : attributes)
-            if (node instanceof Directive && (testName(((Directive) node).getName(), "cp-switch-case") || testName(((Directive) node).getName(), "cp-switchDefault")))
-                if (switchExists.isEmpty())
-                    System.err.println("Invalid switch");
-        if (ctx.getChild(3) instanceof ElementContentContext)
-            contents = getContent((ElementContentContext) ctx.getChild(3));
-        if (ctx.getChild(4) instanceof ElementContentContext)
-            contents = getContent((ElementContentContext) ctx.getChild(4));
-        if (switchElement)
-            switchExists.pop();
-        ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]), contents.toArray(new DocumentNode[contents.size()]));
 
-
-        if (!scopesStack.peek().getId().equals("global") && isElementDirective) {
-            scopesStack.pop();
-
-        }
-
-        if(tagName.equals("ul") || tagName.equals("li") || tagName.equals("ol"))
-        {
-            if( !tagsStack.peek().getTagname().equals("firsttag"))
-            {
-                tagsStack.pop();
-
-
+            @Override
+            public AbstractASTNode visitTextNode (TextNodeContext ctx){
+                return new TextNode(ctx.getText());
             }
-        }
-        a_tag=false;
-        return element;
-    }
 
-    @Override
-    public AbstractASTNode visitSelfClosedElement(SelfClosedElementContext ctx) {
-        String tagName = ctx.getChild(1).getText();
-        List<AbstractASTNode> attributes = new ArrayList<AbstractASTNode>();
+            public List<AbstractASTNode> getAttributes (ElementAttributesContext ctx){
 
-        if (ctx.getChild(2) instanceof ElementAttributesContext)
-            attributes = getAttributes((ElementAttributesContext) ctx.getChild(2));
+                List<AbstractASTNode> attributes = new ArrayList<AbstractASTNode>();
 
-        ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]));
-        return element;
-    }
+                for (int index = 0; index < ctx.getChildCount(); index++) {
+                    attributes.add(visit(ctx.getChild(index)));
 
-    @Override
-    public AbstractASTNode visitTextNode(TextNodeContext ctx) {
-        return new TextNode(ctx.getText());
-    }
-
-    public List<AbstractASTNode> getAttributes(ElementAttributesContext ctx) {
-
-        List<AbstractASTNode> attributes = new ArrayList<AbstractASTNode>();
-
-        for (int index = 0; index < ctx.getChildCount(); index++) {
-            attributes.add(visit(ctx.getChild(index)));
-
-            if(ctx.getChild(index).getChild(0).toString().equals("id"))
-            {
+                    if (ctx.getChild(index).getChild(0).toString().equals("id")) {
 
                 Id id = new Id(ctx.getChild(index).getChild(2).toString());
                 if(CheckidValue(id)==false)
@@ -462,48 +525,55 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         is_herf=false;
 
 
-        return attributes;
-    }
+                return attributes;
+            }
 
-    @Override
-    public AbstractASTNode visitAttributeNode(AttributeNodeContext ctx) {
+            @Override
+            public AbstractASTNode visitAttributeNode (AttributeNodeContext ctx){
 
-        String name = ctx.getChild(0).getText();
-        String value = null;
-        if (ctx.getChildCount() > 1)
-            value = ctx.getChild(2).getText();
-       if(name.equals("href") && a_tag==true)
-       {
-           is_herf=true;
-       }
+                String name = ctx.getChild(0).getText();
 
-        return new AttributeNode(name, value);
-    }
+                String value = null;
+                if (ctx.getChildCount() > 1)
+                    value = ctx.getChild(2).getText();
+                if (!name.equals("src")) {
+                    is_src = false;
+                } else {
+                    is_src = true;
+                }
+                if (name.equals("href") && a_tag == true) {
+                    is_herf = true;
+                }
 
-    @Override
-    public AbstractASTNode visitMustache(MustacheContext ctx) {
-        MustachNode mustache;
-        if (ctx.getChildCount() > 2) {
-            mustache = new MustachNode(expressionVisitor.visit(ctx.getChild(1)));
-        } else
-            mustache = new MustachNode();
-        return mustache;
-    }
+                return new AttributeNode(name, value);
+            }
 
-    protected boolean testName(String openTag, String closeTag) {
-        return openTag.compareToIgnoreCase(closeTag) == 0;
-    }
-    // fucntion for semantic-check Q1
-    public boolean CheckidValue(Id id ){
-        boolean  exits= false;
-    for(int i=0;i<symboletable.getids().size();i++)
-        {
-           if(id.getValue().equals(symboletable.getids().get(i).getValue()))
-           {
-               exits=true;
-           }
+            @Override
+            public AbstractASTNode visitMustache (MustacheContext ctx){
+                MustachNode mustache;
+                if (ctx.getChildCount() > 2) {
+                    mustache = new MustachNode(expressionVisitor.visit(ctx.getChild(1)));
+
+
+                } else
+                    mustache = new MustachNode();
+                return mustache;
+            }
+
+            protected boolean testName (String openTag, String closeTag){
+                return openTag.compareToIgnoreCase(closeTag) == 0;
+            }
+            // fucntion for semantic-check Q1
+            public boolean CheckidValue (Id id ){
+                boolean exits = false;
+                for (int i = 0; i < symboletable.getids().size(); i++) {
+                    if (id.getValue().equals(symboletable.getids().get(i).getValue())) {
+                        exits = true;
+                    }
+                }
+                return exits;
+            }
+
         }
-    return exits;
-    }
 
-}
+

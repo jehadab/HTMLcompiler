@@ -1,4 +1,4 @@
-// Generated from HTMLParser.g4 by ANTLR 4.9
+// Generated from C:/Users/Dell/Compiler/Grammar\HTMLParser.g4 by ANTLR 4.9.1
 
 package misc;
 

@@ -19,102 +19,34 @@ Document: {
 						ElementNode: {
 							name: div,
 							type: Normal,
-							children: [
-								ElementNode: {
-									name: a,
-									type: Normal,
-									children: [
-									],
-									attributes: [
-										AttributeNode: {
-											attribute: href,
-											value: "llklk",
-										}
-									],
-								},
-								ElementNode: {
-									name: a,
-									type: Normal,
-									children: [],
-									attributes: [],
-								},
-							],
-							attributes: [
-								AttributeNode: {
-									attribute: id,
-									value: "ff",
-								},
-								Directive: {
-									type: cp-if,
-									value(ReferenceExpression): {
-										reference: fafw,
-									},
-								},
-								Directive: {
-									type: cp-show,
-									value(ReferenceExpression): {
-										reference: dsdfdfsd,
-									},
-								}
-							],
-						},
-						ElementNode: {
-							name: div,
-							type: Normal,
-							children: [
-								ElementNode: {
-									name: li,
-									type: Normal,
-									children: [
-										ElementNode: {
-											name: ul,
-											type: Normal,
-											children: [
-												ElementNode: {
-													name: li,
-													type: Normal,
-													children: [
-														ElementNode: {
-															name: ul,
-															type: Normal,
-															children: [],
-															attributes: [],
-														},
-													],
-													attributes: [],
-												},
-											],
-											attributes: [],
-										},
-									],
-									attributes: [],
-								},
-							],
-							attributes: [
-								Directive: {
-									type: cp-model,
-									value(ReferenceExpression): {
-										reference: sdas,
-									},
-								},
-								Directive: {
-									type: cp-if,
-									value(ReferenceExpression): {
-										reference: wdqawd,
-									},
-								}
-							],
+							children: [],
+							attributes: [],
 						},
 					],
 					attributes: [
-						AttributeNode: {
-							attribute: id,
-							value: "ff",
+						Directive: {
+							type: cp-app,
+							value(ReferenceExpression): {
+								reference: ll,
+							},
+						},
+						Directive: {
+							type: cp-if,
+							value(ReferenceExpression): {
+								reference: jj,
+							},
 						}
 					],
 				},
 			],
-			attributes: [],
+			attributes: [
+				Directive: {
+					type: cp-app,
+					value(ReferenceExpression): {
+						reference: xx,
+					},
+				}
+			],
 		},,
 	},
 }

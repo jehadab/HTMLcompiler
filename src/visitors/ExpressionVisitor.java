@@ -3,6 +3,9 @@ package visitors;
 import java.util.ArrayList;
 import java.util.List;
 
+import SymboleTable.Scope;
+import SymboleTable.Symbole;
+import SymboleTable.SymboleTable;
 import misc.HTMLParser;
 import misc.HTMLParser.AccessContext;
 import misc.HTMLParser.AdditionExpressionContext;
@@ -39,6 +42,7 @@ import misc.HTMLParser.PreIncrementExpressionContext;
 import misc.HTMLParser.PropertyAccessContext;
 import misc.HTMLParser.ReferenceExpressionContext;
 import misc.HTMLParser.TernaryConditionalExpressionContext;
+import models.directive.Directive;
 import models.expression.Expression;
 import models.expression.ValueExpression;
 import models.expression.binary.AdditionExpression;
@@ -74,6 +78,8 @@ import models.expression.value.reference.AccessByProperty;
 import models.expression.value.reference.AccessExpression;
 import models.expression.value.reference.AccessMethod;
 import models.expression.value.reference.ReferenceExpression;
+import models.nodes.MustachNode;
+import org.antlr.runtime.tree.ParseTree;
 
 public class ExpressionVisitor extends Visitor<Expression>{
 
@@ -143,8 +149,11 @@ public class ExpressionVisitor extends Visitor<Expression>{
 
 	@Override
 	public Expression visitModExpression(ModExpressionContext ctx) {
+		System.out.println(" we are in the visitModExpression  ");
 		Expression leftOprand = visit(ctx.getChild(0));
+		System.out.println(" value for the leftOprand  : "+ctx.getChild(0));
 		Expression rightOprand = visit(ctx.getChild(2));
+		System.out.println(" value for the rightOprand  :"+ctx.getChild(2));
 		return new ModExpression(leftOprand, rightOprand);
 	}
 
@@ -255,6 +264,35 @@ public class ExpressionVisitor extends Visitor<Expression>{
 
 	@Override
 	public Expression visitReferenceExpression(ReferenceExpressionContext ctx) {
+        System.out.println(" pritn the varaibel here   :"+ctx.getChild(0).getText() );
+//        System.out.println(" pritn the elemnt here   :"+Element );
+        if(Element.equals("Mustach")) {
+            Symbole symbole = new Symbole(ctx.getChild(0).getText());
+            Scope SymboleScope = new Scope();
+            SymboleScope = DocumentVisitor.scopesStack.peek();
+            symbole.setSymbole_scope(SymboleScope);
+//            if (findSymbole(symbole.getName(), DocumentVisitor.scopesStack.peek()) == false)
+//			{
+//
+//				symboletable.addSymbole(symbole);
+//
+//			}
+			semanticCheck.isVariableExist(symbole.getName(),DocumentVisitor.scopesStack.peek());
+
+        }
+        if(Element.equals("Directive") )
+        {
+			if(!Element_Directive_name.equals("cp-model"))
+			{
+				if(ElementDirective_number==1)
+					store_symbole_scope(ctx.getChild(0).getText() , DocumentVisitor.scopesStack.peek().getParent());
+			}
+			else {
+				store_symbole_scope(ctx.getChild(0).getText() , DocumentVisitor.scopesStack.peek());
+			}
+
+
+        }
 		return new ReferenceExpression(ctx.getChild(0).getText());
 	}
 
@@ -329,4 +367,77 @@ public class ExpressionVisitor extends Visitor<Expression>{
 	public Expression visitNotEqualComparisionExpression(NotEqualComparisionExpressionContext ctx) {
 		return new NotEqualComparisionExpression();
 	}
+public boolean 	findSymbole( String symbolename , Scope currentscope){
+		boolean find=false;
+
+for(int i=0;i<symboletable.getSymboles().size();i++)
+	{
+		if(symboletable.getSymboles().get(i).getName().equals(symbolename) &&
+		symboletable.getSymboles().get(i).getSymbole_scope().getId().equals(currentscope.getId())
+		)
+		{
+			find=true;
+
+			break;
+		}
+
+	}
+//
+//if(currentscope.getId().equals("global"))
+//{
+//	find=false;
+//
+//}
+//else{
+//		findSymbole(  symbolename , currentscope.getParent());
+//	}
+
+return find;
+	}
+    public void  store_symbole_scope(String value , Scope scope)
+    {
+
+        boolean find=false;
+        if(scope.getId().equals("global"))
+        {
+			for(int i=0;i<symboletable.getSymboles().size();i++)
+			{
+
+				if(symboletable.getSymboles().get(i).getName().equals(value)
+						&& symboletable.getSymboles().get(i).getSymbole_scope().getId().equals("global")
+				)
+				{
+
+					find=true;
+					return;
+
+				}
+			}
+			if(find==false){
+			Symbole symbole = new Symbole(value);
+			Scope symbole_scope = new Scope();
+			symbole_scope.setId("global");
+			symbole.setSymbole_scope(symbole_scope);
+			symboletable.addSymbole(symbole);
+			return ;
+		}
+        }
+        for(int i=0;i<symboletable.getSymboles().size();i++)
+        {
+
+            if(symboletable.getSymboles().get(i).getName().equals(value)
+			&& symboletable.getSymboles().get(i).getSymbole_scope().getId().equals(scope.getId())
+			)
+            {
+
+                find=true;
+                return;
+
+            }
+        }
+        if(find==false)
+        {
+            store_symbole_scope(value,scope.getParent());
+        }
+    }
 }
