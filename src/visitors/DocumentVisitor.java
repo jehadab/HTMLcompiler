@@ -82,7 +82,24 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         DocumentBody body = (DocumentBody) visit(ctx.getChild(1));
         if(cppapp_number>1)
         {
-            System.err.println("Nested cp-app is forbidden.");
+            try {
+//                FileWriter fstream = new FileWriter("log.txt",true);
+//                BufferedWriter out = new BufferedWriter(fstream);
+//                out.write("Line Added on: " + new java.util.Date()+"\n");
+//                out.close();
+                FileWriter fw = new FileWriter(ErrorFile , true);
+                BufferedWriter error = new BufferedWriter(fw);
+                line_number=ctx.start.getLine();
+                error.write("erro in line:"+""+line_number);
+                error.write("  Nested cp-app is forbidden." );
+                error.newLine();
+                error.close();
+
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+
         }
         showSymboleTable();
         print_symbole_linked_list();
@@ -185,6 +202,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
         AbstractASTNode arrayToLoopOn = expressionVisitor.visit(ctx.getChild(2));
         String loopVariable = ctx.getChild(0).getText();
+        line_number=ctx.start.getLine();
         semanticCheck.isVariableExist(loopVariable , currentScope);
 
         return new ArrayLoopStatement(loopVariable, (ValueExpression) arrayToLoopOn);
@@ -197,7 +215,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         AbstractASTNode arrayToLoopOn = expressionVisitor.visit(ctx.getChild(2));
         String loopVariable = ctx.getChild(0).getText();
         String indexVariable = ctx.getChild(4).getText();
-
+        line_number=ctx.start.getLine();
         semanticCheck.isVariableExist(loopVariable , currentScope);//check loopvar
         semanticCheck.isVariableExist(indexVariable , currentScope);// check loopindex
 
@@ -222,6 +240,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         AbstractASTNode objectToLoopOn = expressionVisitor.visit(ctx.getChild(4));
         String KeyVariable = ctx.getChild(0).getText();
         String valueVariable = ctx.getChild(2).getText();
+        line_number=ctx.start.getLine();
         semanticCheck.isVariableExist(KeyVariable, currentScope);
         semanticCheck.isVariableExist(valueVariable, currentScope);
         return new ObjectLoopStatement(KeyVariable, valueVariable, (ValueExpression) objectToLoopOn);
@@ -289,7 +308,24 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
             }
             if(is_src==false)
                 {
-                    System.err.println("img tag must has src attribute.");
+                    try {
+//                FileWriter fstream = new FileWriter("log.txt",true);
+//                BufferedWriter out = new BufferedWriter(fstream);
+//                out.write("Line Added on: " + new java.util.Date()+"\n");
+//                out.close();
+                        FileWriter fw = new FileWriter(ErrorFile , true);
+                        BufferedWriter error = new BufferedWriter(fw);
+                        line_number=ctx.start.getLine();
+                        error.write("erro in line:"+""+line_number);
+                        error.write("  img tag must has src attribute." );
+                        error.newLine();
+                        error.close();
+
+                    } catch (IOException e) {
+                        System.out.println("An error occurred.");
+                        e.printStackTrace();
+                    }
+//                    System.err.println("img tag must has src attribute.");
                 }
         }
         ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]));
@@ -319,8 +355,8 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 //                out.close();
                 FileWriter fw = new FileWriter(ErrorFile , true);
                 BufferedWriter error = new BufferedWriter(fw);
-
-                error.write("erro in line:"+""+ctx.start.getLine());
+                line_number=ctx.start.getLine();
+                error.write("erro in line:"+""+line_number);
                 error.write("   li tag should not be outside ul/ol");
                 error.newLine();
                 error.close();
@@ -358,8 +394,8 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
                     try {
                         FileWriter fw = new FileWriter(ErrorFile , true);
                         BufferedWriter error = new BufferedWriter(fw);
-
-                        error.write("erro in line:"+""+ctx.start.getLine());
+                        line_number=ctx.start.getLine();
+                        error.write("erro in line:"+""+line_number);
                         error.write("   Anchor tag must has href attribute");
                         error.newLine();
                         error.close();
@@ -381,7 +417,24 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
             }
             if (is_src == false) {
-                System.err.println(" img tag must has src attribute.");
+                try {
+//                FileWriter fstream = new FileWriter("log.txt",true);
+//                BufferedWriter out = new BufferedWriter(fstream);
+//                out.write("Line Added on: " + new java.util.Date()+"\n");
+//                out.close();
+                    FileWriter fw = new FileWriter(ErrorFile , true);
+                    BufferedWriter error = new BufferedWriter(fw);
+                    line_number=ctx.start.getLine();
+                    error.write("erro in line:"+""+line_number);
+                    error.write(" img tag must has src attribute." );
+                    error.newLine();
+                    error.close();
+
+                } catch (IOException e) {
+                    System.out.println("An error occurred.");
+                    e.printStackTrace();
+                }
+//                System.err.println(" img tag must has src attribute.");
             }
 
         }
@@ -398,8 +451,8 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
                         try {
                             FileWriter fw = new FileWriter(ErrorFile , true);
                             BufferedWriter error = new BufferedWriter(fw);
-
-                            error.write("erro in line:"+""+ctx.start.getLine());
+                            line_number=ctx.start.getLine();
+                            error.write("erro in line:"+""+line_number);
                             error.write("   Each html element has at most one structural attribute");
                             error.newLine();
                             error.close();
@@ -489,8 +542,8 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
                     try {
                         FileWriter fw = new FileWriter(ErrorFile , true);
                         BufferedWriter error = new BufferedWriter(fw);
-
-                        error.write("erro in line:"+""+ctx.start.getLine());
+                        line_number=ctx.start.getLine();
+                        error.write("erro in line:"+""+line_number);
                         error.write("   id attribute must be uniqe on document level");
                         error.newLine();
                         error.close();
@@ -509,8 +562,8 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
             try {
                 FileWriter fw = new FileWriter(ErrorFile , true);
                 BufferedWriter error = new BufferedWriter(fw);
-
-                error.write("erro in line:"+""+ctx.start.getLine());
+                line_number=ctx.start.getLine();
+                error.write("erro in line:"+""+line_number);
                 error.write("   Anchor tag must has href attribute");
                 error.newLine();
                 error.close();

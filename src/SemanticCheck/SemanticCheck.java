@@ -2,7 +2,12 @@ package SemanticCheck;
 
 import SymboleTable.Scope;
 import SymboleTable.Symbole;
+import misc.HTMLParserBaseVisitor;
+import visitors.Visitor;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static visitors.Visitor.symboletable;
@@ -13,7 +18,24 @@ public class SemanticCheck {
     public void isVariableExist(String variableName , Scope currentScope){
 
         if (isSymboleExist(variableName , currentScope)){
-            System.err.println(variableName + " is declerated before in the before " );
+            try {
+//                FileWriter fstream = new FileWriter("log.txt",true);
+//                BufferedWriter out = new BufferedWriter(fstream);
+//                out.write("Line Added on: " + new java.util.Date()+"\n");
+//                out.close();
+                FileWriter fw = new FileWriter(Visitor.ErrorFile , true);
+                BufferedWriter error = new BufferedWriter(fw);
+
+                error.write("erro in line:"+""+ Visitor.line_number);
+                error.write("  img tag must has src attribute." + Visitor.line_number);
+                error.newLine();
+                error.close();
+
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+//            System.err.println(variableName + " is declerated before in the before " );
 
         }else {
             // add variableName to symboletable
