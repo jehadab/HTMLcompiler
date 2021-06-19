@@ -416,7 +416,6 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
                 }
             }
-        }
 
 
                 boolean switchElement = false;
