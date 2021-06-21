@@ -17,31 +17,10 @@ Document: {
 					type: Normal,
 					children: [
 						ElementNode: {
-							name: div,
+							name: a,
 							type: Normal,
-							children: [
-								MustachNode: {
-									Exp(FilterStatement): {
-										Oprand(ReferenceExpression): {
-											reference: l,
-										},
-										FilterMethod(ReferenceExpression): {
-											reference: lower,
-										},
-										parameters: [
-											StringLiteral: {
-												value: o,
-											}
-										],
-									},
-								},
-							],
-							attributes: [
-								AttributeNode: {
-									attribute: id,
-									value: "ndnn",
-								}
-							],
+							children: [],
+							attributes: [],
 						},
 					],
 					attributes: [],

@@ -614,13 +614,18 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
                 String name = ctx.getChild(0).getText();
 
                 String value = null;
+
                 if (ctx.getChildCount() > 1)
                     value = ctx.getChild(2).getText();
-                if (!name.equals("src")) {
-                    is_src = false;
-                } else {
+
+                if (name.equals("src")) {
                     is_src = true;
                 }
+//                } else if(name.equals("src")  ) {
+//                    is_src = false;
+//                }
+
+
                 if (name.equals("href") && a_tag == true) {
                     is_herf = true;
                 }
