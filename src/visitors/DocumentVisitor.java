@@ -266,8 +266,33 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
     public AbstractASTNode visitParametrizedFilter(ParametrizedFilterContext ctx) {
         AbstractASTNode filter = expressionVisitor.visit(ctx.getChild(1));
         List<Expression> parameters = new ArrayList<Expression>();
+
         for (int index = 0; index < ctx.getChild(3).getChildCount(); index += 2) {
             parameters.add(expressionVisitor.visit(ctx.getChild(3).getChild(index)));
+        }
+        if(filter_method.equals("upper") || filter_method.equals("lower"))
+        {
+
+            if(parameters.size()!=0)
+            {
+                try {
+//                FileWriter fstream = new FileWriter("log.txt",true);
+//                BufferedWriter out = new BufferedWriter(fstream);
+//                out.write("Line Added on: " + new java.util.Date()+"\n");
+//                out.close();
+                    FileWriter fw = new FileWriter(ErrorFile , true);
+                    BufferedWriter error = new BufferedWriter(fw);
+                    line_number=ctx.start.getLine();
+                    error.write("erro in line:"+""+line_number);
+                    error.write("  (upper/lower) pipes should not recieve any parameter." );
+                    error.newLine();
+                    error.close();
+
+                } catch (IOException e) {
+                    System.out.println("An error occurred.");
+                    e.printStackTrace();
+                }
+            }
         }
 
         return new FilterStatement((Expression) filter, parameters);

@@ -16,25 +16,32 @@ Document: {
 					name: body,
 					type: Normal,
 					children: [
-						MustachNode: {
-							Exp(FilterStatement): {
-								Oprand(ReferenceExpression): {
-									reference: l,
+						ElementNode: {
+							name: div,
+							type: Normal,
+							children: [
+								MustachNode: {
+									Exp(FilterStatement): {
+										Oprand(ReferenceExpression): {
+											reference: l,
+										},
+										FilterMethod(ReferenceExpression): {
+											reference: lower,
+										},
+										parameters: [
+											StringLiteral: {
+												value: o,
+											}
+										],
+									},
 								},
-								FilterMethod(ReferenceExpression): {
-									reference: currency,
-								},
-								parameters: [
-									StringLiteral: {
-										value: f,
-									}
-								],
-							},
-						},
-						MustachNode: {
-							Exp(ReferenceExpression): {
-								reference: b,
-							},
+							],
+							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "ndnn",
+								}
+							],
 						},
 					],
 					attributes: [],

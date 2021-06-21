@@ -275,6 +275,13 @@ public class ExpressionVisitor extends Visitor<Expression>{
             {
                 filter_method="currency";
             }
+            if(ctx.getChild(0).getText().equals("upper"))
+            {
+                filter_method="upper";
+            } if(ctx.getChild(0).getText().equals("lower"))
+			{
+				filter_method="lower";
+			}
         }
         if(Element.equals("Mustach")) {
 
