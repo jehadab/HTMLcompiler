@@ -32,10 +32,6 @@ Document: {
 							type: SelfClosed,
 							attributes: [
 								AttributeNode: {
-									attribute: id,
-									value: "myTestInput",
-								},
-								AttributeNode: {
 									attribute: type,
 									value: "text",
 								},

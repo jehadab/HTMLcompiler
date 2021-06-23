@@ -28,7 +28,7 @@ public class Visitor<T> extends HTMLParserBaseVisitor<T> {
 	static  codegeneration generation_object = new codegeneration();
 	static   public String filter_method="";
 	static public String  Element_Directive_Value="";
-	static public String  Element_id_Value="";
+	static public String  Element_id_Value="noid";
 
 	public static void showSymboleTable() {
 		System.out.println("scopes stored :" + symboletable.getScopes().size());

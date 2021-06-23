@@ -552,6 +552,7 @@ generation_object.generatedfile=Result_File;
 
             @Override
             public AbstractASTNode visitSelfClosedElement (SelfClosedElementContext ctx){
+
                  String Directirv_name ="";
                 String tagName = ctx.getChild(1).getText();
                 List<AbstractASTNode> attributes = new ArrayList<AbstractASTNode>();
@@ -561,12 +562,17 @@ generation_object.generatedfile=Result_File;
                         if (attributes.get(i) instanceof Directive) {
                             Directirv_name = ((Directive) attributes.get(i)).getName();
 
-                        }
-                        if (Directirv_name.equals("cp-model")) {
-//
-                           generation_object.code_generation_cpmodel(Element_id_Value, Element_Directive_Value);
+                            if (Directirv_name.equals("cp-model")) {
+                                System.out.println("number of time we get in here");
+                                if(Element_id_Value.equals("noid"))
+                                {
+                                    Element_id_Value='"'+Element_Directive_Value+hashCode()+'"';
+                                }
+                                generation_object.code_generation_cpmodel(Element_id_Value, Element_Directive_Value);
 
+                            }
                         }
+
                     }
 
 
