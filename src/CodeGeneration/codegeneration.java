@@ -3,12 +3,11 @@ package CodeGeneration;
 import java.io.*;
 
 public class codegeneration {
-String htmlfile="";
-String generatedfile ="";
-public void  created_generated_file(String htmlfile_path, String generatedfile_path) throws IOException {
-
-    File source = new File(htmlfile_path);
-    File  dest = new File(generatedfile_path);
+    public String generatedfile ="";
+    public  String cpapp_value="";
+    public   void  created_generated_file(String htmlfile_path, String generatedfile_path) throws IOException {
+        File source = new File(htmlfile_path);
+        File  dest = new File(generatedfile_path);
 
         FileInputStream in = new FileInputStream(source);
         FileOutputStream out = new FileOutputStream(dest);

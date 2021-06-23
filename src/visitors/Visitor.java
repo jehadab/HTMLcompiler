@@ -3,12 +3,14 @@ package visitors;
 import java.util.Stack;
 
 
+import CodeGeneration.codegeneration;
 import SemanticCheck.SemanticCheck;
 import SymboleTable.SymboleTable;
 import misc.HTMLParserBaseVisitor;
 
 public class Visitor<T> extends HTMLParserBaseVisitor<T> {
 	static public  String ErrorFile =".\\error.txt";
+	static  public String Result_File =".\\result.html";
     static boolean  visited =false  ;
     static int ElementDirective_number = 0;
 	static  public boolean  a_tag=false;
@@ -24,8 +26,9 @@ public class Visitor<T> extends HTMLParserBaseVisitor<T> {
 	static DocumentVisitor documentVisitor = new DocumentVisitor();
 	static ExpressionVisitor expressionVisitor = new ExpressionVisitor();
 	static   public String filter_method="";
-
-
+	static codegeneration generation_object = new codegeneration();
+	static public String  Element_Directive_Value="";
+	static public String  Element_id_Value="";
 	public static void showSymboleTable() {
 		System.out.println("scopes stored :" + symboletable.getScopes().size());
 		System.out.println("_______________");

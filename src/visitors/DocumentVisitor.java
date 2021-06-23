@@ -73,6 +73,12 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     @Override
     public AbstractASTNode visitDocument(DocumentContext ctx) {
+        generation_object.generatedfile=Result_File;
+        try {
+            generation_object.created_generated_file("index.html", "result.html");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Scope s = new Scope(null);
         s.setId("global");
         scopesStack.push(s);
@@ -658,6 +664,9 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
                 }
                 return exits;
             }
+    public void get_Element_id_value(String id_value){
+        Element_id_Value=id_value;
+    }
 
         }
 
