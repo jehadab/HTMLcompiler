@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Stack;
 
 
+import CodeGeneration.codegeneration;
 import SymboleTable.Id;
 import SymboleTable.Scope;
 import SymboleTable.Symbole;
@@ -73,6 +74,12 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     @Override
     public AbstractASTNode visitDocument(DocumentContext ctx) {
+generation_object.generatedfile=Result_File;
+        try {
+            generation_object.created_generated_file("index.html", "result.html");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Scope s = new Scope(null);
         s.setId("global");
         scopesStack.push(s);
@@ -494,6 +501,13 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
 
                     }
+                if(Directive_name.equals("cp-app"))
+                {
+
+//                        System.out.println("print the value of the cpapp"+Element_Directive_Value);
+                        generation_object.cpapp_value = Element_Directive_Value;
+
+                }
 
                 }
             }
@@ -538,12 +552,23 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
             @Override
             public AbstractASTNode visitSelfClosedElement (SelfClosedElementContext ctx){
+                 String Directirv_name ="";
                 String tagName = ctx.getChild(1).getText();
-
                 List<AbstractASTNode> attributes = new ArrayList<AbstractASTNode>();
-
                 if (ctx.getChild(2) instanceof ElementAttributesContext)
                     attributes = getAttributes((ElementAttributesContext) ctx.getChild(2));
+                    for(int i=0;i<attributes.size();i++) {
+                        if (attributes.get(i) instanceof Directive) {
+                            Directirv_name = ((Directive) attributes.get(i)).getName();
+
+                        }
+                        if (Directirv_name.equals("cp-model")) {
+//
+                           generation_object.code_generation_cpmodel(Element_id_Value, Element_Directive_Value);
+
+                        }
+                    }
+
 
                 ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]));
                 return element;
@@ -624,7 +649,10 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 //                } else if(name.equals("src")  ) {
 //                    is_src = false;
 //                }
-
+                  if(name.equals("id"))
+                  {
+                      get_Element_id_value(value);
+                  }
 
                 if (name.equals("href") && a_tag == true) {
                     is_herf = true;
@@ -658,6 +686,9 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
                 }
                 return exits;
             }
+            public void get_Element_id_value(String id_value){
+                Element_id_Value=id_value;
+    }
 
         }
 

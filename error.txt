@@ -1,5 +1,1 @@
-erro in line:6   Anchor tag must has href attribute
-erro in line:6   Anchor tag must has href attribute
-erro in line:6   Anchor tag must has href attribute
-erro in line:6   Anchor tag must has href attribute
-erro in line:6   Anchor tag must has href attribute
+<script>

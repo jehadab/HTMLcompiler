@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import CodeGeneration.codegeneration;
+
 import SymboleTable.Scope;
 import SymboleTable.Symbole;
 import SymboleTable.SymboleTable;
@@ -267,8 +269,10 @@ public class ExpressionVisitor extends Visitor<Expression>{
 
 	@Override
 	public Expression visitReferenceExpression(ReferenceExpressionContext ctx) {
-        System.out.println(" pritn the varaibel here   :"+ctx.getChild(0).getText() );
-//        System.out.println(" pritn the elemnt here   :"+Element );
+//        System.out.println(" pritn the varaibel here   :"+ctx.getChild(0).getText() );
+//		codegeneration code = new codegeneration();
+//		code.cpapp_value=ctx.getChild(0).getText();
+        get_Directive_value((ctx.getChild(0).getText()));
         if(Element.equals("Mustach") && pipElement== true)
         {
             if(ctx.getChild(0).getText().equals("currency"))
@@ -480,5 +484,8 @@ return find;
         {
             store_symbole_scope(value,scope.getParent());
         }
+    }
+    public void  get_Directive_value(String Directive_value){
+        Element_Directive_Value= Directive_value;
     }
 }

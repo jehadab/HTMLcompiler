@@ -1,6 +1,5 @@
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 import CodeGeneration.codegeneration;
 import org.antlr.v4.gui.Trees;
@@ -35,12 +34,10 @@ public class Compiler {
 			AbstractASTNode document = visitor.visit(pt);
 			FileWriter resultFile = new FileWriter(ASTPath);
 			resultFile.write(document.toString());
-			codegeneration object = new codegeneration();
-			object.created_generated_file("src/html_file/sample.html","src/generated_file/result.html");
 			resultFile.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 }

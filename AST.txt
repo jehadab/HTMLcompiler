@@ -1,5 +1,6 @@
 Document: {
-	header(DocumentHeader): {},
+	header(DocumentHeader): {,
+	},
 	body(DocumentBody): {
 		ElementNode: {
 			name: html,
@@ -9,6 +10,16 @@ Document: {
 					name: head,
 					type: Normal,
 					children: [
+						ElementNode: {
+							name: title,
+							type: Normal,
+							children: [
+								TextNode: {
+									textValue: Sample,
+								}
+							],
+							attributes: [],
+						},
 					],
 					attributes: [],
 				},
@@ -17,10 +28,48 @@ Document: {
 					type: Normal,
 					children: [
 						ElementNode: {
-							name: a,
+							name: input,
+							type: SelfClosed,
+							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "myTestInput",
+								},
+								AttributeNode: {
+									attribute: type,
+									value: "text",
+								},
+								Directive: {
+									type: cp-model,
+									value(ReferenceExpression): {
+										reference: myTest,
+									},
+								},
+								AttributeNode: {
+									attribute: value,
+									value: "myTestInputValue",
+								}
+							],
+						},
+						ElementNode: {
+							name: div,
 							type: Normal,
-							children: [],
-							attributes: [],
+							children: [
+								TextNode: {
+									textValue: My Text is: ,
+								},
+								MustachNode: {
+									Exp(ReferenceExpression): {
+										reference: myTest,
+									},
+								},
+							],
+							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "myTestDiv",
+								}
+							],
 						},
 					],
 					attributes: [],
@@ -30,10 +79,24 @@ Document: {
 				Directive: {
 					type: cp-app,
 					value(ReferenceExpression): {
-						reference: dd,
+						reference: texting,
 					},
 				}
 			],
+		},,
+		CommentNode: {
+			comment: <!-- it's already there -->,
+			type: Normal,
+		},,
+		ScriptNode: {
+			content: <script>
+		    function forthyear (){
+		        this.myTest = "HI MAn";
+		    };
+		
+		    var forthyear = new forthyear();
+		
+		</script>,
 		},
 	},
 }

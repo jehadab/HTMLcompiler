@@ -3,12 +3,11 @@ package CodeGeneration;
 import java.io.*;
 
 public class codegeneration {
-String htmlfile="";
-String generatedfile ="";
-public void  created_generated_file(String htmlfile_path, String generatedfile_path) throws IOException {
-
-    File source = new File(htmlfile_path);
-    File  dest = new File(generatedfile_path);
+ public String generatedfile ="";
+ public  String cpapp_value="";
+    public   void  created_generated_file(String htmlfile_path, String generatedfile_path) throws IOException {
+        File source = new File(htmlfile_path);
+        File  dest = new File(generatedfile_path);
 
         FileInputStream in = new FileInputStream(source);
         FileOutputStream out = new FileOutputStream(dest);
@@ -40,25 +39,31 @@ public void  created_generated_file(String htmlfile_path, String generatedfile_p
         }
         System.out.println("File Copied");
     }
-//    public void write(String text ){
-//        try {
-//            FileWriter myWriter = new FileWriter(generatedfile_path,true);
-//            myWriter.write(text);
-////                                    myWriter.printf("%s\r\n", "NEWLINE");
-////                                    myWriter.write( s);   //new line
-//
-//
-//
-//
-//            System.out.println(Main.BLUE_UNDERLINED+workingDirectory+"\\"+"gc"+"\\"+name+".java"+"  "+ Main.ANSI_RESET);
-//
-//
-//
-//            myWriter.close();
-//            System.out.println("Successfully wrote to the file.");
-//        } catch (IOException e) {
-//            System.out.println("An error occurred.");
-//            e.printStackTrace();
-//
-//        }
+public void write_on_file(String text,  String filename ){
+
+    try{
+        FileWriter fstream = new FileWriter(generatedfile,true);
+        BufferedWriter out = new BufferedWriter(fstream);
+//        out.write(text+"\n");
+        out.write(text);
+        out.close();
+    }catch (Exception e){
+        System.err.println("Error while writing to file: " +
+                e.getMessage());
+    }
+
+}
+public void code_generation_cpmodel(String id , String cp_modelvalue){
+
+    write_on_file("\n",generatedfile);
+ write_on_file("<script>"+"\n",generatedfile);
+ write_on_file("document.getElementById",generatedfile);
+ write_on_file("("+id+")"+"."+"addEventListener"+"("+'"'+"input"+'"'+","+"function"+
+         "("+"event"+")"+"{"+"\n"+cpapp_value+"."+cp_modelvalue+"="+"event"+"."+"value"+"\n"+
+         "}"+")"+";"+"</script>"
+
+         ,generatedfile);
+
+}
+//"\"Hello\""
 }

@@ -1,9 +1,27 @@
-<html cp-app ="dd">
-<head>
 
+<html cp-app="texting">
+
+<head >
+    <title>Sample</title>
 </head>
+
 <body>
-<a ></a>
+
+<input id="myTestInput" type="text" cp-model="myTest" value="myTestInputValue" />
+<div id="myTestDiv">My Text is: {{myTest}}
+
+
+</div>
 
 </body>
 </html>
+
+<!-- it's already there -->
+<script>
+    function forthyear (){
+        this.myTest = "HI MAn";
+    };
+
+    var forthyear = new forthyear();
+
+</script>
