@@ -33,7 +33,7 @@ Document: {
 							attributes: [
 								AttributeNode: {
 									attribute: id,
-									value: "my",
+									value: "mytest",
 								},
 								AttributeNode: {
 									attribute: type,
@@ -41,8 +41,13 @@ Document: {
 								},
 								Directive: {
 									type: cp-model,
-									value(ReferenceExpression): {
-										reference: myTest,
+									value(AccessExpression): {
+										object(ReferenceExpression): {
+											reference: myTest,
+										},
+										method(AccessByProperty): {
+											property: l,
+										},
 									},
 								},
 								AttributeNode: {
@@ -56,11 +61,11 @@ Document: {
 							type: Normal,
 							children: [
 								TextNode: {
-									textValue: My Text is: ,
+									textValue: inside text here :,
 								},
 								MustachNode: {
 									Exp(ReferenceExpression): {
-										reference: myTest,
+										reference: x,
 									},
 								}
 							],
@@ -68,90 +73,6 @@ Document: {
 								AttributeNode: {
 									attribute: id,
 									value: "myTestDiv",
-								}
-							],
-						},
-						ElementNode: {
-							name: div,
-							type: Normal,
-							children: [
-								TextNode: {
-									textValue: My Text is: ,
-								},
-								MustachNode: {
-									Exp(ReferenceExpression): {
-										reference: myTest,
-									},
-								}
-							],
-							attributes: [
-								AttributeNode: {
-									attribute: id,
-									value: "myTestDiv2",
-								}
-							],
-						},
-						ElementNode: {
-							name: div,
-							type: Normal,
-							children: [
-								TextNode: {
-									textValue: My Text is: ,
-								},
-								MustachNode: {
-									Exp(ReferenceExpression): {
-										reference: myTest,
-									},
-								}
-							],
-							attributes: [
-								AttributeNode: {
-									attribute: id,
-									value: "myTestDiv3",
-								}
-							],
-						},
-						ElementNode: {
-							name: input,
-							type: SelfClosed,
-							attributes: [
-								AttributeNode: {
-									attribute: id,
-									value: "ny",
-								},
-								AttributeNode: {
-									attribute: type,
-									value: "text",
-								},
-								Directive: {
-									type: cp-model,
-									value(ReferenceExpression): {
-										reference: myTest1,
-									},
-								},
-								AttributeNode: {
-									attribute: value,
-									value: "myTestInputValue",
-								}
-							],
-						},
-						ElementNode: {
-							name: div,
-							type: Normal,
-							children: [
-								TextNode: {
-									textValue: My Text is: ,
-								},
-								MustachNode: {
-									Exp(ReferenceExpression): {
-										reference: myTest1,
-									},
-								}
-							],
-							attributes: [
-								AttributeNode: {
-									attribute: id,
-									value: "myTestDiv4",
 								}
 							],
 						},
@@ -175,8 +96,9 @@ Document: {
 		ScriptNode: {
 			content: <script>
 		    function forthyear (){
+		         // var myTest = {var1:"himan"};
 		        this.myTest = "HI MAn";
-		        this.myTest1 = "HI";
+		
 		    };
 		
 		    var forthyear = new forthyear();

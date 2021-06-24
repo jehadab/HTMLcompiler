@@ -50,6 +50,7 @@ import models.expression.Expression;
 import models.expression.ValueExpression;
 import models.nodes.*;
 import models.statements.*;
+import models.util.Formatter;
 
 public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
@@ -317,9 +318,12 @@ generation_object.generatedfile=Result_File;
             if(ctx.getChild(index) instanceof  MustacheContext)
             {
                 Element="Mustach";
+
             }
-            if (ctx.getChild(index) instanceof NodeContext || ctx.getChild(index) instanceof MustacheContext)
+            if (ctx.getChild(index) instanceof NodeContext || ctx.getChild(index) instanceof MustacheContext) {
                 contents.add(visit(ctx.getChild(index)));
+
+            }
             else
                 contents.add(new TextNode(ctx.getChild(index).getText()));
 
@@ -531,12 +535,7 @@ generation_object.generatedfile=Result_File;
                     contents = getContent((ElementContentContext) ctx.getChild(4));
                 if (switchElement)
                     switchExists.pop();
-                for(int i=0;i<contents.size();i++)
-                {
 
-                    System.out.println("ithe elemnt s textnode"+contents.get(i).toString());
-
-                }
                 ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]), contents.toArray(new DocumentNode[contents.size()]));
 
 
@@ -552,7 +551,14 @@ generation_object.generatedfile=Result_File;
 
                     }
                 }
-
+            for(int i=0;i<contents.size();i++)
+            {
+                if(contents.get(i) instanceof  MustachNode)
+                {
+                    System.out.println("pritn here"+text_node_value);
+                    generation_object.code_generation_mustach(Element_id_Value,text_node_value,Element_mustach_value);
+                }
+            }
                 a_tag = false;
                 return element;
             }
@@ -571,10 +577,12 @@ generation_object.generatedfile=Result_File;
 
                             if (Directirv_name.equals("cp-model")) {
                                 System.out.println("number of time we get in here");
-                                if(Element_id_Value.equals("noid"))
-                                {
-                                    Element_id_Value='"'+Element_Directive_Value+hashCode()+'"';
-                                }
+//                                if(Element_id_Value.equals("noid"))
+//                                {
+//                                    Element_id_Value='"'+Element_Directive_Value+hashCode()+'"';
+//                                }
+
+
                                 generation_object.code_generation_cpmodel(Element_id_Value, Element_Directive_Value);
 
                             }
@@ -645,11 +653,11 @@ generation_object.generatedfile=Result_File;
         }
         is_herf=false;
 
-
                 return attributes;
             }
 
-            @Override
+
+    @Override
             public AbstractASTNode visitAttributeNode (AttributeNodeContext ctx){
 
                 String name = ctx.getChild(0).getText();
@@ -708,6 +716,11 @@ generation_object.generatedfile=Result_File;
     }
 public void get_text_node_value(String textnode){
     text_node_value=textnode;
+}
+public void generat_id_value(){
+        String name ="id";
+        String value="";
+
 }
         }
 

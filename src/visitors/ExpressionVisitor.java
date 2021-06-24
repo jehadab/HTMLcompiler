@@ -300,8 +300,8 @@ public class ExpressionVisitor extends Visitor<Expression>{
 //
 //			}
 			semanticCheck.isVariableExist(symbole.getName(),DocumentVisitor.scopesStack.peek());
-
-			generation_object.code_generation_mustach(Element_id_Value,text_node_value,ctx.getChild(0).getText());
+            Element_mustach_value=ctx.getChild(0).getText();
+//			generation_object.code_generation_mustach(Element_id_Value,text_node_value,ctx.getChild(0).getText());
 
         }
         if(Element.equals("Directive") )
@@ -324,6 +324,19 @@ public class ExpressionVisitor extends Visitor<Expression>{
 	public Expression visitAccess(AccessContext ctx) {
 		Expression object = visit(ctx.getChild(0));
 		AccessMethod method = (AccessMethod) visit(ctx.getChild(1));
+
+//		System.out.println(" print in the acess property "+ctx.getChild(0).getText());
+//		System.out.println(" print in the acess property "+ctx.getChild(1).getText());
+//		System.out.println(" print in the acess property "+ctx.getChild(0).getText()+ctx.getChild(1).getText());
+
+			Element_Directive_Value=ctx.getChild(0).getText()+ctx.getChild(1).getText();
+		   Element_mustach_value=ctx.getChild(0).getText()+ctx.getChild(1).getText();
+//		if(Element.equals("Mustach"))
+//		{
+//
+//			generation_object.code_generation_mustach(Element_id_Value,text_node_value,ctx.getChild(0).getText()+ctx.getChild(1).getText());
+//		}
+
 		return new AccessExpression(object, method);
 	}
 

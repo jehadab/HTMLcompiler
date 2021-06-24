@@ -72,7 +72,7 @@ public void code_generation_cpmodel(String id , String cp_modelvalue){
 }
 public void code_generation_mustach(String id , String default_text, String inside_mustach)
 {
-    System.out.println("what we have inside the mustach "+inside_mustach);
+    System.out.println("what we have inside the mustach "+default_text);
     write_on_file("\n",generatedfile);
     write_on_file("<script>"+"\n",generatedfile);
 //    write_on_file("mustaches = [];",generatedfile);
@@ -80,15 +80,15 @@ public void code_generation_mustach(String id , String default_text, String insi
     write_on_file("var myTestChanges =",generatedfile);
     write_on_file("function (event) {",generatedfile);
     write_on_file("\n",generatedfile);
-    write_on_file(" var defaultText = ",generatedfile);
-    write_on_file('"'+default_text+"{{"+inside_mustach+"}}"+'"'+";",generatedfile);
-
+    write_on_file("var defaultText=",generatedfile);
+    write_on_file('"'+default_text+"{{",generatedfile);
+    write_on_file(inside_mustach+"}}"+'"'+";",generatedfile);
     write_on_file("\n",generatedfile);
     write_on_file("document.getElementById("+id+")"+"."+"innerHTML = defaultText.replace("
-
     +'"'+"{{"+inside_mustach+"}}"+'"'+","+cpapp_value+"."+inside_mustach+");" ,generatedfile);
     write_on_file("\n",generatedfile);
     write_on_file("};",generatedfile);
+    write_on_file("\n",generatedfile);
     write_on_file(" mustaches.push(myTestChanges);",generatedfile);
     write_on_file("\n",generatedfile);
     write_on_file("function render(){",generatedfile);

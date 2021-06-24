@@ -7,20 +7,18 @@
 
 <body>
 
-<input id="my" type="text" cp-model="myTest" value="myTestInputValue" />
-<div id="myTestDiv">My Text is: {{myTest}}</div>
-<div id="myTestDiv2">My Text is: {{myTest}}</div>
-<div id="myTestDiv3">My Text is: {{myTest}}</div>
-<input id="ny" type="text" cp-model="myTest1" value="myTestInputValue" />
-<div id="myTestDiv4">My Text is: {{myTest1}}</div>
+<input id="mytest"  type="text" cp-model="myTest.l" value="myTestInputValue" />
+<div id="myTestDiv">inside text here :{{x}}</div>
+
 </body>
 </html>
 
 <!-- it's already there -->
 <script>
     function forthyear (){
+         // var myTest = {var1:"himan"};
         this.myTest = "HI MAn";
-        this.myTest1 = "HI";
+
     };
 
     var forthyear = new forthyear();
