@@ -32,6 +32,10 @@ Document: {
 							type: SelfClosed,
 							attributes: [
 								AttributeNode: {
+									attribute: id,
+									value: "my",
+								},
+								AttributeNode: {
 									attribute: type,
 									value: "text",
 								},
@@ -58,7 +62,7 @@ Document: {
 									Exp(ReferenceExpression): {
 										reference: myTest,
 									},
-								},
+								}
 							],
 							attributes: [
 								AttributeNode: {
@@ -75,7 +79,7 @@ Document: {
 				Directive: {
 					type: cp-app,
 					value(ReferenceExpression): {
-						reference: texting,
+						reference: forthyear,
 					},
 				}
 			],

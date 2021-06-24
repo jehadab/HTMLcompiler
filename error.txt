@@ -1,1 +1,4 @@
-<script>
+<script>erro in line:2  obj  is declerated before in the before
+erro in line:2  obj  is declerated before in the before
+erro in line:2  obj  is declerated before in the before
+erro in line:2  obj  is declerated before in the before

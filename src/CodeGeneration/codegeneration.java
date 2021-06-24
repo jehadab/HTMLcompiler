@@ -57,12 +57,55 @@ public void code_generation_cpmodel(String id , String cp_modelvalue){
 
     write_on_file("\n",generatedfile);
  write_on_file("<script>"+"\n",generatedfile);
+    write_on_file("\n",generatedfile);
+    write_on_file("document.getElementById(",generatedfile);
+    write_on_file(id+").value="+cpapp_value+"."+cp_modelvalue+";",generatedfile);
+    write_on_file("\n",generatedfile);
  write_on_file("document.getElementById",generatedfile);
  write_on_file("("+id+")"+"."+"addEventListener"+"("+'"'+"input"+'"'+","+"function"+
-         "("+"event"+")"+"{"+"\n"+cpapp_value+"."+cp_modelvalue+"="+"event"+"."+"value"+"\n"+
+         "("+"event"+")"+"{"+"\n"+cpapp_value+"."+cp_modelvalue+"="+"document.getElementById("+id+")"
+                 +".value;"+"\n"+
          "}"+")"+";"+"</script>"
 
          ,generatedfile);
+
+}
+public void code_generation_mustach(String id , String default_text, String inside_mustach)
+{
+    System.out.println("what we have inside the mustach "+inside_mustach);
+    write_on_file("\n",generatedfile);
+    write_on_file("<script>"+"\n",generatedfile);
+    write_on_file("mustaches = [];",generatedfile);
+    write_on_file("\n",generatedfile);
+    write_on_file("var myTestChanges =",generatedfile);
+    write_on_file("function (event) {",generatedfile);
+    write_on_file("\n",generatedfile);
+    write_on_file(" var defaultText = ",generatedfile);
+    write_on_file('"'+default_text+"{{"+inside_mustach+"}}"+'"'+";",generatedfile);
+
+    write_on_file("\n",generatedfile);
+    write_on_file("document.getElementById("+id+")"+"."+"innerHTML = defaultText.replace("
+
+    +'"'+"{{"+inside_mustach+"}}"+'"'+","+cpapp_value+"."+inside_mustach+");" ,generatedfile);
+    write_on_file("\n",generatedfile);
+    write_on_file("};",generatedfile);
+    write_on_file(" mustaches.push(myTestChanges);",generatedfile);
+    write_on_file("\n",generatedfile);
+    write_on_file("function render(){",generatedfile);
+    write_on_file("\n",generatedfile);
+    write_on_file("setInterval(() => {",generatedfile);
+    write_on_file("\n",generatedfile);
+    write_on_file("for(var i=0 ; i<mustaches.length; i++){",generatedfile);
+    write_on_file("\n",generatedfile);
+    write_on_file("mustaches[i]();",generatedfile);
+    write_on_file("\n",generatedfile);
+    write_on_file("}",generatedfile);
+    write_on_file("\n",generatedfile);
+    write_on_file("},1000);",generatedfile);
+    write_on_file("\n",generatedfile);
+    write_on_file("}",generatedfile);
+    write_on_file("render();",generatedfile);
+    write_on_file("</script>",generatedfile);
 
 }
 

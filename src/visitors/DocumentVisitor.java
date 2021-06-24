@@ -530,6 +530,12 @@ generation_object.generatedfile=Result_File;
                     contents = getContent((ElementContentContext) ctx.getChild(4));
                 if (switchElement)
                     switchExists.pop();
+                for(int i=0;i<contents.size();i++)
+                {
+
+                    System.out.println("ithe elemnt s textnode"+contents.get(i).toString());
+
+                }
                 ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]), contents.toArray(new DocumentNode[contents.size()]));
 
 
@@ -581,7 +587,10 @@ generation_object.generatedfile=Result_File;
             }
 
             @Override
-            public AbstractASTNode visitTextNode (TextNodeContext ctx){
+            public AbstractASTNode visitTextNode (TextNodeContext ctx)
+            {
+//                System.out.println("the text node is "+ctx.getText());
+                get_text_node_value(ctx.getText());
                 return new TextNode(ctx.getText());
             }
 
@@ -672,9 +681,10 @@ generation_object.generatedfile=Result_File;
                 MustachNode mustache;
                 if (ctx.getChildCount() > 2) {
                     mustache = new MustachNode(expressionVisitor.visit(ctx.getChild(1)));
-
+//                    System.out.println(" print in the mustach "+mustache);
 
                 } else
+
                     mustache = new MustachNode();
                 return mustache;
             }
@@ -695,7 +705,9 @@ generation_object.generatedfile=Result_File;
             public void get_Element_id_value(String id_value){
                 Element_id_Value=id_value;
     }
-
+public void get_text_node_value(String textnode){
+    text_node_value=textnode;
+}
         }
 
 

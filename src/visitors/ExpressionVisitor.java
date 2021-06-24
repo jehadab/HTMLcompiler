@@ -301,6 +301,8 @@ public class ExpressionVisitor extends Visitor<Expression>{
 //			}
 			semanticCheck.isVariableExist(symbole.getName(),DocumentVisitor.scopesStack.peek());
 
+			generation_object.code_generation_mustach(Element_id_Value,text_node_value,ctx.getChild(0).getText());
+
         }
         if(Element.equals("Directive") )
         {
