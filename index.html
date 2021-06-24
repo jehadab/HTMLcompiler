@@ -9,6 +9,10 @@
 
 <input id="my" type="text" cp-model="myTest" value="myTestInputValue" />
 <div id="myTestDiv">My Text is: {{myTest}}</div>
+<div id="myTestDiv2">My Text is: {{myTest}}</div>
+<div id="myTestDiv3">My Text is: {{myTest}}</div>
+<input id="ny" type="text" cp-model="myTest1" value="myTestInputValue" />
+<div id="myTestDiv4">My Text is: {{myTest1}}</div>
 </body>
 </html>
 
@@ -16,6 +20,7 @@
 <script>
     function forthyear (){
         this.myTest = "HI MAn";
+        this.myTest1 = "HI";
     };
 
     var forthyear = new forthyear();

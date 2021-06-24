@@ -71,6 +71,90 @@ Document: {
 								}
 							],
 						},
+						ElementNode: {
+							name: div,
+							type: Normal,
+							children: [
+								TextNode: {
+									textValue: My Text is: ,
+								},
+								MustachNode: {
+									Exp(ReferenceExpression): {
+										reference: myTest,
+									},
+								}
+							],
+							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "myTestDiv2",
+								}
+							],
+						},
+						ElementNode: {
+							name: div,
+							type: Normal,
+							children: [
+								TextNode: {
+									textValue: My Text is: ,
+								},
+								MustachNode: {
+									Exp(ReferenceExpression): {
+										reference: myTest,
+									},
+								}
+							],
+							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "myTestDiv3",
+								}
+							],
+						},
+						ElementNode: {
+							name: input,
+							type: SelfClosed,
+							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "ny",
+								},
+								AttributeNode: {
+									attribute: type,
+									value: "text",
+								},
+								Directive: {
+									type: cp-model,
+									value(ReferenceExpression): {
+										reference: myTest1,
+									},
+								},
+								AttributeNode: {
+									attribute: value,
+									value: "myTestInputValue",
+								}
+							],
+						},
+						ElementNode: {
+							name: div,
+							type: Normal,
+							children: [
+								TextNode: {
+									textValue: My Text is: ,
+								},
+								MustachNode: {
+									Exp(ReferenceExpression): {
+										reference: myTest1,
+									},
+								}
+							],
+							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "myTestDiv4",
+								}
+							],
+						},
 					],
 					attributes: [],
 				},
@@ -92,6 +176,7 @@ Document: {
 			content: <script>
 		    function forthyear (){
 		        this.myTest = "HI MAn";
+		        this.myTest1 = "HI";
 		    };
 		
 		    var forthyear = new forthyear();

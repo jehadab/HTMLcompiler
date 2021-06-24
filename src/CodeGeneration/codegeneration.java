@@ -75,7 +75,7 @@ public void code_generation_mustach(String id , String default_text, String insi
     System.out.println("what we have inside the mustach "+inside_mustach);
     write_on_file("\n",generatedfile);
     write_on_file("<script>"+"\n",generatedfile);
-    write_on_file("mustaches = [];",generatedfile);
+//    write_on_file("mustaches = [];",generatedfile);
     write_on_file("\n",generatedfile);
     write_on_file("var myTestChanges =",generatedfile);
     write_on_file("function (event) {",generatedfile);
@@ -93,7 +93,7 @@ public void code_generation_mustach(String id , String default_text, String insi
     write_on_file("\n",generatedfile);
     write_on_file("function render(){",generatedfile);
     write_on_file("\n",generatedfile);
-    write_on_file("setInterval(() => {",generatedfile);
+    write_on_file("setInterval( function (){",generatedfile);
     write_on_file("\n",generatedfile);
     write_on_file("for(var i=0 ; i<mustaches.length; i++){",generatedfile);
     write_on_file("\n",generatedfile);
@@ -107,6 +107,13 @@ public void code_generation_mustach(String id , String default_text, String insi
     write_on_file("render();",generatedfile);
     write_on_file("</script>",generatedfile);
 
+}
+public void  code_generation_arrayof_changes(){
+    write_on_file("\n",generatedfile);
+    write_on_file("<script>",generatedfile);
+    write_on_file("\n",generatedfile);
+    write_on_file("mustaches = [];",generatedfile);
+    write_on_file("</script>",generatedfile);
 }
 
 }

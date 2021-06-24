@@ -77,6 +77,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 generation_object.generatedfile=Result_File;
         try {
             generation_object.created_generated_file("index.html", "result.html");
+            generation_object.code_generation_arrayof_changes();
         } catch (IOException e) {
             e.printStackTrace();
         }
