@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Stack;
 
 
+import CodeGeneration.DefaultText;
 import CodeGeneration.codegeneration;
 import SymboleTable.Id;
 import SymboleTable.Scope;
@@ -57,7 +58,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
     protected static Stack<Boolean> switchExists;
      public static Stack<Scope> scopesStack = new Stack<>();
     public static Stack<Tag> tagsStack = new Stack<>();
-
+public static ArrayList<DefaultText> default_text = new ArrayList<>();
     public DocumentVisitor() {
         if (switchExists == null)
             switchExists = new Stack<Boolean>();
@@ -313,19 +314,22 @@ generation_object.generatedfile=Result_File;
     }
 
     public List<AbstractASTNode> getContent(ElementContentContext ctx) {
+
         List<AbstractASTNode> contents = new ArrayList<AbstractASTNode>();
         for (int index = 0; index < ctx.getChildCount(); index++) {
+
             if(ctx.getChild(index) instanceof  MustacheContext)
             {
                 Element="Mustach";
-
             }
             if (ctx.getChild(index) instanceof NodeContext || ctx.getChild(index) instanceof MustacheContext) {
                 contents.add(visit(ctx.getChild(index)));
 
             }
+
             else
                 contents.add(new TextNode(ctx.getChild(index).getText()));
+
 
         }
 
@@ -374,6 +378,7 @@ generation_object.generatedfile=Result_File;
 
     @Override
     public AbstractASTNode visitNormalElement(NormalElementContext ctx) {
+
         int ElementDirective_counter = 0;
         boolean isElementDirective = false;
         ElementDirective_number = 0;
@@ -551,14 +556,11 @@ generation_object.generatedfile=Result_File;
 
                     }
                 }
-            for(int i=0;i<contents.size();i++)
-            {
-                if(contents.get(i) instanceof  MustachNode)
-                {
-                    System.out.println("pritn here"+text_node_value);
-                    generation_object.code_generation_mustach(Element_id_Value,text_node_value,Element_mustach_value);
-                }
-            }
+
+
+           generation_object.create_default_text(default_text,Element_id_Value);
+          default_text.clear();
+
                 a_tag = false;
                 return element;
             }
@@ -576,7 +578,7 @@ generation_object.generatedfile=Result_File;
                             Directirv_name = ((Directive) attributes.get(i)).getName();
 
                             if (Directirv_name.equals("cp-model")) {
-                                System.out.println("number of time we get in here");
+
 //                                if(Element_id_Value.equals("noid"))
 //                                {
 //                                    Element_id_Value='"'+Element_Directive_Value+hashCode()+'"';
@@ -592,14 +594,20 @@ generation_object.generatedfile=Result_File;
 
 
                 ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]));
+
                 return element;
             }
 
             @Override
             public AbstractASTNode visitTextNode (TextNodeContext ctx)
             {
-//                System.out.println("the text node is "+ctx.getText());
-                get_text_node_value(ctx.getText());
+
+                if(!ctx.getText().startsWith("\r"))
+                {
+                    DefaultText defaultText = new DefaultText("text",ctx.getText());
+                    default_text.add(defaultText);
+                }
+
                 return new TextNode(ctx.getText());
             }
 
@@ -691,7 +699,6 @@ generation_object.generatedfile=Result_File;
                 if (ctx.getChildCount() > 2) {
                     mustache = new MustachNode(expressionVisitor.visit(ctx.getChild(1)));
 //                    System.out.println(" print in the mustach "+mustache);
-
                 } else
 
                     mustache = new MustachNode();

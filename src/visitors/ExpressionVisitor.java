@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import CodeGeneration.DefaultText;
 import CodeGeneration.codegeneration;
 
 import SymboleTable.Scope;
@@ -85,6 +86,8 @@ import models.expression.value.reference.AccessMethod;
 import models.expression.value.reference.ReferenceExpression;
 import models.nodes.MustachNode;
 import org.antlr.runtime.tree.ParseTree;
+
+import static visitors.DocumentVisitor.default_text;
 
 public class ExpressionVisitor extends Visitor<Expression>{
 
@@ -272,7 +275,10 @@ public class ExpressionVisitor extends Visitor<Expression>{
 //        System.out.println(" pritn the varaibel here   :"+ctx.getChild(0).getText() );
 //		codegeneration code = new codegeneration();
 //		code.cpapp_value=ctx.getChild(0).getText();
-        get_Directive_value((ctx.getChild(0).getText()));
+
+//		System.out.println("print the father "+ctx.parent.getClass().getName()+   "for the node      "+ctx.getChild(0).getText());
+
+
         if(Element.equals("Mustach") && pipElement== true)
         {
             if(ctx.getChild(0).getText().equals("currency"))
@@ -289,7 +295,16 @@ public class ExpressionVisitor extends Visitor<Expression>{
         }
         if(Element.equals("Mustach")) {
 
-            Symbole symbole = new Symbole(ctx.getChild(0).getText());
+			if(ctx.parent.getClass().getName().equals("misc.HTMLParser$ExpContext"))
+			{
+//				Element_mustach_value=ctx.getChild(0).getText();
+
+//				generation_object.code_generation_mustach(Element_id_Value," this is :",Element_mustach_value);
+                DefaultText defaultText= new DefaultText("mustach",ctx.getChild(0).getText());
+                default_text.add(defaultText);
+			}
+
+			Symbole symbole = new Symbole(ctx.getChild(0).getText());
             Scope SymboleScope = new Scope();
             SymboleScope = DocumentVisitor.scopesStack.peek();
             symbole.setSymbole_scope(SymboleScope);
@@ -300,21 +315,22 @@ public class ExpressionVisitor extends Visitor<Expression>{
 //
 //			}
 			semanticCheck.isVariableExist(symbole.getName(),DocumentVisitor.scopesStack.peek());
-            Element_mustach_value=ctx.getChild(0).getText();
-//			generation_object.code_generation_mustach(Element_id_Value,text_node_value,ctx.getChild(0).getText());
+
 
         }
         if(Element.equals("Directive") )
         {
+
 			if(!Element_Directive_name.equals("cp-model"))
 			{
+
 				if(ElementDirective_number==1)
 					store_symbole_scope(ctx.getChild(0).getText() , DocumentVisitor.scopesStack.peek().getParent());
 			}
 			else {
 				store_symbole_scope(ctx.getChild(0).getText() , DocumentVisitor.scopesStack.peek());
 			}
-
+			get_Directive_value((ctx.getChild(0).getText()));
 
         }
 		return new ReferenceExpression(ctx.getChild(0).getText());
@@ -324,18 +340,15 @@ public class ExpressionVisitor extends Visitor<Expression>{
 	public Expression visitAccess(AccessContext ctx) {
 		Expression object = visit(ctx.getChild(0));
 		AccessMethod method = (AccessMethod) visit(ctx.getChild(1));
-
-//		System.out.println(" print in the acess property "+ctx.getChild(0).getText());
-//		System.out.println(" print in the acess property "+ctx.getChild(1).getText());
-//		System.out.println(" print in the acess property "+ctx.getChild(0).getText()+ctx.getChild(1).getText());
-
 			Element_Directive_Value=ctx.getChild(0).getText()+ctx.getChild(1).getText();
-		   Element_mustach_value=ctx.getChild(0).getText()+ctx.getChild(1).getText();
-//		if(Element.equals("Mustach"))
-//		{
-//
-//			generation_object.code_generation_mustach(Element_id_Value,text_node_value,ctx.getChild(0).getText()+ctx.getChild(1).getText());
-//		}
+//		   Element_mustach_value=ctx.getChild(0).getText()+ctx.getChild(1).getText();
+		if(Element.equals("Mustach"))
+		{
+            DefaultText defaulttext = new DefaultText("mustach",ctx.getChild(0).getText()+ctx.getChild(1).getText());
+            default_text.add(defaulttext);
+
+            //			generation_object.code_generation_mustach(Element_id_Value,"text_node_value",ctx.getChild(0).getText()+ctx.getChild(1).getText());
+		}
 
 		return new AccessExpression(object, method);
 	}

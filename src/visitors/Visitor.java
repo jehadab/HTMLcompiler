@@ -29,7 +29,7 @@ public class Visitor<T> extends HTMLParserBaseVisitor<T> {
 	static   public String filter_method="";
 	static public String  Element_Directive_Value="";
 	static public String  Element_id_Value="noid";
-	static  public String text_node_value="notext";
+	static  public String text_node_value="";
 	 static public String Element_mustach_value="";
 
 	public static void showSymboleTable() {

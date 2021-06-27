@@ -1,26 +1,27 @@
-
+<!DOCTYPE html>
 <html cp-app="forthyear">
 
-<head >
+<head>
     <title>Sample</title>
 </head>
 
 <body>
 
-<input id="mytest"  type="text" cp-model="myTest.l" value="myTestInputValue" />
-<div id="myTestDiv">inside text here :{{x}}</div>
-
-</body>
-</html>
+<input id="myTestInput" type="text" cp-model="x.var1[1]" value="myTestInputValue" />
+<input id="myTestInput1" type="text" cp-model="myTest" value="myTestInputValue" />
+<div id="myTestDiv">My Text is: {{myTest}} {{myTest}} </div>
 
 <!-- it's already there -->
+</body>
+
+</html>
 <script>
     function forthyear (){
-         // var myTest = {var1:"himan"};
         this.myTest = "HI MAn";
-
+        this.x = { var1: [1,2], var2: "V2", var3: "V3", var4: "V4" };
     };
 
     var forthyear = new forthyear();
 
 </script>
+

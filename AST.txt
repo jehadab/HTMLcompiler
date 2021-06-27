@@ -1,5 +1,8 @@
 Document: {
-	header(DocumentHeader): {,
+	header(DocumentHeader): {
+		TextNode: {
+			textValue: <!DOCTYPE html>,
+		},,
 	},
 	body(DocumentBody): {
 		ElementNode: {
@@ -33,7 +36,7 @@ Document: {
 							attributes: [
 								AttributeNode: {
 									attribute: id,
-									value: "mytest",
+									value: "myTestInput",
 								},
 								AttributeNode: {
 									attribute: type,
@@ -43,11 +46,40 @@ Document: {
 									type: cp-model,
 									value(AccessExpression): {
 										object(ReferenceExpression): {
-											reference: myTest,
+											reference: x,
 										},
 										method(AccessByProperty): {
-											property: l,
+											property: var1,
+											method(AccessByIndex): {
+												index(NumberLiteral): {
+													value: 1.0,
+												},
+											},
 										},
+									},
+								},
+								AttributeNode: {
+									attribute: value,
+									value: "myTestInputValue",
+								}
+							],
+						},
+						ElementNode: {
+							name: input,
+							type: SelfClosed,
+							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "myTestInput1",
+								},
+								AttributeNode: {
+									attribute: type,
+									value: "text",
+								},
+								Directive: {
+									type: cp-model,
+									value(ReferenceExpression): {
+										reference: myTest,
 									},
 								},
 								AttributeNode: {
@@ -61,13 +93,18 @@ Document: {
 							type: Normal,
 							children: [
 								TextNode: {
-									textValue: inside text here :,
+									textValue: My Text is: ,
 								},
 								MustachNode: {
 									Exp(ReferenceExpression): {
-										reference: x,
+										reference: myTest,
 									},
-								}
+								},
+								MustachNode: {
+									Exp(ReferenceExpression): {
+										reference: myTest,
+									},
+								},
 							],
 							attributes: [
 								AttributeNode: {
@@ -75,6 +112,10 @@ Document: {
 									value: "myTestDiv",
 								}
 							],
+						},
+						CommentNode: {
+							comment: <!-- it's already there -->,
+							type: Normal,
 						},
 					],
 					attributes: [],
@@ -89,21 +130,16 @@ Document: {
 				}
 			],
 		},,
-		CommentNode: {
-			comment: <!-- it's already there -->,
-			type: Normal,
-		},,
 		ScriptNode: {
 			content: <script>
 		    function forthyear (){
-		         // var myTest = {var1:"himan"};
 		        this.myTest = "HI MAn";
-		
+		        this.x = { var1: [1,2], var2: "V2", var3: "V3", var4: "V4" };
 		    };
 		
 		    var forthyear = new forthyear();
 		
 		</script>,
-		},
+		},,
 	},
 }
