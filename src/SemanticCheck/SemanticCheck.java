@@ -58,8 +58,6 @@ public class SemanticCheck {
                 }
             }
         }
-        for ( Scope scope : getScopeFatherList(currentScope)){
-        }
         return _isVariableFound;
     }
     private ArrayList<Scope> getScopeFatherList(Scope scope){

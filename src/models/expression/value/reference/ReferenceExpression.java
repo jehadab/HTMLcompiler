@@ -20,5 +20,8 @@ public class ReferenceExpression extends ValueExpression {
 	protected Formatter nodeValue(Formatter formatter) {
 		return formatter.addProperty("reference", name);
 	}
-	
+
+	public String getName() {
+		return name;
+	}
 }

@@ -54,7 +54,7 @@ import models.statements.*;
 public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     protected static Stack<Boolean> switchExists;
-     public static Stack<Scope> scopesStack = new Stack<>();
+    public static Stack<Scope> scopesStack = new Stack<>();
     public static Stack<Tag> tagsStack = new Stack<>();
 
     public DocumentVisitor() {
@@ -74,9 +74,10 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     @Override
     public AbstractASTNode visitDocument(DocumentContext ctx) {
-generation_object.generatedfile=Result_File;
+        generation_object.generatedfile = Result_File;
         try {
             generation_object.created_generated_file("index.html", "result.html");
+            generation_object.code_generation_static();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -87,18 +88,17 @@ generation_object.generatedfile=Result_File;
         tagsStack.push(tag);
         DocumentHeader header = (DocumentHeader) visit(ctx.getChild(0));
         DocumentBody body = (DocumentBody) visit(ctx.getChild(1));
-        if(cppapp_number>1)
-        {
+        if (cppapp_number > 1) {
             try {
 //                FileWriter fstream = new FileWriter("log.txt",true);
 //                BufferedWriter out = new BufferedWriter(fstream);
 //                out.write("Line Added on: " + new java.util.Date()+"\n");
 //                out.close();
-                FileWriter fw = new FileWriter(ErrorFile , true);
+                FileWriter fw = new FileWriter(ErrorFile, true);
                 BufferedWriter error = new BufferedWriter(fw);
 
-                error.write("erro in line:"+""+line_number);
-                error.write("  Nested cp-app is forbidden." );
+                error.write("error in line:" + "" + line_number);
+                error.write("  Nested cp-app is forbidden.");
                 error.newLine();
                 error.close();
 
@@ -111,7 +111,6 @@ generation_object.generatedfile=Result_File;
         showSymboleTable();
         print_symbole_linked_list();
         symboletable.getScopes();
-//        print_linkedlist();
         return new Document(header, body);
     }
 
@@ -153,41 +152,37 @@ generation_object.generatedfile=Result_File;
 
     @Override
     public AbstractASTNode visitExpDirective(ExpDirectiveContext ctx) {
-        Element_Directive_name=ctx.getChild(0).getText();
-       if(!ctx.getChild(0).getText().equals("cp-model")) {
-           ElementDirective_number++;
-           if(ctx.getChild(0).getText().equals("cp-app"))
-               cppapp_number++;
-           line_number=ctx.start.getLine();
-//           if(cppapp_number>1)
-//           {
-//               System.err.println("Nested cp-app is forbidden.");
-//           }
-           if (ElementDirective_number == 1) {
-               Scope scope = new Scope(scopesStack.peek());
-               scope.setId(ctx.getChild(0).getText() + "_" + scope.hashCode());
-               symboletable.addScope(scope);
-               scopesStack.push(scope);
-           }
-       }
+        Element_Directive_name = ctx.getChild(0).getText();
+        if (!ctx.getChild(0).getText().equals("cp-model")) {
+            ElementDirective_number++;
+            if (ctx.getChild(0).getText().equals("cp-app"))
+                cppapp_number++;
 
-        Element="Directive";
+            line_number = ctx.start.getLine();
+            if (ElementDirective_number == 1) {
+                Scope scope = new Scope(scopesStack.peek());
+                scope.setId(ctx.getChild(0).getText() + "_" + scope.hashCode());
+                symboletable.addScope(scope);
+                scopesStack.push(scope);
+            }
+        }
+
+        Element = "Directive";
         AbstractASTNode value = expressionVisitor.visit(ctx.getChild(3));
 
-//        store_symbole_scope(ctx.getChild(3).getText()  , scopesStack.peek().getParent());
-
-        return new Directive(ctx.getChild(0).getText(), value);
+        return new Directive(ctx.getChild(0).getText(), value, ctx.getChild(3).getText());
     }
 
     @Override
     public AbstractASTNode visitStmtDirective(StmtDirectiveContext ctx) {
         if (ctx.getChild(0).getText().equals("cp-for")) {
             ElementDirective_number++;
-            if(ElementDirective_number==1)
-            {Scope scope = new Scope(scopesStack.peek());
-            scope.setId(ctx.getChild(0).getText() + "_" + scope.hashCode());
-            symboletable.addScope(scope);
-            scopesStack.push(scope);}
+            if (ElementDirective_number == 1) {
+                Scope scope = new Scope(scopesStack.peek());
+                scope.setId(ctx.getChild(0).getText() + "_" + scope.hashCode());
+                symboletable.addScope(scope);
+                scopesStack.push(scope);
+            }
 
 
         }
@@ -205,26 +200,26 @@ generation_object.generatedfile=Result_File;
     @Override
     public AbstractASTNode visitArrayLoopRaw(ArrayLoopRawContext ctx) {
 
-        Scope currentScope = scopesStack.peek() ;
+        Scope currentScope = scopesStack.peek();
 
         AbstractASTNode arrayToLoopOn = expressionVisitor.visit(ctx.getChild(2));
         String loopVariable = ctx.getChild(0).getText();
-        line_number=ctx.start.getLine();
-        semanticCheck.isVariableExist(loopVariable , currentScope);
+        line_number = ctx.start.getLine();
+        semanticCheck.isVariableExist(loopVariable, currentScope);
 
         return new ArrayLoopStatement(loopVariable, (ValueExpression) arrayToLoopOn);
     }
 
     @Override
     public AbstractASTNode visitIndexedArrayLoop(IndexedArrayLoopContext ctx) {
-        Element="Directive";
+        Element = "Directive";
         Scope currentScope = scopesStack.peek();
         AbstractASTNode arrayToLoopOn = expressionVisitor.visit(ctx.getChild(2));
         String loopVariable = ctx.getChild(0).getText();
         String indexVariable = ctx.getChild(4).getText();
-        line_number=ctx.start.getLine();
-        semanticCheck.isVariableExist(loopVariable , currentScope);//check loopvar
-        semanticCheck.isVariableExist(indexVariable , currentScope);// check loopindex
+        line_number = ctx.start.getLine();
+        semanticCheck.isVariableExist(loopVariable, currentScope);//check loopvar
+        semanticCheck.isVariableExist(indexVariable, currentScope);// check loopindex
 
 
         return new ArrayLoopStatement(loopVariable, indexVariable, (ValueExpression) arrayToLoopOn);
@@ -247,7 +242,7 @@ generation_object.generatedfile=Result_File;
         AbstractASTNode objectToLoopOn = expressionVisitor.visit(ctx.getChild(4));
         String KeyVariable = ctx.getChild(0).getText();
         String valueVariable = ctx.getChild(2).getText();
-        line_number=ctx.start.getLine();
+        line_number = ctx.start.getLine();
         semanticCheck.isVariableExist(KeyVariable, currentScope);
         semanticCheck.isVariableExist(valueVariable, currentScope);
         return new ObjectLoopStatement(KeyVariable, valueVariable, (ValueExpression) objectToLoopOn);
@@ -255,7 +250,7 @@ generation_object.generatedfile=Result_File;
 
     @Override
     public AbstractASTNode visitFilterExpression(FilterExpressionContext ctx) {
-        pipElement=true;
+        pipElement = true;
         Expression oprand = expressionVisitor.visit(ctx.getChild(0));
         FilterStatement filter = (FilterStatement) visit(ctx.getChild(1));
         filter.setOprand(oprand);
@@ -277,21 +272,19 @@ generation_object.generatedfile=Result_File;
         for (int index = 0; index < ctx.getChild(3).getChildCount(); index += 2) {
             parameters.add(expressionVisitor.visit(ctx.getChild(3).getChild(index)));
         }
-        if(filter_method.equals("upper") || filter_method.equals("lower"))
-        {
+        if (filter_method.equals("upper") || filter_method.equals("lower")) {
 
-            if(parameters.size()!=0)
-            {
+            if (parameters.size() != 0) {
                 try {
 //                FileWriter fstream = new FileWriter("log.txt",true);
 //                BufferedWriter out = new BufferedWriter(fstream);
 //                out.write("Line Added on: " + new java.util.Date()+"\n");
 //                out.close();
-                    FileWriter fw = new FileWriter(ErrorFile , true);
+                    FileWriter fw = new FileWriter(ErrorFile, true);
                     BufferedWriter error = new BufferedWriter(fw);
-                    line_number=ctx.start.getLine();
-                    error.write("erro in line:"+""+line_number);
-                    error.write("  (upper/lower) pipes should not recieve any parameter." );
+                    line_number = ctx.start.getLine();
+                    error.write("erro in line:" + "" + line_number);
+                    error.write("  (upper/lower) pipes should not recieve any parameter.");
                     error.newLine();
                     error.close();
 
@@ -313,9 +306,8 @@ generation_object.generatedfile=Result_File;
     public List<AbstractASTNode> getContent(ElementContentContext ctx) {
         List<AbstractASTNode> contents = new ArrayList<AbstractASTNode>();
         for (int index = 0; index < ctx.getChildCount(); index++) {
-            if(ctx.getChild(index) instanceof  MustacheContext)
-            {
-                Element="Mustach";
+            if (ctx.getChild(index) instanceof MustacheContext) {
+                Element = "Mustach";
             }
             if (ctx.getChild(index) instanceof NodeContext || ctx.getChild(index) instanceof MustacheContext)
                 contents.add(visit(ctx.getChild(index)));
@@ -332,67 +324,64 @@ generation_object.generatedfile=Result_File;
         String tagName = ctx.getChild(1).getText();
         List<AbstractASTNode> attributes = new ArrayList<AbstractASTNode>();
 
+        boolean a_tag = false, img_tag = false;
+        if (tagName.equals("a")) {
+            a_tag = true;
+        }
+        if (tagName.equals("img")) {
+            img_tag = true;
+        }
+
         if (ctx.getChild(2) instanceof ElementAttributesContext)
             attributes = getAttributes((ElementAttributesContext) ctx.getChild(2));
-        if(tagName.equals("img"))
-        {
-            if(attributes.size()==0)
-            {
-                is_src=false;
 
-            }
-            if(is_src==false)
-                {
-                    try {
-//                FileWriter fstream = new FileWriter("log.txt",true);
-//                BufferedWriter out = new BufferedWriter(fstream);
-//                out.write("Line Added on: " + new java.util.Date()+"\n");
-//                out.close();
-                        FileWriter fw = new FileWriter(ErrorFile , true);
-                        BufferedWriter error = new BufferedWriter(fw);
-                        line_number=ctx.start.getLine();
-                        error.write("erro in line:"+""+line_number);
-                        error.write("  img tag must has src attribute." );
-                        error.newLine();
-                        error.close();
-
-                    } catch (IOException e) {
-                        System.out.println("An error occurred.");
-                        e.printStackTrace();
+        if (a_tag == true) {
+            boolean is_herf = false;
+            for (AbstractASTNode attr : attributes) {
+                if (attr instanceof AttributeNode) {
+                    AttributeNode attributeNode = (AttributeNode) attr;
+                    if (attributeNode.getAttribute().equals("href")) {
+                        if (!attributeNode.getValue().equals("\"\"")) {
+                            is_herf = true;
+                        }
                     }
-//                    System.err.println("img tag must has src attribute.");
                 }
+            }
+            if (!is_herf) write_error("Anchor tag must has href attribute", ctx.start.getLine());
         }
+        if (img_tag == true) {
+            boolean is_src = false;
+            for (AbstractASTNode attr : attributes) {
+                if (attr instanceof AttributeNode) {
+                    AttributeNode attributeNode = (AttributeNode) attr;
+                    if (attributeNode.getAttribute().equals("src")) {
+                        if (!attributeNode.getValue().equals("\"\"")) {
+                            is_src = true;
+                        }
+                    }
+                }
+            }
+            if (!is_src) write_error("Img tag must has src attribute", ctx.start.getLine());
+        }
+
         ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]));
         return element;
     }
 
     @Override
     public AbstractASTNode visitNormalElement(NormalElementContext ctx) {
-        int ElementDirective_counter = 0;
         boolean isElementDirective = false;
         ElementDirective_number = 0;
-        String Directive_name = "";
         String tagName = ctx.getChild(1).getText();
         String tagClose;
-        if (tagName.equals("a")) {
-            a_tag = true;
-        }
 
-
-
-        if((tagName.equals("ol") || tagName.equals("ul"))&& tagsStack.peek().getTagname().equals("li"))
-        {
+        if ((tagName.equals("ol") || tagName.equals("ul")) && tagsStack.peek().getTagname().equals("li")) {
             try {
-//                FileWriter fstream = new FileWriter("log.txt",true);
-//                BufferedWriter out = new BufferedWriter(fstream);
-//                out.write("Line Added on: " + new java.util.Date()+"\n");
-//                out.close();
-                FileWriter fw = new FileWriter(ErrorFile , true);
+                FileWriter fw = new FileWriter(ErrorFile, true);
                 BufferedWriter error = new BufferedWriter(fw);
-                line_number=ctx.start.getLine();
-                error.write("erro in line:"+""+line_number);
-                error.write("   li tag should not be outside ul/ol");
+                line_number = ctx.start.getLine();
+                error.write("error in line:" + "" + line_number);
+                error.write("li tag should not be outside ul/ol");
                 error.newLine();
                 error.close();
 
@@ -400,10 +389,9 @@ generation_object.generatedfile=Result_File;
                 System.out.println("An error occurred.");
                 e.printStackTrace();
             }
-//            System.err.println("li tag should not be outside ul/ol");
         }
-        if(tagName.equals("ol")|| tagName.equals("li")|| tagName.equals("ul"))
-        {
+
+        if (tagName.equals("ol") || tagName.equals("li") || tagName.equals("ul")) {
 
             Tag tag = new Tag(tagName);
             tagsStack.push(tag);
@@ -413,289 +401,199 @@ generation_object.generatedfile=Result_File;
             tagClose = ctx.getChild(6).getText();
         } else
             tagClose = ctx.getChild(5).getText();
+
         if (!testName(tagName, tagClose))
             System.err.println("name does not match!");
+
         List<AbstractASTNode> attributes = new ArrayList<AbstractASTNode>();
         List<AbstractASTNode> contents = new ArrayList<AbstractASTNode>();
 
         if (ctx.getChild(2) instanceof ElementAttributesContext)
             attributes = getAttributes((ElementAttributesContext) ctx.getChild(2));
 
-            if(a_tag==true)
-            {
-                if(attributes.size()==0)
-                {
-                    is_herf=false;
-                    try {
-                        FileWriter fw = new FileWriter(ErrorFile , true);
-                        BufferedWriter error = new BufferedWriter(fw);
-                        line_number=ctx.start.getLine();
-                        error.write("erro in line:"+""+line_number);
-                        error.write("   Anchor tag must has href attribute");
-                        error.newLine();
-                        error.close();
+        String elementId = getElementId(attributes);
+        /*----------------------------- Semantic Check ------------------------*/
+        semanticCheck(tagName,attributes,ctx.start.getLine());
+        /*----------------------------- Semantic Check ------------------------*/
 
-                    } catch (IOException e) {
-                        System.out.println("An error occurred.");
-                        e.printStackTrace();
-                    }
-//                    System.err.println("Anchor tag must has href attribute");
-                }
-
-            }
-
-        if (tagName.equals("img"))
-        {
-            if(attributes.size()==0)
-            {
-                is_src=false;
-
-            }
-            if (is_src == false) {
-                try {
-//                FileWriter fstream = new FileWriter("log.txt",true);
-//                BufferedWriter out = new BufferedWriter(fstream);
-//                out.write("Line Added on: " + new java.util.Date()+"\n");
-//                out.close();
-                    FileWriter fw = new FileWriter(ErrorFile , true);
-                    BufferedWriter error = new BufferedWriter(fw);
-                    line_number=ctx.start.getLine();
-                    error.write("erro in line:"+""+line_number);
-                    error.write(" img tag must has src attribute." );
-                    error.newLine();
-                    error.close();
-
-                } catch (IOException e) {
-                    System.out.println("An error occurred.");
-                    e.printStackTrace();
-                }
-//                System.err.println(" img tag must has src attribute.");
-            }
-
-        }
+        /*------------------------------ Code Generation ---------------------*/
 
         for (int i = 0; i < attributes.size(); i++) {
-
             if (attributes.get(i) instanceof Directive) {
-                Directive_name = ((Directive) attributes.get(i)).getName();
-                if (!Directive_name.equals("cp-model")) {
-                    isElementDirective = true;
-                    ElementDirective_counter++;
-                    if(ElementDirective_counter>1)
-                    {
-                        try {
-                            FileWriter fw = new FileWriter(ErrorFile , true);
-                            BufferedWriter error = new BufferedWriter(fw);
-                            line_number=ctx.start.getLine();
-                            error.write("erro in line:"+""+line_number);
-                            error.write("   Each html element has at most one structural attribute");
-                            error.newLine();
-                            error.close();
+                Directive directive = (Directive) attributes.get(i);
+                String Directive_name = directive.getName();
 
-                        } catch (IOException e) {
-                            System.out.println("An error occurred.");
-                            e.printStackTrace();
-                        }
-//                        System.err.println("Each html element has at most one structural attribute");
-                    }
-
-
-                    }
-                if(Directive_name.equals("cp-app"))
-                {
-
-//                        System.out.println("print the value of the cpapp"+Element_Directive_Value);
-                        generation_object.cpapp_value = Element_Directive_Value;
-
+                if (Directive_name.equals("cp-app")) {
+                    generation_object.cpapp_value = Element_Directive_Value;
                 }
 
-                }
-            }
-
-
-                boolean switchElement = false;
-                for (AbstractASTNode node : attributes)
-                    if (node instanceof Directive && testName(((Directive) node).getName(), "cp-switch")) {
-                        switchExists.push(true);
-                        switchElement = true;
-
-                    }
-                for (AbstractASTNode node : attributes)
-                    if (node instanceof Directive && (testName(((Directive) node).getName(), "cp-switch-case") || testName(((Directive) node).getName(), "cp-switchDefault")))
-                        if (switchExists.isEmpty())
-                            System.err.println("Invalid switch");
-                if (ctx.getChild(3) instanceof ElementContentContext)
-                    contents = getContent((ElementContentContext) ctx.getChild(3));
-                if (ctx.getChild(4) instanceof ElementContentContext)
-                    contents = getContent((ElementContentContext) ctx.getChild(4));
-                if (switchElement)
-                    switchExists.pop();
-                ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]), contents.toArray(new DocumentNode[contents.size()]));
-
-
-                if (!scopesStack.peek().getId().equals("global") && isElementDirective) {
-                    scopesStack.pop();
-
+                if(Directive_name.equals("cp-show")){
+                    generation_object.code_generation_cpshow(elementId,directive.getValueAsString());
                 }
 
-                if (tagName.equals("ul") || tagName.equals("li") || tagName.equals("ol")) {
-                    if (!tagsStack.peek().getTagname().equals("firsttag")) {
-                        tagsStack.pop();
-
-
-                    }
+                if(Directive_name.equals("cp-hide")){
+                    generation_object.code_generation_cphide(elementId,directive.getValueAsString());
                 }
 
-                a_tag = false;
-                return element;
-            }
-
-            @Override
-            public AbstractASTNode visitSelfClosedElement (SelfClosedElementContext ctx){
-
-                 String Directirv_name ="";
-                String tagName = ctx.getChild(1).getText();
-                List<AbstractASTNode> attributes = new ArrayList<AbstractASTNode>();
-                if (ctx.getChild(2) instanceof ElementAttributesContext)
-                    attributes = getAttributes((ElementAttributesContext) ctx.getChild(2));
-                    for(int i=0;i<attributes.size();i++) {
-                        if (attributes.get(i) instanceof Directive) {
-                            Directirv_name = ((Directive) attributes.get(i)).getName();
-
-                            if (Directirv_name.equals("cp-model")) {
-                                System.out.println("number of time we get in here");
-                                if(Element_id_Value.equals("noid"))
-                                {
-                                    Element_id_Value='"'+Element_Directive_Value+hashCode()+'"';
-                                }
-                                generation_object.code_generation_cpmodel(Element_id_Value, Element_Directive_Value);
-
-                            }
-                        }
-
-                    }
-
-
-                ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]));
-                return element;
-            }
-
-            @Override
-            public AbstractASTNode visitTextNode (TextNodeContext ctx){
-                return new TextNode(ctx.getText());
-            }
-
-            public List<AbstractASTNode> getAttributes (ElementAttributesContext ctx){
-
-                List<AbstractASTNode> attributes = new ArrayList<AbstractASTNode>();
-
-                for (int index = 0; index < ctx.getChildCount(); index++) {
-                    attributes.add(visit(ctx.getChild(index)));
-
-                    if (ctx.getChild(index).getChild(0).toString().equals("id")) {
-
-                Id id = new Id(ctx.getChild(index).getChild(2).toString());
-                if(CheckidValue(id)==false)
-                {symboletable.addId(id);}
-                else {
-                    try {
-                        FileWriter fw = new FileWriter(ErrorFile , true);
-                        BufferedWriter error = new BufferedWriter(fw);
-                        line_number=ctx.start.getLine();
-                        error.write("erro in line:"+""+line_number);
-                        error.write("   id attribute must be uniqe on document level");
-                        error.newLine();
-                        error.close();
-
-                    } catch (IOException e) {
-                        System.out.println("An error occurred.");
-                        e.printStackTrace();
-                    }
-//                    System.err.println("id attribute must be uniqe on document level");
+                if(Directive_name.equals("cp-model")){
+                    generation_object.code_generation_cpmodel(elementId,directive.getValueAsString());
                 }
             }
         }
+        /*------------------------------ Code Generation ---------------------*/
 
-        if(is_herf==false && a_tag==true)
-        {
-            try {
-                FileWriter fw = new FileWriter(ErrorFile , true);
-                BufferedWriter error = new BufferedWriter(fw);
-                line_number=ctx.start.getLine();
-                error.write("erro in line:"+""+line_number);
-                error.write("   Anchor tag must has href attribute");
-                error.newLine();
-                error.close();
 
-            } catch (IOException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
+        boolean switchElement = false;
+        for (AbstractASTNode node : attributes)
+            if (node instanceof Directive && testName(((Directive) node).getName(), "cp-switch")) {
+                switchExists.push(true);
+                switchElement = true;
+
             }
-//            System.err.println("Anchor tag must has href attribute");
+        for (AbstractASTNode node : attributes)
+            if (node instanceof Directive && (testName(((Directive) node).getName(), "cp-switch-case") || testName(((Directive) node).getName(), "cp-switchDefault")))
+                if (switchExists.isEmpty())
+                    System.err.println("Invalid switch");
+
+        String defaultText = "";
+        if (ctx.getChild(3) instanceof ElementContentContext) {
+            contents = getContent((ElementContentContext) ctx.getChild(3));
+            defaultText = ctx.getChild(3).getText();
         }
-        is_herf=false;
+        if (ctx.getChild(4) instanceof ElementContentContext) {
+            contents = getContent((ElementContentContext) ctx.getChild(4));
+            defaultText = ctx.getChild(4).getText();
+        }
+        List<String> mustaches = new ArrayList<>();
 
-
-                return attributes;
+        for (int i = 0; i < contents.size(); i++) {
+            if(contents.get(i) instanceof MustachNode)
+            {
+                MustachNode mustachNode = (MustachNode) contents.get(i);
+                mustaches.add(mustachNode.getExpressionAsString());
             }
+        }
 
-            @Override
-            public AbstractASTNode visitAttributeNode (AttributeNodeContext ctx){
+        if(!mustaches.isEmpty())generation_object.code_generation_mustache(elementId, defaultText, mustaches);
 
-                String name = ctx.getChild(0).getText();
-
-                String value = null;
-
-                if (ctx.getChildCount() > 1)
-                    value = ctx.getChild(2).getText();
-
-                if (name.equals("src")) {
-                    is_src = true;
-                }
-//                } else if(name.equals("src")  ) {
-//                    is_src = false;
-//                }
-                  if(name.equals("id"))
-                  {
-                      get_Element_id_value(value);
-                  }
-
-                if (name.equals("href") && a_tag == true) {
-                    is_herf = true;
-                }
-
-                return new AttributeNode(name, value);
-            }
-
-            @Override
-            public AbstractASTNode visitMustache (MustacheContext ctx){
-                MustachNode mustache;
-                if (ctx.getChildCount() > 2) {
-                    mustache = new MustachNode(expressionVisitor.visit(ctx.getChild(1)));
+        if (switchElement)
+            switchExists.pop();
+        ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]), contents.toArray(new DocumentNode[contents.size()]));
 
 
-                } else
-                    mustache = new MustachNode();
-                return mustache;
-            }
+        if (!scopesStack.peek().getId().equals("global") && isElementDirective) {
+            scopesStack.pop();
 
-            protected boolean testName (String openTag, String closeTag){
-                return openTag.compareToIgnoreCase(closeTag) == 0;
-            }
-            // fucntion for semantic-check Q1
-            public boolean CheckidValue (Id id ){
-                boolean exits = false;
-                for (int i = 0; i < symboletable.getids().size(); i++) {
-                    if (id.getValue().equals(symboletable.getids().get(i).getValue())) {
-                        exits = true;
-                    }
-                }
-                return exits;
-            }
-            public void get_Element_id_value(String id_value){
-                Element_id_Value=id_value;
+        }
+
+        return element;
     }
 
+    @Override
+    public AbstractASTNode visitSelfClosedElement(SelfClosedElementContext ctx) {
+        String Directirv_name = "";
+        String tagName = ctx.getChild(1).getText();
+        List<AbstractASTNode> attributes = new ArrayList<AbstractASTNode>();
+
+        int ElementDirective_counter = 0;
+        boolean a_tag = false, img_tag = false;
+        if (tagName.equals("a")) {
+            a_tag = true;
         }
+        if (tagName.equals("img")) {
+            img_tag = true;
+        }
+
+        if (ctx.getChild(2) instanceof ElementAttributesContext)
+            attributes = getAttributes((ElementAttributesContext) ctx.getChild(2));
+
+        /*----------------------------- Semantic Check ------------------------*/
+        semanticCheck(tagName,attributes,ctx.start.getLine());
+        /*----------------------------- Semantic Check ------------------------*/
+
+        /*------------------------------ Code Generation ---------------------*/
+        String elementId = getElementId(attributes);
+
+        for (int i = 0; i < attributes.size(); i++) {
+            if (attributes.get(i) instanceof Directive) {
+                Directive directive = (Directive) attributes.get(i);
+                String Directive_name = directive.getName();
+
+                if (Directive_name.equals("cp-app")) {
+                    generation_object.cpapp_value = Element_Directive_Value;
+                }
+
+                if(Directive_name.equals("cp-show")){
+                    generation_object.code_generation_cpshow(elementId,directive.getValueAsString());
+                }
+
+                if(Directive_name.equals("cp-hide")){
+                    generation_object.code_generation_cphide(elementId,directive.getValueAsString());
+                }
+
+                if(Directive_name.equals("cp-model")){
+                    generation_object.code_generation_cpmodel(elementId,directive.getValueAsString());
+                }
+            }
+        }
+        /*------------------------------ Code Generation ---------------------*/
+
+
+        ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]));
+        return element;
+    }
+
+    @Override
+    public AbstractASTNode visitTextNode(TextNodeContext ctx) {
+        return new TextNode(ctx.getText());
+    }
+
+    public List<AbstractASTNode> getAttributes(ElementAttributesContext ctx) {
+
+        List<AbstractASTNode> attributes = new ArrayList<AbstractASTNode>();
+
+        for (int index = 0; index < ctx.getChildCount(); index++) {
+            attributes.add(visit(ctx.getChild(index)));
+        }
+
+        return attributes;
+    }
+
+    @Override
+    public AbstractASTNode visitAttributeNode(AttributeNodeContext ctx) {
+
+        String name = ctx.getChild(0).getText();
+
+        String value = null;
+
+        if (ctx.getChildCount() > 1)
+            value = ctx.getChild(2).getText();
+
+        return new AttributeNode(name, value);
+    }
+
+    @Override
+    public AbstractASTNode visitMustache(MustacheContext ctx) {
+        MustachNode mustache;
+        if (ctx.getChildCount() > 2) {
+            mustache = new MustachNode(expressionVisitor.visit(ctx.getChild(1)),ctx.getChild(1).getText());
+        } else
+            mustache = new MustachNode();
+
+        return mustache;
+    }
+
+    protected boolean testName(String openTag, String closeTag) {
+        return openTag.compareToIgnoreCase(closeTag) == 0;
+    }
+
+    // fucntion for semantic-check Q1
+
+
+    public void get_Element_id_value(String id_value) {
+        Element_id_Value = id_value;
+    }
+
+}
 
 

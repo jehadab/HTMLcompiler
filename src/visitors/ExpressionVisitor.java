@@ -299,7 +299,8 @@ public class ExpressionVisitor extends Visitor<Expression>{
 //				symboletable.addSymbole(symbole);
 //
 //			}
-			semanticCheck.isVariableExist(symbole.getName(),DocumentVisitor.scopesStack.peek());
+			//semanticCheck.isVariableExist(symbole.getName(),DocumentVisitor.scopesStack.peek());
+			//semanticCheck.isVariableExist(symbole.getName(),DocumentVisitor.scopesStack.peek());
 
         }
         if(Element.equals("Directive") )

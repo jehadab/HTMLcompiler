@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class SymboleTable {
     private ArrayList<Scope> scopes = new ArrayList();
-    private ArrayList<Id> ids = new ArrayList();
+    private ArrayList<String> ids = new ArrayList();
     private  ArrayList<Symbole> symboles = new ArrayList<Symbole>();
     public void addSymbole(Symbole  symbole) {
         this.symboles.add(symbole);
@@ -17,13 +17,13 @@ public class SymboleTable {
     public void addScope(Scope scope) {
         this.scopes.add(scope);
     }
-    public void addId(Id id) {
+    public void addId(String id) {
         this.ids.add(id);
     }
     public ArrayList<Scope> getScopes() {
         return this.scopes;
     }
-    public ArrayList<Id> getids(){return this.ids;}
+    public ArrayList<String> getids(){return this.ids;}
 
 
 }

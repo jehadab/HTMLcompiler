@@ -1,5 +1,9 @@
 package visitors;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
 import java.util.Stack;
 
 
@@ -7,6 +11,9 @@ import CodeGeneration.codegeneration;
 import SemanticCheck.SemanticCheck;
 import SymboleTable.SymboleTable;
 import misc.HTMLParserBaseVisitor;
+import models.AbstractASTNode;
+import models.directive.Directive;
+import models.nodes.AttributeNode;
 
 public class Visitor<T> extends HTMLParserBaseVisitor<T> {
 	static public  String ErrorFile =".\\error.txt";
@@ -53,10 +60,111 @@ public class Visitor<T> extends HTMLParserBaseVisitor<T> {
 			System.out.println(" scope id for the symbole is "+symboletable.getSymboles().get(i).getSymbole_scope().getId());
 		}
 	}
-//	public static  void print_linkedlist(){
-//		for (int i=0;i<symboletable.getids().size();i++)
-//		{
-//			System.out.println("value of id "+ symboletable.getids().get(i).getValue());
-//		}
-//	}
+
+	public void write_error(String errorMsg,int line_number)
+	{
+		try {
+			FileWriter fw = new FileWriter(ErrorFile , true);
+			BufferedWriter error = new BufferedWriter(fw);
+			error.write("error in line:"+line_number +" ");
+			error.write(errorMsg);
+			error.newLine();
+			error.close();
+
+		} catch (IOException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
+	}
+
+	public String getElementId(List<AbstractASTNode> attributes)
+	{
+		for (int i = 0; i < attributes.size(); i++) {
+			if (attributes.get(i) instanceof AttributeNode) {
+				AttributeNode attributeNode = (AttributeNode) attributes.get(i);
+				if (attributeNode.getAttribute().equals("id")) {
+					return attributeNode.getValue().replaceAll("\"","");
+				}
+			}
+		}
+		return "";
+	}
+
+	public void semanticCheck(String tagName,List<AbstractASTNode> attributes,int line_number)
+	{
+		int ElementDirective_counter = 0;
+		String elementId = getElementId(attributes);
+		/*----------------------------- Semantic Check ------------------------*/
+
+		/*---------id attr must be unique------------*/
+		if(!elementId.equals("") )
+		{
+			if (CheckIdValue(elementId) == false) {
+				symboletable.addId(elementId);
+			} else {
+				write_error("id attribute must be uniqe on document level",line_number);
+			}
+		}
+		/*---------id attr must be unique------------*/
+
+		/*---------tag href-------*/
+		if (tagName.equals("a")) {
+			boolean is_herf = false;
+			for (AbstractASTNode attr : attributes) {
+				if (attr instanceof AttributeNode) {
+					AttributeNode attributeNode = (AttributeNode) attr;
+					if (attributeNode.getAttribute().equals("href")) {
+						if (!attributeNode.getValue().equals("\"\"")) {
+							is_herf = true;
+						}
+					}
+				}
+			}
+			if (!is_herf) write_error("Anchor tag must has href attribute",line_number);
+		}
+		/*---------tag href-------*/
+
+		/*---------img src-------*/
+		if (tagName.equals("img")) {
+			boolean is_src = false;
+			for (AbstractASTNode attr : attributes) {
+				if (attr instanceof AttributeNode) {
+					AttributeNode attributeNode = (AttributeNode) attr;
+					if (attributeNode.getAttribute().equals("src")) {
+						if (!attributeNode.getValue().equals("\"\"")) {
+							is_src = true;
+						}
+					}
+				}
+			}
+			if (!is_src) write_error("Img tag must has src attribute",line_number);
+		}
+		/*---------img src-------*/
+
+		/*---------directive number check-------*/
+		for (int i = 0; i < attributes.size(); i++) {
+			if (attributes.get(i) instanceof Directive) {
+				String Directive_name = ((Directive) attributes.get(i)).getName();
+				if (!Directive_name.equals("cp-model")) {
+					ElementDirective_counter++;
+				}
+			}
+		}
+		if (ElementDirective_counter > 1) {
+			write_error("Each html element has at most one structural attribute",line_number);
+		}
+		/*---------directive number check-------*/
+
+		/*----------------------------- Semantic Check ------------------------*/
+	}
+
+	public boolean CheckIdValue(String id) {
+		boolean exits = false;
+		for (int i = 0; i < symboletable.getids().size(); i++) {
+			if (id.equals(symboletable.getids().get(i))) {
+				exits = true;
+			}
+		}
+		return exits;
+	}
 }

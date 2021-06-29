@@ -1,5 +1,5 @@
 
-<html cp-app="texting">
+<html cp-app="forthyear">
 
 <head >
     <title>Sample</title>
@@ -7,11 +7,22 @@
 
 <body>
 
-<input  type="text" cp-model="myTest" value="myTestInputValue" />
-<div id="myTestDiv">My Text is: {{myTest}}
+<!--
+<div id="some-id" cp-show='x.var1[1] == "HI MAn" && axr == 5'>hi man</div>
+<div id="some-id2" cp-hide='myTest == "HI MAn"'>hi man2</div>
 
+<input id="myTestInput" type="text" cp-model="x.var1[1]" />
+<input id="myTestInput2" type="text" cp-model="x.var2" />
+<input id="myTestInput3" type="text" cp-model="myTest" />
+<input id="myTestInput4" type="text" cp-model="y[6]" />
+<input id="myTestInput3" type="text" cp-model="myTest" />
 
-</div>
+<p id="myTestInput3">this is my text: {{myTest}} and some text {{x.var1[1]}}</p>
+<p id="myTestInput3">{{myTest}}</p> -->
+
+<ul>
+    <li cp-for="i in ['axr','asd'];i = index"></li>
+</ul>
 
 </body>
 </html>
@@ -19,7 +30,12 @@
 <!-- it's already there -->
 <script>
     function forthyear (){
+        this.axr = 5;
         this.myTest = "HI MAn";
+
+        this.x = { var1: [1,2],var2: "v2"};
+
+        this.y = ["hi","hello",5];
     };
 
     var forthyear = new forthyear();

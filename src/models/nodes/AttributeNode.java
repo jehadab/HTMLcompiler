@@ -25,5 +25,12 @@ public class AttributeNode extends DocumentNode {
 		return formatter.addProperty("attribute", attribute)
 				.addProperty("value", value);
 	}
-		
+
+	public String getAttribute() {
+		return attribute;
+	}
+
+	public String getValue() {
+		return value;
+	}
 }

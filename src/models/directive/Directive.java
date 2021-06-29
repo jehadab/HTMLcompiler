@@ -8,7 +8,8 @@ public class Directive extends DocumentNode {
 
 	protected String type;
 	protected AbstractASTNode value;
-	
+	protected String valueAsString;
+
 	public Directive(String type) {
 		this.type = type;
 	}
@@ -17,6 +18,12 @@ public class Directive extends DocumentNode {
 	public Directive(String type, AbstractASTNode value) {
 		this.type = type;
 		this.value = value;
+	}
+
+	public Directive(String type, AbstractASTNode value, String valueAsString) {
+		this.type = type;
+		this.value = value;
+		this.valueAsString = valueAsString;
 	}
 
 	@Override
@@ -35,6 +42,10 @@ public class Directive extends DocumentNode {
 
 	public String getName() {
 		return type;
+	}
+
+	public String getValueAsString() {
+		return valueAsString;
 	}
 
 }

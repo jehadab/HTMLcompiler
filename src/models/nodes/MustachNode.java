@@ -6,9 +6,11 @@ import models.util.Formatter;
 public class MustachNode extends DocumentNode {
 
 	protected AbstractASTNode expression;
-	
-	public MustachNode(AbstractASTNode expression) {
+
+	protected String expressionAsString;
+	public MustachNode(AbstractASTNode expression, String expressionAsString) {
 		this.expression = expression;
+		this.expressionAsString = expressionAsString;
 	}
 
 	public MustachNode() {
@@ -25,4 +27,7 @@ public class MustachNode extends DocumentNode {
 		return formatter.object(expression.toString("Exp"));
 	}
 
+	public String getExpressionAsString() {
+		return expressionAsString;
+	}
 }
