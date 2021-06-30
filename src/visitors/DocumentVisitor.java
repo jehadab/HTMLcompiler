@@ -48,6 +48,7 @@ import models.documents.*;
 import models.enums.CommentType;
 import models.expression.Expression;
 import models.expression.ValueExpression;
+import models.expression.value.literal.StringLiteral;
 import models.nodes.*;
 import models.statements.*;
 
@@ -255,6 +256,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         FilterStatement filter = (FilterStatement) visit(ctx.getChild(1));
         filter.setOprand(oprand);
         filter.setOperand(ctx.getChild(0).getText());
+
         return filter;
     }
 
@@ -271,6 +273,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
         for (int index = 0; index < ctx.getChild(3).getChildCount(); index += 2) {
             parameters.add(expressionVisitor.visit(ctx.getChild(3).getChild(index)));
+
         }
         if (filter_method.equals("upper") || filter_method.equals("lower")) {
 
@@ -295,7 +298,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
             }
         }
 
-        return new FilterStatement((Expression) filter, parameters);
+        return new FilterStatement((Expression) filter, parameters,ctx.getChild(1).getText());
     }
 
     @Override
@@ -470,6 +473,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
             if(contents.get(i) instanceof MustachNode)
             {
                 MustachNode mustachNode = (MustachNode) contents.get(i);
+
                 mustaches.add(mustachNode);
 
             }
@@ -582,6 +586,11 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
             {
                  mustache.setOperand(((FilterStatement)mustache.getExpression()).getOperand());
                  mustache.setMethod(((FilterStatement)mustache.getExpression()).getFilter_method());
+
+                 for(int i=0;i<((FilterStatement) mustache.getExpression()).getParameters().size();i++)
+                 {
+                     mustache.getParameter_value().add(((StringLiteral)((FilterStatement) mustache.getExpression()).getParameters().get(i)).getString());
+                 }
             }
         } else
             mustache = new MustachNode();

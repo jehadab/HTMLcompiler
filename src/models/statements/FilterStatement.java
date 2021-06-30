@@ -12,8 +12,12 @@ public class FilterStatement extends Expression {
 	protected List<Expression> parameters;
 	protected  String filter_method;
 	protected  String operand;
-	
-	public FilterStatement(Expression filter, String filter_method ) {
+
+    public List<Expression> getParameters() {
+        return parameters;
+    }
+
+    public FilterStatement(Expression filter, String filter_method ) {
 		this.filter = filter;
 		this.filter_method=filter_method;
 	}
@@ -30,9 +34,10 @@ public class FilterStatement extends Expression {
 		this.operand = operand;
 	}
 
-	public FilterStatement(Expression filter, List<Expression> parameters) {
+	public FilterStatement(Expression filter, List<Expression> parameters, String method_name) {
 		this.filter=filter;
 		this.parameters = parameters;
+		this.filter_method=method_name;
 	}
 	
 	public void setOprand(Expression oprand) {

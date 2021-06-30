@@ -154,6 +154,7 @@ public class codegeneration {
 //     System.out.println("print inside the hole mustcah "+mustaches.get(i).getExpressionAsString());
 //
 // }
+
         String str = "\\\\" + '"';
         defaultText = defaultText.replaceAll("\"",str);
         write_on_file("\n", generatedfile);
@@ -173,7 +174,31 @@ public class codegeneration {
                 write_on_file("     defaultText= defaultText.replace("+'"'+"{{"+mustaches.get(i).getExpressionAsString()+"}}"+'"'+","+cpapp_value+"."+mustaches.get(i).getOperand()+".toLowerCase()"+");",generatedfile);
                 write_on_file("\n",generatedfile);
             }
-        else{
+        else if(mustaches.get(i).getMethod().equals("currency"))
+        {
+            for (int j=0;j<mustaches.get(i).getParameter_value().size();j++) {
+                String value = mustaches.get(i).getParameter_value().get(j);
+
+                write_on_file("     defaultText= defaultText.replace(" + '"' + "{{" + mustaches.get(i).getExpressionAsString() + "}}" + '"' + "," +"'"+value+"'"+'+'+cpapp_value + "." +  mustaches.get(i).getOperand()+");", generatedfile);
+                write_on_file("\n", generatedfile);
+
+
+            }
+
+        }
+        else if(mustaches.get(i).getMethod().equals("Date"))
+        {
+            mustaches.get(i).setExpressionAsString(mustaches.get(i).getExpressionAsString().replaceAll("\"",str));
+            for (int j=0;j<mustaches.get(i).getParameter_value().size();j++) {
+                String value = mustaches.get(i).getParameter_value().get(j);
+                write_on_file("     defaultText= defaultText.replace(" + '"' + "{{" + mustaches.get(i).getExpressionAsString() + "}}" + '"' + "," +'"'+value+'"'+");", generatedfile);
+                write_on_file("\n", generatedfile);
+                /// i really do not know if the yarget is to store the date formatter in the variable in the cpa-pp
+                write_on_file(cpapp_value+"."+mustaches.get(i).getOperand()+"="+'"'+mustaches.get(i).getParameter_value().get(j)+'"'+";",generatedfile);
+                write_on_file("\n", generatedfile);
+            }
+        }
+         else {
             write_on_file("     defaultText= defaultText.replace("+'"'+"{{"+mustaches.get(i).getExpressionAsString()+"}}"+'"'+","+cpapp_value+"."+mustaches.get(i).getExpressionAsString()+");",generatedfile);
             write_on_file("\n",generatedfile);
              }

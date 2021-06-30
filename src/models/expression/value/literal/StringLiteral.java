@@ -10,6 +10,10 @@ public class StringLiteral extends PrimitiveLiteral {
 		this.string = string;
 	}
 
+	public String getString() {
+		return string;
+	}
+
 	@Override
 	protected String nodeName() {
 		return "StringLiteral";
