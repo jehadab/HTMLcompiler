@@ -1,7 +1,14 @@
 package CodeGeneration;
 
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class codegeneration {
     public String generatedfile = "";
@@ -39,7 +46,46 @@ public class codegeneration {
                 out.close();
             }
         }
+        generateIdToElements();
         System.out.println("File Copied");
+    }
+
+
+    private void generateIdToElements(){
+        Path sourcePath = Paths.get(".\\index.html");
+        Path destPath = Paths.get(".\\result.html");
+        Charset charset = StandardCharsets.UTF_8;
+
+
+        try {
+
+            String  content = new String(Files.readAllBytes(sourcePath),charset);
+            Pattern elementPattern = Pattern.compile("<(\\w+)\\s*(?![^>]*\\bid\\s*=)[^>]*(>)");
+            Matcher matcher = elementPattern.matcher(content);
+
+            while( matcher.find() ){
+                StringBuilder sb = new StringBuilder(matcher.group(0));
+                String elementID =matcher.group(1) + sb.hashCode();
+                if(matcher.group(1).equals("script")){
+                }
+                else if(sb.charAt(sb.length() - 2) != '/'){
+//                    System.out.println(sb.charAt(sb.length()));
+
+                    sb = sb.insert(sb.length() - 1 ," id = \""+elementID+"\" ");
+                }
+                else if(sb.charAt(sb.length() - 2) == '/'){
+//                    System.out.println(sb.charAt(sb.length() - 1));
+                    sb = sb.insert(sb.length() - 2 ," id = \""+elementID+"\" ");
+
+                }
+
+                content = content.replaceFirst(matcher.group(0),sb.toString());
+            }
+            Files.write(destPath, content.getBytes(charset));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void write_on_file(String text, String filename) {
