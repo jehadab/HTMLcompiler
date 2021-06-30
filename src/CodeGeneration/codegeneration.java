@@ -1,5 +1,7 @@
 package CodeGeneration;
 
+import models.nodes.MustachNode;
+
 import java.io.*;
 import java.util.List;
 
@@ -144,7 +146,14 @@ public class codegeneration {
         code_generation_static_render();
     }
 
-    public void code_generation_mustache(String id,String defaultText, List<String> mustaches) {
+    public void code_generation_mustache(String id,String defaultText, List<MustachNode> mustaches) {
+// for(int i=0;i<mustaches.size();i++)
+// {
+//     System.out.println("print the methode "+mustaches.get(i).getMethod());
+//     System.out.println("print the operand "+mustaches.get(i).getOperand());
+//     System.out.println("print inside the hole mustcah "+mustaches.get(i).getExpressionAsString());
+//
+// }
         String str = "\\\\" + '"';
         defaultText = defaultText.replaceAll("\"",str);
         write_on_file("\n", generatedfile);
@@ -154,8 +163,21 @@ public class codegeneration {
         write_on_file("     defaultText=\""+defaultText+"\";",generatedfile);
         write_on_file("\n",generatedfile);
         for(int i=0;i<mustaches.size();i++){
-            write_on_file("     defaultText= defaultText.replace("+'"'+"{{"+mustaches.get(i)+"}}"+'"'+","+cpapp_value+"."+mustaches.get(i)+");",generatedfile);
+        if(mustaches.get(i).getMethod().equals("upper"))
+        {
+            write_on_file("     defaultText= defaultText.replace("+'"'+"{{"+mustaches.get(i).getExpressionAsString()+"}}"+'"'+","+cpapp_value+"."+mustaches.get(i).getOperand()+".toUpperCase()"+");",generatedfile);
             write_on_file("\n",generatedfile);
+        }
+        else if(mustaches.get(i).getMethod().equals("lower"))
+            {
+                write_on_file("     defaultText= defaultText.replace("+'"'+"{{"+mustaches.get(i).getExpressionAsString()+"}}"+'"'+","+cpapp_value+"."+mustaches.get(i).getOperand()+".toLowerCase()"+");",generatedfile);
+                write_on_file("\n",generatedfile);
+            }
+        else{
+            write_on_file("     defaultText= defaultText.replace("+'"'+"{{"+mustaches.get(i).getExpressionAsString()+"}}"+'"'+","+cpapp_value+"."+mustaches.get(i).getExpressionAsString()+");",generatedfile);
+            write_on_file("\n",generatedfile);
+             }
+
         }
         write_on_file("     document.getElementById('"+id+"')"+"."+"innerHTML =defaultText;",generatedfile);
         write_on_file("\n",generatedfile);

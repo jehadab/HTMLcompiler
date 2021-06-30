@@ -10,13 +10,28 @@ public class FilterStatement extends Expression {
 	protected AbstractASTNode oprand;
 	protected Expression filter; 
 	protected List<Expression> parameters;
+	protected  String filter_method;
+	protected  String operand;
 	
-	public FilterStatement(Expression filter) {
+	public FilterStatement(Expression filter, String filter_method ) {
 		this.filter = filter;
+		this.filter_method=filter_method;
 	}
-	
+
+	public String getOperand() {
+		return operand;
+	}
+
+	public String getFilter_method() {
+		return filter_method;
+	}
+
+	public void setOperand(String operand) {
+		this.operand = operand;
+	}
+
 	public FilterStatement(Expression filter, List<Expression> parameters) {
-		this(filter);
+		this.filter=filter;
 		this.parameters = parameters;
 	}
 	

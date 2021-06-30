@@ -254,14 +254,14 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         Expression oprand = expressionVisitor.visit(ctx.getChild(0));
         FilterStatement filter = (FilterStatement) visit(ctx.getChild(1));
         filter.setOprand(oprand);
-
+        filter.setOperand(ctx.getChild(0).getText());
         return filter;
     }
 
     @Override
     public AbstractASTNode visitRawFilter(RawFilterContext ctx) {
         AbstractASTNode filter = expressionVisitor.visit(ctx.getChild(1));
-        return new FilterStatement((Expression) filter);
+        return new FilterStatement((Expression) filter, ctx.getChild(1).getText());
     }
 
     @Override
@@ -464,13 +464,14 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
             contents = getContent((ElementContentContext) ctx.getChild(4));
             defaultText = ctx.getChild(4).getText();
         }
-        List<String> mustaches = new ArrayList<>();
+        List<MustachNode> mustaches = new ArrayList<>();
 
         for (int i = 0; i < contents.size(); i++) {
             if(contents.get(i) instanceof MustachNode)
             {
                 MustachNode mustachNode = (MustachNode) contents.get(i);
-                mustaches.add(mustachNode.getExpressionAsString());
+                mustaches.add(mustachNode);
+
             }
         }
 
@@ -577,6 +578,11 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         MustachNode mustache;
         if (ctx.getChildCount() > 2) {
             mustache = new MustachNode(expressionVisitor.visit(ctx.getChild(1)),ctx.getChild(1).getText());
+            if(mustache.getExpression() instanceof FilterStatement )
+            {
+                 mustache.setOperand(((FilterStatement)mustache.getExpression()).getOperand());
+                 mustache.setMethod(((FilterStatement)mustache.getExpression()).getFilter_method());
+            }
         } else
             mustache = new MustachNode();
 

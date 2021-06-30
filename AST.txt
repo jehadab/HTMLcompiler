@@ -27,52 +27,54 @@ Document: {
 					name: body,
 					type: Normal,
 					children: [
-						CommentNode: {
-							comment: <!--
-						<div id="some-id" cp-show='x.var1[1] == "HI MAn" && axr == 5'>hi man</div>
-						<div id="some-id2" cp-hide='myTest == "HI MAn"'>hi man2</div>
-						
-						<input id="myTestInput" type="text" cp-model="x.var1[1]" />
-						<input id="myTestInput2" type="text" cp-model="x.var2" />
-						<input id="myTestInput3" type="text" cp-model="myTest" />
-						<input id="myTestInput4" type="text" cp-model="y[6]" />
-						<input id="myTestInput3" type="text" cp-model="myTest" />
-						
-						<p id="myTestInput3">this is my text: {{myTest}} and some text {{x.var1[1]}}</p>
-						<p id="myTestInput3">{{myTest}}</p> -->,
-							type: Normal,
+						ElementNode: {
+							name: input,
+							type: SelfClosed,
+							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "myTestInput1",
+								},
+								AttributeNode: {
+									attribute: type,
+									value: "text",
+								},
+								Directive: {
+									type: cp-model,
+									value(ReferenceExpression): {
+										reference: myTest,
+									},
+								},
+								AttributeNode: {
+									attribute: value,
+									value: "myTestInputValue",
+								}
+							],
 						},
 						ElementNode: {
-							name: ul,
+							name: div,
 							type: Normal,
 							children: [
-								ElementNode: {
-									name: li,
-									type: Normal,
-									children: [],
-									attributes: [
-										Directive: {
-											type: cp-for,
-											value(ArrayLoopStatement): {
-												loopVariable: i,
-												indexed: true,
-												indexVariable: i,
-												loopOn(ArrayLiteral): {
-													elements: [
-														StringLiteral: {
-															value: axr,
-														},
-														StringLiteral: {
-															value: asd,
-														}
-													],
-												},
-											},
-										}
-									],
+								TextNode: {
+									textValue: My Text is: ,
+								},
+								MustachNode: {
+									Exp(FilterStatement): {
+										Oprand(ReferenceExpression): {
+											reference: myTest,
+										},
+										FilterMethod(ReferenceExpression): {
+											reference: lower,
+										},
+									},
 								},
 							],
-							attributes: [],
+							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "myTestDiv",
+								}
+							],
 						},
 					],
 					attributes: [],
