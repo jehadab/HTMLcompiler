@@ -3,3 +3,5 @@ erro in line:2  myTest  is declerated before in the before
 erro in line:24  i  is declerated before in the before
 erro in line:24  i  is declerated before in the before
 erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
