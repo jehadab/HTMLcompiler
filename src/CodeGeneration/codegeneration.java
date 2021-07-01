@@ -147,13 +147,6 @@ public class codegeneration {
     }
 
     public void code_generation_mustache(String id,String defaultText, List<MustachNode> mustaches) {
-// for(int i=0;i<mustaches.size();i++)
-// {
-//     System.out.println("print the methode "+mustaches.get(i).getMethod());
-//     System.out.println("print the operand "+mustaches.get(i).getOperand());
-//     System.out.println("print inside the hole mustcah "+mustaches.get(i).getExpressionAsString());
-//
-// }
 
         String str = "\\\\" + '"';
         defaultText = defaultText.replaceAll("\"",str);

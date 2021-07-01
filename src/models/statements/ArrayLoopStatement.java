@@ -33,4 +33,11 @@ public class ArrayLoopStatement extends LoopStatement {
 		return formatter;
 	}
 
+	public String getLoopVariable() {
+		return loopVariable;
+	}
+
+	public String getIndexVariable() {
+		return indexVariable;
+	}
 }

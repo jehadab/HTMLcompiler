@@ -19,10 +19,6 @@ public class SemanticCheck {
 
         if (isSymboleExist(variableName , currentScope)){
             try {
-//                FileWriter fstream = new FileWriter("log.txt",true);
-//                BufferedWriter out = new BufferedWriter(fstream);
-//                out.write("Line Added on: " + new java.util.Date()+"\n");
-//                out.close();
                 FileWriter fw = new FileWriter(Visitor.ErrorFile , true);
                 BufferedWriter error = new BufferedWriter(fw);
 
@@ -35,7 +31,6 @@ public class SemanticCheck {
                 System.out.println("An error occurred.");
                 e.printStackTrace();
             }
-//            System.err.println(variableName + " is declerated before in the before " );
 
         }else {
             // add variableName to symboletable
@@ -69,13 +64,7 @@ public class SemanticCheck {
         return _scopes;
     }
     private boolean isVariableWithSameScope( Scope variableScope , Scope newVariableScope){
-
         ArrayList<Scope> fatherScopeList = getScopeFatherList(variableScope);
-//        fatherScopeList.forEach((s)->{
-//        System.out.println(((Scope)s).getId());
-//
-//        });
-
         for (Scope scope:fatherScopeList
                 ) {
             if(scope.getId().equals(newVariableScope.getId())){

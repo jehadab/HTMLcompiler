@@ -48,4 +48,7 @@ public class Directive extends DocumentNode {
 		return valueAsString;
 	}
 
+	public AbstractASTNode getValue() {
+		return value;
+	}
 }

@@ -8,9 +8,7 @@ import java.util.List;
 
 import CodeGeneration.codegeneration;
 
-import SymboleTable.Scope;
-import SymboleTable.Symbole;
-import SymboleTable.SymboleTable;
+
 import misc.HTMLParser;
 import misc.HTMLParser.AccessContext;
 import misc.HTMLParser.AdditionExpressionContext;
@@ -269,9 +267,6 @@ public class ExpressionVisitor extends Visitor<Expression>{
 
 	@Override
 	public Expression visitReferenceExpression(ReferenceExpressionContext ctx) {
-//        System.out.println(" pritn the varaibel here   :"+ctx.getChild(0).getText() );
-//		codegeneration code = new codegeneration();
-//		code.cpapp_value=ctx.getChild(0).getText();
         get_Directive_value((ctx.getChild(0).getText()));
         if(Element.equals("Mustach") && pipElement== true)
         {
@@ -287,35 +282,7 @@ public class ExpressionVisitor extends Visitor<Expression>{
 				filter_method="lower";
 			}
         }
-        if(Element.equals("Mustach")) {
 
-            Symbole symbole = new Symbole(ctx.getChild(0).getText());
-            Scope SymboleScope = new Scope();
-            SymboleScope = DocumentVisitor.scopesStack.peek();
-            symbole.setSymbole_scope(SymboleScope);
-//            if (findSymbole(symbole.getName(), DocumentVisitor.scopesStack.peek()) == false)
-//			{
-//
-//				symboletable.addSymbole(symbole);
-//
-//			}
-			//semanticCheck.isVariableExist(symbole.getName(),DocumentVisitor.scopesStack.peek());
-			//semanticCheck.isVariableExist(symbole.getName(),DocumentVisitor.scopesStack.peek());
-
-        }
-        if(Element.equals("Directive") )
-        {
-			if(!Element_Directive_name.equals("cp-model"))
-			{
-				if(ElementDirective_number==1)
-					store_symbole_scope(ctx.getChild(0).getText() , DocumentVisitor.scopesStack.peek().getParent());
-			}
-			else {
-				store_symbole_scope(ctx.getChild(0).getText() , DocumentVisitor.scopesStack.peek());
-			}
-
-
-        }
 		return new ReferenceExpression(ctx.getChild(0).getText());
 	}
 
@@ -349,26 +316,26 @@ public class ExpressionVisitor extends Visitor<Expression>{
 		String string = ctx.getChild(1).getText();
 
         char d = ctx.getChild(0).getText().charAt(0);
-if(filter_method.equals("currency"))
-{
-    if(ctx.APO().size()==0)
-    {
-        try {
+		if(filter_method.equals("currency"))
+		{
+			if(ctx.APO().size()==0)
+			{
+				try {
 
-            FileWriter fw = new FileWriter(ErrorFile , true);
-            BufferedWriter error = new BufferedWriter(fw);
-            line_number=ctx.start.getLine();
-            error.write("erro in line:"+""+line_number);
-            error.write("(currency) pipe should recieve one character only" );
-            error.newLine();
-            error.close();
+					FileWriter fw = new FileWriter(ErrorFile , true);
+					BufferedWriter error = new BufferedWriter(fw);
+					line_number=ctx.start.getLine();
+					error.write("error in line:"+""+line_number);
+					error.write(" (currency) pipe should have single quotation" );
+					error.newLine();
+					error.close();
 
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    }
-}
+				} catch (IOException e) {
+					System.out.println("An error occurred.");
+					e.printStackTrace();
+				}
+			}
+		}
 
 		return new StringLiteral(string);
 	}
@@ -413,79 +380,7 @@ if(filter_method.equals("currency"))
 	public Expression visitNotEqualComparisionExpression(NotEqualComparisionExpressionContext ctx) {
 		return new NotEqualComparisionExpression();
 	}
-public boolean 	findSymbole( String symbolename , Scope currentscope){
-		boolean find=false;
 
-for(int i=0;i<symboletable.getSymboles().size();i++)
-	{
-		if(symboletable.getSymboles().get(i).getName().equals(symbolename) &&
-		symboletable.getSymboles().get(i).getSymbole_scope().getId().equals(currentscope.getId())
-		)
-		{
-			find=true;
-
-			break;
-		}
-
-	}
-//
-//if(currentscope.getId().equals("global"))
-//{
-//	find=false;
-//
-//}
-//else{
-//		findSymbole(  symbolename , currentscope.getParent());
-//	}
-
-return find;
-	}
-    public void  store_symbole_scope(String value , Scope scope)
-    {
-
-        boolean find=false;
-        if(scope.getId().equals("global"))
-        {
-			for(int i=0;i<symboletable.getSymboles().size();i++)
-			{
-
-				if(symboletable.getSymboles().get(i).getName().equals(value)
-						&& symboletable.getSymboles().get(i).getSymbole_scope().getId().equals("global")
-				)
-				{
-
-					find=true;
-					return;
-
-				}
-			}
-			if(find==false){
-			Symbole symbole = new Symbole(value);
-			Scope symbole_scope = new Scope();
-			symbole_scope.setId("global");
-			symbole.setSymbole_scope(symbole_scope);
-			symboletable.addSymbole(symbole);
-			return ;
-		}
-        }
-        for(int i=0;i<symboletable.getSymboles().size();i++)
-        {
-
-            if(symboletable.getSymboles().get(i).getName().equals(value)
-			&& symboletable.getSymboles().get(i).getSymbole_scope().getId().equals(scope.getId())
-			)
-            {
-
-                find=true;
-                return;
-
-            }
-        }
-        if(find==false)
-        {
-            store_symbole_scope(value,scope.getParent());
-        }
-    }
     public void  get_Directive_value(String Directive_value){
         Element_Directive_Value= Directive_value;
     }

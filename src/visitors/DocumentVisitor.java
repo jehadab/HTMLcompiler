@@ -55,7 +55,6 @@ import models.statements.*;
 public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     protected static Stack<Boolean> switchExists;
-    public static Stack<Scope> scopesStack = new Stack<>();
     public static Stack<Tag> tagsStack = new Stack<>();
 
     public DocumentVisitor() {
@@ -89,26 +88,6 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         tagsStack.push(tag);
         DocumentHeader header = (DocumentHeader) visit(ctx.getChild(0));
         DocumentBody body = (DocumentBody) visit(ctx.getChild(1));
-        if (cppapp_number > 1) {
-            try {
-//                FileWriter fstream = new FileWriter("log.txt",true);
-//                BufferedWriter out = new BufferedWriter(fstream);
-//                out.write("Line Added on: " + new java.util.Date()+"\n");
-//                out.close();
-                FileWriter fw = new FileWriter(ErrorFile, true);
-                BufferedWriter error = new BufferedWriter(fw);
-
-                error.write("error in line:" + "" + line_number);
-                error.write("  Nested cp-app is forbidden.");
-                error.newLine();
-                error.close();
-
-            } catch (IOException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
-            }
-
-        }
         showSymboleTable();
         print_symbole_linked_list();
         symboletable.getScopes();
@@ -154,19 +133,6 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
     @Override
     public AbstractASTNode visitExpDirective(ExpDirectiveContext ctx) {
         Element_Directive_name = ctx.getChild(0).getText();
-        if (!ctx.getChild(0).getText().equals("cp-model")) {
-            ElementDirective_number++;
-            if (ctx.getChild(0).getText().equals("cp-app"))
-                cppapp_number++;
-
-            line_number = ctx.start.getLine();
-            if (ElementDirective_number == 1) {
-                Scope scope = new Scope(scopesStack.peek());
-                scope.setId(ctx.getChild(0).getText() + "_" + scope.hashCode());
-                symboletable.addScope(scope);
-                scopesStack.push(scope);
-            }
-        }
 
         Element = "Directive";
         AbstractASTNode value = expressionVisitor.visit(ctx.getChild(3));
@@ -176,17 +142,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     @Override
     public AbstractASTNode visitStmtDirective(StmtDirectiveContext ctx) {
-        if (ctx.getChild(0).getText().equals("cp-for")) {
-            ElementDirective_number++;
-            if (ElementDirective_number == 1) {
-                Scope scope = new Scope(scopesStack.peek());
-                scope.setId(ctx.getChild(0).getText() + "_" + scope.hashCode());
-                symboletable.addScope(scope);
-                scopesStack.push(scope);
-            }
 
-
-        }
         AbstractASTNode value = visit(ctx.getChild(3));
 
 //        store_symbole_scope(ctx.getChild(3).getText().substring(3,4) , scopesStack.peek().getParent());
@@ -206,7 +162,6 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         AbstractASTNode arrayToLoopOn = expressionVisitor.visit(ctx.getChild(2));
         String loopVariable = ctx.getChild(0).getText();
         line_number = ctx.start.getLine();
-        semanticCheck.isVariableExist(loopVariable, currentScope);
 
         return new ArrayLoopStatement(loopVariable, (ValueExpression) arrayToLoopOn);
     }
@@ -219,9 +174,6 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         String loopVariable = ctx.getChild(0).getText();
         String indexVariable = ctx.getChild(4).getText();
         line_number = ctx.start.getLine();
-        semanticCheck.isVariableExist(loopVariable, currentScope);//check loopvar
-        semanticCheck.isVariableExist(indexVariable, currentScope);// check loopindex
-
 
         return new ArrayLoopStatement(loopVariable, indexVariable, (ValueExpression) arrayToLoopOn);
     }
@@ -244,8 +196,6 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         String KeyVariable = ctx.getChild(0).getText();
         String valueVariable = ctx.getChild(2).getText();
         line_number = ctx.start.getLine();
-        semanticCheck.isVariableExist(KeyVariable, currentScope);
-        semanticCheck.isVariableExist(valueVariable, currentScope);
         return new ObjectLoopStatement(KeyVariable, valueVariable, (ValueExpression) objectToLoopOn);
     }
 
@@ -274,28 +224,6 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         for (int index = 0; index < ctx.getChild(3).getChildCount(); index += 2) {
             parameters.add(expressionVisitor.visit(ctx.getChild(3).getChild(index)));
 
-        }
-        if (filter_method.equals("upper") || filter_method.equals("lower")) {
-
-            if (parameters.size() != 0) {
-                try {
-//                FileWriter fstream = new FileWriter("log.txt",true);
-//                BufferedWriter out = new BufferedWriter(fstream);
-//                out.write("Line Added on: " + new java.util.Date()+"\n");
-//                out.close();
-                    FileWriter fw = new FileWriter(ErrorFile, true);
-                    BufferedWriter error = new BufferedWriter(fw);
-                    line_number = ctx.start.getLine();
-                    error.write("erro in line:" + "" + line_number);
-                    error.write("  (upper/lower) pipes should not recieve any parameter.");
-                    error.newLine();
-                    error.close();
-
-                } catch (IOException e) {
-                    System.out.println("An error occurred.");
-                    e.printStackTrace();
-                }
-            }
         }
 
         return new FilterStatement((Expression) filter, parameters,ctx.getChild(1).getText());
@@ -378,28 +306,6 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         String tagName = ctx.getChild(1).getText();
         String tagClose;
 
-        if ((tagName.equals("ol") || tagName.equals("ul")) && tagsStack.peek().getTagname().equals("li")) {
-            try {
-                FileWriter fw = new FileWriter(ErrorFile, true);
-                BufferedWriter error = new BufferedWriter(fw);
-                line_number = ctx.start.getLine();
-                error.write("error in line:" + "" + line_number);
-                error.write("li tag should not be outside ul/ol");
-                error.newLine();
-                error.close();
-
-            } catch (IOException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
-            }
-        }
-
-        if (tagName.equals("ol") || tagName.equals("li") || tagName.equals("ul")) {
-
-            Tag tag = new Tag(tagName);
-            tagsStack.push(tag);
-        }
-
         if (ctx.getChild(2) instanceof ElementAttributesContext) {
             tagClose = ctx.getChild(6).getText();
         } else
@@ -415,12 +321,14 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
             attributes = getAttributes((ElementAttributesContext) ctx.getChild(2));
 
         String elementId = getElementId(attributes);
+
         /*----------------------------- Semantic Check ------------------------*/
+        if(tagName.equals("ul") || tagName.equals("ol")) ulolNumber++;
+
         semanticCheck(tagName,attributes,ctx.start.getLine());
         /*----------------------------- Semantic Check ------------------------*/
 
         /*------------------------------ Code Generation ---------------------*/
-
         for (int i = 0; i < attributes.size(); i++) {
             if (attributes.get(i) instanceof Directive) {
                 Directive directive = (Directive) attributes.get(i);
@@ -479,16 +387,26 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
             }
         }
 
+        semanticCheckMustaches(tagName,attributes,ctx.start.getLine(),mustaches);
         if(!mustaches.isEmpty())generation_object.code_generation_mustache(elementId, defaultText, mustaches);
 
         if (switchElement)
             switchExists.pop();
         ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]), contents.toArray(new DocumentNode[contents.size()]));
 
+        if(tagName.equals("ul") || tagName.equals("ol")) ulolNumber--;
+        for (int i = 0; i < attributes.size(); i++) {
+            if (attributes.get(i) instanceof Directive) {
+                Directive directive = (Directive) attributes.get(i);
+                String Directive_name = directive.getName();
 
-        if (!scopesStack.peek().getId().equals("global") && isElementDirective) {
-            scopesStack.pop();
-
+                if (Directive_name.equals("cp-app")) {
+                    cppapp_number--;
+                }
+                if (Directive_name.equals("cp-for")) {
+                    scopesStack.pop();
+                }
+            }
         }
 
         return element;
@@ -513,7 +431,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
             attributes = getAttributes((ElementAttributesContext) ctx.getChild(2));
 
         /*----------------------------- Semantic Check ------------------------*/
-        semanticCheck(tagName,attributes,ctx.start.getLine());
+        //semanticCheck(tagName,attributes,ctx.start.getLine());
         /*----------------------------- Semantic Check ------------------------*/
 
         /*------------------------------ Code Generation ---------------------*/
@@ -587,6 +505,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
                  mustache.setOperand(((FilterStatement)mustache.getExpression()).getOperand());
                  mustache.setMethod(((FilterStatement)mustache.getExpression()).getFilter_method());
 
+                 if(((FilterStatement) mustache.getExpression()).getParameters() != null)
                  for(int i=0;i<((FilterStatement) mustache.getExpression()).getParameters().size();i++)
                  {
                      mustache.getParameter_value().add(((StringLiteral)((FilterStatement) mustache.getExpression()).getParameters().get(i)).getString());

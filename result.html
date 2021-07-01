@@ -47,3 +47,41 @@
     var forthyear = new forthyear();
 
 </script>
+<script>
+mustaches = [];
+</script>
+<script>
+ function cpShowStaticFunction(id, conditionResult){
+     if(conditionResult)
+         document.getElementById(id).hidden = false;
+     else
+         document.getElementById(id).hidden = true;
+ }
+</script>
+
+<script>
+ function cpHideStaticFunction(id, conditionResult){
+     if(conditionResult)
+         document.getElementById(id).hidden = true;
+     else
+         document.getElementById(id).hidden = false;
+ }
+</script>
+
+<script>
+ function render(){
+     setInterval( function (){
+         for(var i=mustaches.length - 1 ; i>=0; i--){
+             mustaches[i]();
+         }
+     },1000);
+ }render();</script>
+
+<script>
+ var mustacheChange1 = function (event) {
+     defaultText="{{myTest|currency:'ss'}}";
+     defaultText= defaultText.replace("{{myTest|currency:'ss'}}",'ss'+forthyear.myTest);
+     document.getElementById('myTestInput3').innerHTML =defaultText;
+ };
+ mustaches.push(mustacheChange1);
+</script>
