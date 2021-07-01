@@ -6,5 +6,9 @@ public class OrExpression extends LogicalExpression {
 	protected String nodeName() {
 		return "OrExpression";
 	}
-	
+
+	@Override
+	public String getExpressionForJS() {
+		return leftOprand.getExpressionForJS() + "||" + rightOprand.getExpressionForJS();
+	}
 }

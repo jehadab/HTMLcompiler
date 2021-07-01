@@ -1,7 +1,9 @@
 package models.expression.value.reference;
 
+import CodeGeneration.codegeneration;
 import models.expression.ValueExpression;
 import models.util.Formatter;
+import visitors.Visitor;
 
 public class ReferenceExpression extends ValueExpression {
 
@@ -23,5 +25,10 @@ public class ReferenceExpression extends ValueExpression {
 
 	public String getName() {
 		return name;
+	}
+
+	@Override
+	public String getExpressionForJS() {
+		return codegeneration.cpapp_value + '.' + name;
 	}
 }

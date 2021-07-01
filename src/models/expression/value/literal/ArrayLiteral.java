@@ -20,5 +20,19 @@ public class ArrayLiteral extends CompoundLiteral {
 	protected Formatter nodeValue(Formatter formatter) {
 		return formatter.array("elements", elements);
 	}
-	
+
+	@Override
+	public String getExpressionForJS() {
+		String res = "[";
+		for (int i=0;i<elements.length;i++) {
+			ValueExpression val = elements[i];
+			res += val.getExpressionForJS();
+			if(i != elements.length - 1)
+			{
+				res += ",";
+			}
+		}
+		res += "]";
+		return res;
+	}
 }

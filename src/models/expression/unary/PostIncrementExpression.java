@@ -14,5 +14,9 @@ public class PostIncrementExpression extends UnaryExpression {
 	protected String nodeName() {
 		return "PostIncrementExpression";
 	}
-	
+
+	@Override
+	public String getExpressionForJS() {
+		return oprand.getExpressionForJS() + "++";
+	}
 }

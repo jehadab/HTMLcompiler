@@ -7,4 +7,8 @@ public class MoreThanComparisionExpression extends ComparsionExpression {
 		return "MoreThanComparisionExpression";
 	}
 
+	@Override
+	public String getExpressionForJS() {
+		return leftOprand.getExpressionForJS() + ">" + rightOprand.getExpressionForJS();
+	}
 }

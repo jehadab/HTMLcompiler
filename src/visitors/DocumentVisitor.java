@@ -339,11 +339,11 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
                 }
 
                 if(Directive_name.equals("cp-show")){
-                    generation_object.code_generation_cpshow(elementId,directive.getValueAsString());
+                    generation_object.code_generation_cpshow(elementId,directive.getValueAsExpression().getExpressionForJS());
                 }
 
                 if(Directive_name.equals("cp-hide")){
-                    generation_object.code_generation_cphide(elementId,directive.getValueAsString());
+                    generation_object.code_generation_cphide(elementId,directive.getValueAsExpression().getExpressionForJS());
                 }
 
                 if(Directive_name.equals("cp-model")){

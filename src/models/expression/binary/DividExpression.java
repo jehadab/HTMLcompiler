@@ -13,4 +13,8 @@ public class DividExpression extends ArithmeticExpression {
 		return "DividExpression";
 	}
 
+	@Override
+	public String getExpressionForJS() {
+		return leftOprand.getExpressionForJS() + "/" + rightOprand.getExpressionForJS();
+	}
 }

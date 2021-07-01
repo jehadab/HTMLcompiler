@@ -12,4 +12,9 @@ public class MultiExpression extends ArithmeticExpression {
 	protected String nodeName() {
 		return "MultiExpression";
 	}
+
+	@Override
+	public String getExpressionForJS() {
+		return leftOprand.getExpressionForJS() + "*" + rightOprand.getExpressionForJS();
+	}
 }

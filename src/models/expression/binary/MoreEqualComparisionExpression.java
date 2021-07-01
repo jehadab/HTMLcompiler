@@ -6,5 +6,9 @@ public class MoreEqualComparisionExpression extends ComparsionExpression {
 	protected String nodeName() {
 		return "MoreEqualComparisionExpression";
 	}
-	
+
+	@Override
+	public String getExpressionForJS() {
+		return leftOprand.getExpressionForJS() + ">=" + rightOprand.getExpressionForJS();
+	}
 }

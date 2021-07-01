@@ -7,7 +7,7 @@ import java.util.List;
 
 public class codegeneration {
     public String generatedfile = "";
-    public String cpapp_value = "";
+    public static String cpapp_value = "";
 
     public int mustachesNumber = 1;
     public void created_generated_file(String htmlfile_path, String generatedfile_path) throws IOException {
@@ -192,9 +192,9 @@ public class codegeneration {
             }
         }
          else {
-            write_on_file("     defaultText= defaultText.replace("+'"'+"{{"+mustaches.get(i).getExpressionAsString()+"}}"+'"'+","+cpapp_value+"."+mustaches.get(i).getExpressionAsString()+");",generatedfile);
+            write_on_file("     defaultText= defaultText.replace("+'"'+"{{"+mustaches.get(i).getExpressionAsString()+"}}"+'"'+","+mustaches.get(i).getExpressionAsExpression().getExpressionForJS()+");",generatedfile);
             write_on_file("\n",generatedfile);
-             }
+         }
 
         }
         write_on_file("     document.getElementById('"+id+"')"+"."+"innerHTML =defaultText;",generatedfile);

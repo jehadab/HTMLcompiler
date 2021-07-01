@@ -6,5 +6,9 @@ public class LessThanComparisionExpression extends ComparsionExpression {
 	protected String nodeName() {
 		return "LessThanComparisionExpression";
 	}
-	
+
+	@Override
+	public String getExpressionForJS() {
+		return leftOprand.getExpressionForJS() + "<" + rightOprand.getExpressionForJS();
+	}
 }

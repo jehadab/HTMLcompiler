@@ -2,7 +2,9 @@ package models.expression.value;
 
 import java.util.List;
 
+import CodeGeneration.codegeneration;
 import models.expression.Expression;
+import models.expression.ValueExpression;
 import models.util.Formatter;
 
 public class FunctionCallExpression extends Expression {
@@ -29,5 +31,24 @@ public class FunctionCallExpression extends Expression {
 		if (parameters != null)
 			formatter.array("parameters", parameters.toArray(new Expression[parameters.size()]));
 		return formatter;
+	}
+
+	@Override
+	public String getExpressionForJS() {
+		String res = function.getExpressionForJS();
+		res += '(';
+		if(parameters != null)
+		{
+			for (int i=0;i<parameters.size();i++) {
+				Expression val = parameters.get(i);
+				res += val.getExpressionForJS();
+				if(i != parameters.size() - 1)
+				{
+					res += ",";
+				}
+			}
+		}
+		res += ")";
+		return res;
 	}
 }

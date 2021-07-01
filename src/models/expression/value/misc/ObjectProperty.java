@@ -24,5 +24,8 @@ public class ObjectProperty {
 	public String toString() {
 		return "key: " + key + " " + value.toString("value");
 	}
-	
+
+	public String getExpressionForJS() {
+		return key + ":" + value.getExpressionForJS();
+	}
 }

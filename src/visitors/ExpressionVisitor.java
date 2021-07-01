@@ -63,6 +63,7 @@ import models.expression.binary.MoreThanComparisionExpression;
 import models.expression.binary.MultiExpression;
 import models.expression.binary.NotEqualComparisionExpression;
 import models.expression.binary.OrExpression;
+import models.expression.parenthesized.ParenthesizedExpression;
 import models.expression.ternary.TernaryConditionalExpression;
 import models.expression.unary.ExclamationExpression;
 import models.expression.unary.PostDecrementExpression;
@@ -342,7 +343,9 @@ public class ExpressionVisitor extends Visitor<Expression>{
 
 	@Override
 	public Expression visitParenthesized(HTMLParser.ParenthesizedContext ctx) {
-		return visit(ctx.getChild(1));
+		Expression oprand = visit(ctx.getChild(1));
+		ParenthesizedExpression parenthesizedExpression = new ParenthesizedExpression(oprand);
+		return parenthesizedExpression;
 	}
 
 	protected ObjectProperty analyze(ObjectPropertyContext ctx) {

@@ -31,4 +31,9 @@ public class AccessByIndex extends ValueExpression implements AccessMethod {
 	protected String nodeName() {
 		return "AccessByIndex";
 	}
+
+	@Override
+	public String getExpressionForJS() {
+		return "["+index.getExpressionForJS()+"]";
+	}
 }

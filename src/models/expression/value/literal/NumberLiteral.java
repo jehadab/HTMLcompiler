@@ -19,5 +19,10 @@ public class NumberLiteral extends PrimitiveLiteral {
 	protected Formatter nodeValue(Formatter formatter) {
 		return formatter.addProperty("value", Double.toString(number));
 	}
-	
+
+
+	@Override
+	public String getExpressionForJS() {
+		return String.valueOf(number);
+	}
 }

@@ -19,5 +19,11 @@ public class BooleanLiteral extends PrimitiveLiteral {
 	protected Formatter nodeValue(Formatter formatter) {
 		return formatter.addProperty("value", Boolean.toString(value));
 	}
-	
+
+
+	@Override
+	public String getExpressionForJS() {
+		if(value) return "true";
+		return "false";
+	}
 }

@@ -1,6 +1,7 @@
 package models.directive;
 
 import models.AbstractASTNode;
+import models.expression.Expression;
 import models.nodes.DocumentNode;
 import models.util.Formatter;
 
@@ -50,5 +51,9 @@ public class Directive extends DocumentNode {
 
 	public AbstractASTNode getValue() {
 		return value;
+	}
+
+	public Expression getValueAsExpression() {
+		return (Expression) value;
 	}
 }

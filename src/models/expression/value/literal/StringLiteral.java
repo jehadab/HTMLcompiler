@@ -1,5 +1,6 @@
 package models.expression.value.literal;
 
+import models.expression.value.misc.ObjectProperty;
 import models.util.Formatter;
 
 public class StringLiteral extends PrimitiveLiteral {
@@ -24,4 +25,7 @@ public class StringLiteral extends PrimitiveLiteral {
 		return formatter.addProperty("value", string);
 	}
 
+	public String getExpressionForJS() {
+		return '"' + string + '"';
+	}
 }

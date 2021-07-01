@@ -31,4 +31,9 @@ public class AccessByProperty extends ValueExpression implements AccessMethod {
 		 return formatter;
 	}
 
+
+	@Override
+	public String getExpressionForJS() {
+		return "." + name + method.getExpressionForJS();
+	}
 }

@@ -43,119 +43,23 @@ Document: {
 							type: Normal,
 						},
 						ElementNode: {
-							name: ul,
-							type: Normal,
-							children: [
-								ElementNode: {
-									name: li,
-									type: Normal,
-									children: [
-										ElementNode: {
-											name: p,
-											type: Normal,
-											children: [
-												ElementNode: {
-													name: p,
-													type: Normal,
-													children: [],
-													attributes: [
-														Directive: {
-															type: cp-for,
-															value(ArrayLoopStatement): {
-																loopVariable: i,
-																indexed: false,
-																loopOn(ReferenceExpression): {
-																	reference: ads,
-																},
-															},
-														}
-													],
-												},
-											],
-											attributes: [
-												Directive: {
-													type: cp-for,
-													value(ArrayLoopStatement): {
-														loopVariable: j,
-														indexed: true,
-														indexVariable: s,
-														loopOn(ReferenceExpression): {
-															reference: asdasd,
-														},
-													},
-												}
-											],
-										},
-									],
-									attributes: [
-										Directive: {
-											type: cp-for,
-											value(ArrayLoopStatement): {
-												loopVariable: i,
-												indexed: true,
-												indexVariable: s,
-												loopOn(ReferenceExpression): {
-													reference: array,
-												},
-											},
-										}
-									],
-								},
-								ElementNode: {
-									name: li,
-									type: Normal,
-									children: [
-										ElementNode: {
-											name: p,
-											type: Normal,
-											children: [],
-											attributes: [
-												Directive: {
-													type: cp-for,
-													value(ArrayLoopStatement): {
-														loopVariable: i,
-														indexed: false,
-														loopOn(ReferenceExpression): {
-															reference: asdasd,
-														},
-													},
-												}
-											],
-										},
-									],
-									attributes: [
-										Directive: {
-											type: cp-for,
-											value(ArrayLoopStatement): {
-												loopVariable: i,
-												indexed: false,
-												loopOn(ReferenceExpression): {
-													reference: array,
-												},
-											},
-										}
-									],
-								},
-							],
-							attributes: [],
-						},
-						ElementNode: {
 							name: p,
 							type: Normal,
 							children: [
 								MustachNode: {
-									Exp(FilterStatement): {
-										Oprand(ReferenceExpression): {
-											reference: myTest,
+									Exp(TernaryConditionalExpression): {
+										firstOprand(LessThanComparisionExpression): {
+											leftOprand(FunctionCallExpression): {
+												function(ReferenceExpression): {
+													reference: result,
+												},
+											},
+											rightOprand(NumberLiteral): {
+												value: 20.0,
+											},
 										},
-										FilterMethod(ReferenceExpression): {
-											reference: currency,
-										},
-										parameters: [
-											StringLiteral: {
-												value: ss,
-											}
-										],
+										secondOprand(PostDecrementExpression): {},
+										thirdOprand(PostDecrementExpression): {},
 									},
 								}
 							],
@@ -186,12 +90,17 @@ Document: {
 		ScriptNode: {
 			content: <script>
 		    function forthyear (){
-		        this.axr = 5;
+		        this.axr = 25;
 		        this.myTest = "HI MAn";
 		
-		        this.x = { var1: [1,2],var2: "v2"};
+		        this.x = 12;
 		
 		        this.y = ["hi","hello",5];
+		
+		        this.result = function(){
+		            return 25;
+		        }
+		
 		    };
 		
 		    var forthyear = new forthyear();

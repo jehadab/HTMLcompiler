@@ -56,6 +56,10 @@ public class FilterStatement extends Expression {
 		if (parameters != null)
 			formatter.array("parameters", parameters.toArray(new Expression[parameters.size()]));
 		return formatter;
-	} 
+	}
 
+	@Override
+	public String getExpressionForJS() {
+		return null;
+	}
 }

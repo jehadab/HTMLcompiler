@@ -14,4 +14,9 @@ public class ExclamationExpression extends UnaryExpression {
 		return "ExclamationExpression";
 	}
 
+	@Override
+	public String getExpressionForJS() {
+		return "!" + oprand.getExpressionForJS();
+	}
+
 }

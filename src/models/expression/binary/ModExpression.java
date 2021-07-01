@@ -12,5 +12,9 @@ public class ModExpression extends ArithmeticExpression {
 	protected String nodeName() {
 		return "ModExpression";
 	}
-	
+
+	@Override
+	public String getExpressionForJS() {
+		return leftOprand.getExpressionForJS() + "%" + rightOprand.getExpressionForJS();
+	}
 }

@@ -14,5 +14,9 @@ public class PreDecrementExpression extends UnaryExpression {
 	protected String nodeName() {
 		return "PreDecrementExpression";
 	}
-	
+
+	@Override
+	public String getExpressionForJS() {
+		return "--" + oprand.getExpressionForJS();
+	}
 }

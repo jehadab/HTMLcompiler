@@ -25,4 +25,9 @@ public class AccessExpression extends ValueExpression {
 		return formatter.object(object.toString("object"))
 				.object(((AbstractASTNode) method).toString("method"));
 	}
+
+	@Override
+	public String getExpressionForJS() {
+		return object.getExpressionForJS() + method.getExpressionForJS();
+	}
 }

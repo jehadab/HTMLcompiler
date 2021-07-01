@@ -14,5 +14,9 @@ public class PreIncrementExpression extends UnaryExpression {
 	protected String nodeName() {
 		return "PreIncrementExpression";
 	}
-	
+
+	@Override
+	public String getExpressionForJS() {
+		return "++" + oprand.getExpressionForJS();
+	}
 }

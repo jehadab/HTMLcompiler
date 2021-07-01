@@ -14,4 +14,8 @@ public class TernaryConditionalExpression extends TernaryExpression {
 		return "TernaryConditionalExpression";
 	}
 
+	@Override
+	public String getExpressionForJS() {
+		return firstOprand.getExpressionForJS() + "?" + secondOprand.getExpressionForJS() + ":" + thirdOprand.getExpressionForJS();
+	}
 }

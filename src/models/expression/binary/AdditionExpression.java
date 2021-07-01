@@ -13,4 +13,8 @@ public class AdditionExpression extends ArithmeticExpression {
 		return "AdditionExpression";
 	}
 
+	@Override
+	public String getExpressionForJS() {
+		return leftOprand.getExpressionForJS() + "+" + rightOprand.getExpressionForJS();
+	}
 }

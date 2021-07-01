@@ -1,6 +1,7 @@
 package models.nodes;
 
 import models.AbstractASTNode;
+import models.expression.Expression;
 import models.util.Formatter;
 
 import java.util.ArrayList;
@@ -62,5 +63,9 @@ public class MustachNode extends DocumentNode {
 
 	public String getExpressionAsString() {
 		return expressionAsString;
+	}
+
+	public Expression getExpressionAsExpression() {
+		return (Expression) expression;
 	}
 }

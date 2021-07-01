@@ -7,4 +7,8 @@ public class AndExpression extends LogicalExpression {
 		return "AndExpression";
 	}
 
+	@Override
+	public String getExpressionForJS() {
+		return leftOprand.getExpressionForJS() + "&&" + rightOprand.getExpressionForJS();
+	}
 }
