@@ -32,7 +32,7 @@ public class Visitor<T> extends HTMLParserBaseVisitor<T> {
     static  public  boolean  pipElement = false;
 	static DocumentVisitor documentVisitor = new DocumentVisitor();
 	static ExpressionVisitor expressionVisitor = new ExpressionVisitor();
-	static  codegeneration generation_object = new codegeneration();
+	public static  codegeneration generation_object = new codegeneration();
 	static   public String filter_method="";
 	static public String  Element_Directive_Value="";
 	static public String  Element_id_Value="noid";

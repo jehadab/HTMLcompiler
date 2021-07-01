@@ -7,40 +7,89 @@ Document: {
 			type: Normal,
 			children: [
 				ElementNode: {
-					name: head,
-					type: Normal,
-					children: [
-						ElementNode: {
-							name: title,
-							type: Normal,
-							children: [
-								TextNode: {
-									textValue: Sample,
-								}
-							],
-							attributes: [],
-						},
-					],
-					attributes: [],
-				},
-				ElementNode: {
 					name: body,
 					type: Normal,
 					children: [
-						CommentNode: {
-							comment: <!--
-						<div id="some-id" cp-show='x.var1[1] == "HI MAn" && axr == 5'>hi man</div>
-						<div id="some-id2" cp-hide='myTest == "HI MAn"'>hi man2</div>
-						
-						<input id="myTestInput" type="text" cp-model="x.var1[1]" />
-						<input id="myTestInput2" type="text" cp-model="x.var2" />
-						<input id="myTestInput3" type="text" cp-model="myTest" />
-						<input id="myTestInput4" type="text" cp-model="y[6]" />
-						<input id="myTestInput3" type="text" cp-model="myTest" />
-						
-						<p id="myTestInput3">this is my text: {{myTest}} and some text {{x.var1[1]}}</p>
-						<p id="myTestInput3">{{myTest}}</p> -->,
+						ElementNode: {
+							name: ul,
 							type: Normal,
+							children: [
+								ElementNode: {
+									name: li,
+									type: Normal,
+									children: [
+										TextNode: {
+											textValue: fofo,
+										}
+									],
+									attributes: [
+										Directive: {
+											type: cp-switch-case,
+											value(ReferenceExpression): {
+												reference: fofo1,
+											},
+										},
+										AttributeNode: {
+											attribute: id,
+											value: "li1259475182",
+										}
+									],
+								},
+								ElementNode: {
+									name: li,
+									type: Normal,
+									children: [
+										TextNode: {
+											textValue: fofo2,
+										}
+									],
+									attributes: [
+										Directive: {
+											type: cp-switch-case,
+											value(ReferenceExpression): {
+												reference: fofo4,
+											},
+										},
+										AttributeNode: {
+											attribute: id,
+											value: "li1300109446",
+										}
+									],
+								},
+								ElementNode: {
+									name: li,
+									type: Normal,
+									children: [
+										TextNode: {
+											textValue: 5,
+										}
+									],
+									attributes: [
+										Directive: {
+											type: cp-switch-case,
+											value(ReferenceExpression): {
+												reference: fofo2,
+											},
+										},
+										AttributeNode: {
+											attribute: id,
+											value: "li1020371697",
+										}
+									],
+								},
+							],
+							attributes: [
+								Directive: {
+									type: cp-switch,
+									value(ReferenceExpression): {
+										reference: fofo2,
+									},
+								},
+								AttributeNode: {
+									attribute: id,
+									value: "ul929338653",
+								}
+							],
 						},
 						ElementNode: {
 							name: ul,
@@ -72,10 +121,20 @@ Document: {
 									],
 								},
 							],
-							attributes: [],
+							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "ul225534817",
+								}
+							],
 						},
 					],
-					attributes: [],
+					attributes: [
+						AttributeNode: {
+							attribute: id,
+							value: "body1878246837",
+						}
+					],
 				},
 			],
 			attributes: [
@@ -84,6 +143,10 @@ Document: {
 					value(ReferenceExpression): {
 						reference: forthyear,
 					},
+				},
+				AttributeNode: {
+					attribute: id,
+					value: "html225534817",
 				}
 			],
 		},,
@@ -96,6 +159,7 @@ Document: {
 		    function forthyear (){
 		        this.axr = 5;
 		        this.myTest = "HI MAn";
+		        this.fofo2 = "fofo2";
 		
 		        this.x = { var1: [1,2],var2: "v2"};
 		

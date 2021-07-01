@@ -5,3 +5,95 @@ erro in line:24  i  is declerated before in the before
 erro in line:24  i  is declerated before in the before
 erro in line:24  i  is declerated before in the before
 erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:24  i  is declerated before in the before
+erro in line:20  i  is declerated before in the before
+erro in line:18  i  is declerated before in the before
+erro in line:18  i  is declerated before in the before
+erro in line:18  i  is declerated before in the before
+erro in line:18  i  is declerated before in the before
+erro in line:18  i  is declerated before in the before
+erro in line:18  i  is declerated before in the before
+erro in line:18  i  is declerated before in the before
+erro in line:18  i  is declerated before in the before
+erro in line:18  i  is declerated before in the before
+erro in line:18  i  is declerated before in the before
+erro in line:18  i  is declerated before in the before
+erro in line:18  i  is declerated before in the before
+erro in line:18  i  is declerated before in the before
+erro in line:18  i  is declerated before in the before
+erro in line:18  i  is declerated before in the before
+erro in line:18  i  is declerated before in the before
+erro in line:18  i  is declerated before in the before
+erro in line:18  i  is declerated before in the before
+erro in line:18  i  is declerated before in the before
+erro in line:18  i  is declerated before in the before
+erro in line:15  i  is declerated before in the before
+erro in line:15  i  is declerated before in the before
+erro in line:15  i  is declerated before in the before
+erro in line:15  i  is declerated before in the before
+erro in line:15  i  is declerated before in the before
+erro in line:15  i  is declerated before in the before
+erro in line:15  i  is declerated before in the before
+erro in line:15  i  is declerated before in the before
+erro in line:15  i  is declerated before in the before
+erro in line:15  i  is declerated before in the before
+erro in line:15  i  is declerated before in the before
+erro in line:15  i  is declerated before in the before
+erro in line:16  i  is declerated before in the before
+erro in line:16  i  is declerated before in the before
+erro in line:16  i  is declerated before in the before
+error in line:11li tag should not be outside ul/ol
+erro in line:13  s  is declerated before in the before
+erro in line:14  i  is declerated before in the before
+erro in line:17  i  is declerated before in the before
+error in line:17 id attribute must be uniqe on document level
+erro in line:18  i  is declerated before in the before
+error in line:11li tag should not be outside ul/ol
+erro in line:13  s  is declerated before in the before
+erro in line:14  i  is declerated before in the before
+erro in line:17  i  is declerated before in the before
+error in line:17 id attribute must be uniqe on document level
+erro in line:18  i  is declerated before in the before
+error in line:11li tag should not be outside ul/ol
+erro in line:13  s  is declerated before in the before
+erro in line:14  i  is declerated before in the before
+erro in line:17  i  is declerated before in the before
+error in line:17 id attribute must be uniqe on document level
+erro in line:18  i  is declerated before in the before
+error in line:11li tag should not be outside ul/ol
+erro in line:13  s  is declerated before in the before
+erro in line:14  i  is declerated before in the before
+erro in line:17  i  is declerated before in the before
+erro in line:18  i  is declerated before in the before
+error in line:11li tag should not be outside ul/ol
+erro in line:12  i  is declerated before in the before
+error in line:11li tag should not be outside ul/ol
+erro in line:12  i  is declerated before in the before
+error in line:11li tag should not be outside ul/ol
+erro in line:12  i  is declerated before in the before

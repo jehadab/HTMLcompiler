@@ -1,7 +1,6 @@
 package visitors;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,10 +8,7 @@ import java.util.List;
 import java.util.Stack;
 
 
-import CodeGeneration.codegeneration;
-import SymboleTable.Id;
 import SymboleTable.Scope;
-import SymboleTable.Symbole;
 import SymboleTable.Tag;
 import misc.HTMLParser.ArrayLoopRawContext;
 import misc.HTMLParser.AttributeNodeContext;
@@ -108,8 +104,8 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
             }
 
         }
-        showSymboleTable();
-        print_symbole_linked_list();
+//        showSymboleTable();
+//        print_symbole_linked_list();
         symboletable.getScopes();
         return new Document(header, body);
     }
@@ -145,7 +141,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
         for (int index = 0; index < ctx.getChildCount(); index++) {
             contents.add((DocumentNode) visit(ctx.getChild(index)));
-            System.out.println(contents.get(index));
+//            System.out.println(contents.get(index));
         }
         return body;
     }
@@ -443,18 +439,6 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         /*------------------------------ Code Generation ---------------------*/
 
 
-        boolean switchElement = false;
-        for (AbstractASTNode node : attributes)
-            if (node instanceof Directive && testName(((Directive) node).getName(), "cp-switch")) {
-                switchExists.push(true);
-                switchElement = true;
-
-            }
-        for (AbstractASTNode node : attributes)
-            if (node instanceof Directive && (testName(((Directive) node).getName(), "cp-switch-case") || testName(((Directive) node).getName(), "cp-switchDefault")))
-                if (switchExists.isEmpty())
-                    System.err.println("Invalid switch");
-
         String defaultText = "";
         if (ctx.getChild(3) instanceof ElementContentContext) {
             contents = getContent((ElementContentContext) ctx.getChild(3));
@@ -474,10 +458,40 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
             }
         }
 
+        boolean switchElement = false;
+        for (AbstractASTNode node : attributes)
+            if (node instanceof Directive && testName(((Directive) node).getName(), "cp-switch")) {
+                switchExists.push(true);
+                switchElement = true;
+
+                String switchValue = ((Directive) node).getName();
+                int switchCasesCount = 0 ;
+
+
+                for(int i = 0; i < contents.size(); i++){
+                    if(contents.get(i) instanceof ElementNode){
+                        switchCasesCount++;
+                    }
+                }
+                generation_object.switchCodeGeneration(elementId,switchValue, switchCasesCount);
+
+            }
+        for (AbstractASTNode node : attributes) {
+            if (node instanceof Directive && (testName(((Directive) node).getName(), "cp-switch-case")
+                    || testName(((Directive) node).getName(), "cp-switchDefault")))
+            {
+
+            }
+//                if (switchExists.isEmpty())
+//                    System.err.println("Invalid switch");
+        }
+
         if(!mustaches.isEmpty())generation_object.code_generation_mustache(elementId, defaultText, mustaches);
 
-        if (switchElement)
+        if (switchElement){
             switchExists.pop();
+
+        }
         ElementNode element = new ElementNode(tagName, attributes.toArray(new DocumentNode[attributes.size()]), contents.toArray(new DocumentNode[contents.size()]));
 
 
