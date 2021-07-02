@@ -78,22 +78,27 @@ public class codegeneration {
                     sb = sb.insert(sb.length() - 2, " id = \"" + elementID + "\" ");
 
                 }
-                if(matcher.group(0).contains("[") && matcher.group(0).contains("]")){
-                    System.out.println("found");
-                    content = content.replaceFirst("\\[","\\\\\\\\[");
-                    content = content.replaceFirst("\\]","\\\\\\\\]");
+//                if(matcher.group(0).contains("[") && matcher.group(0).contains("]")){
+////                    System.out.println("found");
+////                    content = content.replaceFirst("\\[","\\\\\\\\[");
+////                    content = content.replaceFirst("\\]","\\\\\\\\]");
+//
+//                    int closebracketIndex = 0  , openbracketIndex = 0 ;
+//                    StringBuilder stringBuilder = new StringBuilder(matcher.group(0));
+//                    openbracketIndex =  stringBuilder.indexOf("[");
+//                    closebracketIndex =  stringBuilder.indexOf("]");
+//
+//                    stringBuilder.insert(openbracketIndex,"\\\\");
+//                    stringBuilder.insert(closebracketIndex + 2,"\\\\");
+////                    stringBuilder.insert(stringBuilder.indexOf("[") - 1,"\\\\\\\\");
+//                    System.out.println(stringBuilder);
+//
+//                    content = content.replaceFirst(stringBuilder.toString() , sb.toString());
+//                    continue;
+//
+//                }
 
-                    StringBuilder stringBuilder = new StringBuilder(matcher.group(0));
-                    stringBuilder.indexOf("[");
-                    stringBuilder.insert(stringBuilder.indexOf("[") - 1,"\\\\\\\\");
-                    stringBuilder.insert(stringBuilder.indexOf("]") - 1,"\\\\\\\\");
-
-                    content = content.replaceFirst(stringBuilder.toString() , sb.toString());
-                    continue;
-
-                }
-
-                content = content.replaceFirst(matcher.group(0), sb.toString());
+                content = content.replaceFirst("\\Q"+matcher.group(0)+"\\E", sb.toString());
             }
             Files.write(destPath, content.getBytes(charset));
 
@@ -101,9 +106,6 @@ public class codegeneration {
             e.printStackTrace();
         }
 
-        String s = "['axr','asd']";
-        s = s.replaceFirst("\\['axr','asd'\\]", "['bobo']");
-        System.out.println(s);
     }
 
     public void write_on_file(String text, String filename) {
