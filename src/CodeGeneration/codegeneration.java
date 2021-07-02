@@ -18,7 +18,9 @@ public class codegeneration {
 
     public int mustachesNumber = 1;
     private StringBuilder sb;
-    String addToRender = "";
+    String addToRender = "\n";
+    private int switchNumber = 1;
+
     public void created_generated_file(String htmlfile_path, String generatedfile_path) throws IOException {
         File source = new File(htmlfile_path);
         File dest = new File(generatedfile_path);
@@ -64,7 +66,7 @@ public class codegeneration {
         try {
 
             String content = new String(Files.readAllBytes(sourcePath), charset);
-            Pattern elementPattern = Pattern.compile("<(\\w+)\\s*(?![^>]*\\bid\\s*=)[^>]*(>)");
+            Pattern elementPattern = Pattern.compile("<(\\w+)\\s*(?:cp-\\w*\\s*=\"\\b[^\"]*\\s*)*(?![^>]*\\bid\\s*=)[^>]*(>)");
             Matcher matcher = elementPattern.matcher(content);
 
             while (matcher.find()) {
@@ -80,25 +82,6 @@ public class codegeneration {
                     sb = sb.insert(sb.length() - 2, " id = \"" + elementID + "\" ");
 
                 }
-//                if(matcher.group(0).contains("[") && matcher.group(0).contains("]")){
-////                    System.out.println("found");
-////                    content = content.replaceFirst("\\[","\\\\\\\\[");
-////                    content = content.replaceFirst("\\]","\\\\\\\\]");
-//
-//                    int closebracketIndex = 0  , openbracketIndex = 0 ;
-//                    StringBuilder stringBuilder = new StringBuilder(matcher.group(0));
-//                    openbracketIndex =  stringBuilder.indexOf("[");
-//                    closebracketIndex =  stringBuilder.indexOf("]");
-//
-//                    stringBuilder.insert(openbracketIndex,"\\\\");
-//                    stringBuilder.insert(closebracketIndex + 2,"\\\\");
-////                    stringBuilder.insert(stringBuilder.indexOf("[") - 1,"\\\\\\\\");
-//                    System.out.println(stringBuilder);
-//
-//                    content = content.replaceFirst(stringBuilder.toString() , sb.toString());
-//                    continue;
-//
-//                }
 
                 content = content.replaceFirst("\\Q"+matcher.group(0)+"\\E", sb.toString());
             }
@@ -334,19 +317,20 @@ public class codegeneration {
 
     public void switchCodeGeneration(String elementId, String switchValue, int swithcChildCount) {
         String generatedSwitch = "\n<script>\n" +
-                "   function jsSwitch(){" +
+                "   function jsSwitch"+switchNumber+"(){" +
                 "       let originalElement = document.getElementById(\"" + elementId + "\");\n" +
                 "       let cases = originalElement.children;\n" +
                 "       let switchValue = " +cpapp_value+"."+ switchValue + ";\n" +
+                "       var defaultCase;\n" +
                 "       for ( let i = 0 ; i < cases.length ; i++ ){\n" +
-                "       if(!(cases[i].hasAttribute(\"cp-switch-case\") || cases[i].hasAttribute(\"cp-switchDefault\"))){\n" +
-                "       console.log(cases[i])" +
-                "       }" +
-                "       else {\n" +
-                "\n" +
-                "             cases[i].hidden = true;\n" +
-                "\n" +
-                "             }\n" +
+                "           if(!(cases[i].hasAttribute(\"cp-switch-case\") || cases[i].hasAttribute(\"cp-switchDefault\"))){\n" +
+                "               console.log(cases[i])" +
+                "           }else{\n" +
+                "               cases[i].hidden = true;\n" +
+                "           }\n" +
+                "           if(cases[i].hasAttribute(\"cp-switchDefault\")){\n" +
+                "               defaultCase = cases[i];\n" +
+                "           }\n" +
                 "       }" +
                 "       switch("+cpapp_value+"."+ switchValue+"){";
         StringBuilder sb = new StringBuilder(generatedSwitch);
@@ -355,14 +339,28 @@ public class codegeneration {
                     "   cases[" + i + "].hidden =false ;\n" +
                     "   break;");
         }
+        sb = sb.append(" default :\n" +
+                "  defaultCase.hidden =false ;\n" +
+                "   break;");
         sb = sb.append(
 
                 "       }\n" +
                         "}" +
-                "       var launching = jsSwitch();" +
-                "\n</script>");
+                "\njsSwitch"+switchNumber+"();</script>"+"\n");
 //        System.out.println(sb);
         generatedSwitch = sb.toString();
         write_on_file(generatedSwitch,generatedfile);
+        addToRender += "        jsSwitch"+switchNumber+"();" + "\n";
+        switchNumber++;
     }
+
+    public void code_generation_mousemove(String elementId, String expressionForJS) {
+        write_on_file("\n", generatedfile);
+        write_on_file("<script>" + "\n", generatedfile);
+        write_on_file(" document.getElementById('" + elementId + "').addEventListener(\"mousemove\", function(event){" + "\n", generatedfile);
+        write_on_file("     " + expressionForJS + ";\n",generatedfile);
+        write_on_file(" });" + "\n",generatedfile);
+        write_on_file("</script>" + "\n", generatedfile);
+    }
+
 }

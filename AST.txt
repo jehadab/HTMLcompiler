@@ -1,0 +1,285 @@
+Document: {
+	header(DocumentHeader): {,
+		TextNode: {
+			textValue: <!DOCTYPE html>,
+		},,
+	},
+	body(DocumentBody): {
+		ElementNode: {
+			name: html,
+			type: Normal,
+			children: [
+				ElementNode: {
+					name: head,
+					type: Normal,
+					children: [
+						ElementNode: {
+							name: title,
+							type: Normal,
+							children: [
+								TextNode: {
+									textValue: Sample 6 events,
+								}
+							],
+							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "title723074861",
+								}
+							],
+						},
+					],
+					attributes: [
+						AttributeNode: {
+							attribute: id,
+							value: "head1670675563",
+						}
+					],
+				},
+				ElementNode: {
+					name: body,
+					type: Normal,
+					children: [
+						ElementNode: {
+							name: span,
+							type: Normal,
+							children: [
+								TextNode: {
+									textValue: My Number:,
+								}
+							],
+							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "span895328852",
+								}
+							],
+						},
+						ElementNode: {
+							name: input,
+							type: SelfClosed,
+							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "myShowItems",
+								},
+								AttributeNode: {
+									attribute: type,
+									value: "text",
+								},
+								Directive: {
+									type: cp-model,
+									value(ReferenceExpression): {
+										reference: mult,
+									},
+								},
+								AttributeNode: {
+									attribute: value,
+									value: "4",
+								}
+							],
+						},
+						ElementNode: {
+							name: br,
+							type: SelfClosed,
+							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "br1304836502",
+								}
+							],
+						},
+						ElementNode: {
+							name: button,
+							type: Normal,
+							children: [
+								TextNode: {
+									textValue:  Click me for count,
+								}
+							],
+							attributes: [
+								Directive: {
+									type: @click,
+									value(FunctionCallExpression): {
+										function(ReferenceExpression): {
+											reference: clickTimesFun,
+										},
+									},
+								},
+								AttributeNode: {
+									attribute: id,
+									value: "button225534817",
+								}
+							],
+						},
+						ElementNode: {
+							name: button,
+							type: Normal,
+							children: [
+								TextNode: {
+									textValue:  Click me for(factorial* 2)"> Click me for multiplices,
+								}
+							],
+							attributes: [
+								Directive: {
+									type: @click,
+									value(FunctionCallExpression): {
+										function(ReferenceExpression): {
+											reference: clickMultipllices,
+										},
+										parameters: [
+											ReferenceExpression: {
+												reference: mult,
+											},
+											ReferenceExpression: {
+												reference: clickTimes,
+											}
+										],
+									},
+								},
+								AttributeNode: {
+									attribute: id,
+									value: "button1878246837",
+								}
+							],
+						},
+						ElementNode: {
+							name: button,
+							type: Normal,
+							children: [
+								TextNode: {
+									textValue:  walk over me,
+								}
+							],
+							attributes: [
+								Directive: {
+									type: @mousemove,
+									value(FunctionCallExpression): {
+										function(ReferenceExpression): {
+											reference: mousemove,
+										},
+									},
+								},
+								AttributeNode: {
+									attribute: id,
+									value: "button929338653",
+								}
+							],
+						},
+						ElementNode: {
+							name: span,
+							type: Normal,
+							children: [
+								TextNode: {
+									textValue: you clicked ,
+								},
+								MustachNode: {
+									Exp(ReferenceExpression): {
+										reference: clickTimes,
+									},
+								}
+							],
+							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "span1259475182",
+								}
+							],
+						},
+						ElementNode: {
+							name: span,
+							type: Normal,
+							children: [
+								TextNode: {
+									textValue: you calculated the multiplices ,
+								},
+								MustachNode: {
+									Exp(ReferenceExpression): {
+										reference: mults,
+									},
+								}
+							],
+							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "span1300109446",
+								}
+							],
+						},
+						ElementNode: {
+							name: span,
+							type: Normal,
+							children: [
+								TextNode: {
+									textValue: you moved your mouse over the button ,
+								},
+								MustachNode: {
+									Exp(ReferenceExpression): {
+										reference: overtimes,
+									},
+								}
+							],
+							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "span1020371697",
+								}
+							],
+						},
+						CommentNode: {
+							comment: <!-- D id USD $ -->,
+							type: Normal,
+						},
+						ScriptNode: {
+							content: <script>
+						        function forthyear() {
+						            let scope = this;
+						            this.clickTimes = 0;
+						            this.mults = 0;
+						            this.overtimes = 0;
+						
+						            this.clickTimesFun = function () {
+						                scope.clickTimes++;
+						            }
+						
+						            this.clickMultipllices = function (mult, times) {
+						                scope.mults = mult * times;
+						            }
+						
+						            this.mousemove = function () {
+						                scope.overtimes++
+						            }
+						        };
+						
+						        var forthyear = new forthyear();
+						
+						    </script>,
+						},
+					],
+					attributes: [
+						AttributeNode: {
+							attribute: id,
+							value: "b",
+						},
+						Directive: {
+							type: cp-app,
+							value(ReferenceExpression): {
+								reference: forthyear,
+							},
+						}
+					],
+				},
+			],
+			attributes: [
+				AttributeNode: {
+					attribute: lang,
+					value: "en",
+				},
+				AttributeNode: {
+					attribute: id,
+					value: "html1725154839",
+				}
+			],
+		},
+	},
+}

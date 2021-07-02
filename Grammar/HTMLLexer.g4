@@ -461,6 +461,7 @@ fragment EVENT_NAME
 	| 'mouseup'
 	| 'change'
 	| 'doubleclick'
+	| 'mousemove'
 	;
 	
 fragment LETTER

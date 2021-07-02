@@ -355,6 +355,10 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
                     generation_object.code_generation_doubleclick(elementId,directive.getValueAsExpression().getExpressionForJS());
                 }
 
+                if(Directive_name.equals("@mousemove")){
+                    generation_object.code_generation_mousemove(elementId,directive.getValueAsExpression().getExpressionForJS());
+                }
+
                 if(Directive_name.equals("cp-model")){
                     generation_object.code_generation_cpmodel(elementId,directive.getValueAsString());
                 }
