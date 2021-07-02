@@ -12,6 +12,9 @@ import misc.HTMLLexer;
 import misc.HTMLParser;
 import models.AbstractASTNode;
 import visitors.DocumentVisitor;
+import CodeGeneration.codegeneration;
+
+import static visitors.Visitor.generation_object;
 
 public class Compiler {
 	static String filePath = ".\\index.html";
@@ -23,6 +26,7 @@ public class Compiler {
 	
 	public static void main(String[] argv) {
 		CharStream cs;
+			generation_object.generateIdToElements();
 		try {
 			cs = CharStreams.fromFileName(filePath);
 			HTMLLexer lexer = new HTMLLexer(cs);
