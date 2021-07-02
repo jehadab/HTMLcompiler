@@ -1,2 +1,16 @@
 error in line:24 (upper/lower) pipe should not receive any parameter
 error in line:24 (upper/lower) pipe should not receive any parameter
+error in line:21 (date) pipe should receive date format
+error in line:21 (date) pipe should receive date format
+error in line:21 (date) pipe should receive date format
+error in line:21 (date) pipe should receive date format
+error in line:21 (date) pipe should receive date format
+error in line:21 (date) pipe should receive date format
+error in line:21 (date) pipe should receive date format
+error in line:21 (date) pipe should receive date format
+error in line:21 (date) pipe should receive date format
+error in line:21 (date) pipe should receive date format
+error in line:21 (date) pipe should receive date format
+error in line:21 (date) pipe should receive date format
+error in line:21 (date) pipe should receive date format
+error in line:21 (date) pipe should receive date format

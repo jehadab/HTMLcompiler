@@ -19,6 +19,7 @@ import models.directive.Directive;
 import models.nodes.AttributeNode;
 import models.nodes.MustachNode;
 import models.statements.ArrayLoopStatement;
+import models.statements.ObjectLoopStatement;
 
 public class Visitor<T> extends HTMLParserBaseVisitor<T> {
 	static public  String ErrorFile =".\\error.txt";
@@ -37,7 +38,7 @@ public class Visitor<T> extends HTMLParserBaseVisitor<T> {
     static  public  boolean  pipElement = false;
 	static DocumentVisitor documentVisitor = new DocumentVisitor();
 	static ExpressionVisitor expressionVisitor = new ExpressionVisitor();
-	static codegeneration generation_object = new codegeneration();
+	public static codegeneration generation_object = new codegeneration();
 	static public String filter_method="";
 	static public String  Element_Directive_Value="";
 	static public String  Element_id_Value="noid";
@@ -135,9 +136,12 @@ public class Visitor<T> extends HTMLParserBaseVisitor<T> {
 				String Directive_name = directive.getName();
 
 				if (Directive_name.equals("cp-for")) {
-					ArrayLoopStatement arrayLoopStatement = (ArrayLoopStatement) directive.getValue();
-					isVariableExist(arrayLoopStatement.getLoopVariable(),scopesStack.peek(),line_number);
-					if(arrayLoopStatement.getIndexVariable() != null) isVariableExist(arrayLoopStatement.getIndexVariable(),scopesStack.peek(),line_number);
+					if(!(directive.getValue() instanceof ObjectLoopStatement)) {
+						ArrayLoopStatement arrayLoopStatement = (ArrayLoopStatement) directive.getValue();
+						isVariableExist(arrayLoopStatement.getLoopVariable(), scopesStack.peek(), line_number);
+						if (arrayLoopStatement.getIndexVariable() != null)
+							isVariableExist(arrayLoopStatement.getIndexVariable(), scopesStack.peek(), line_number);
+					}
 				}
 			}
 		}

@@ -87,6 +87,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
         showSymboleTable();
         print_symbole_linked_list();
         symboletable.getScopes();
+        generation_object.code_generation_static_render();
         return new Document(header, body);
     }
 
@@ -346,6 +347,14 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
                     generation_object.code_generation_cpif(elementId,directive.getValueAsExpression().getExpressionForJS());
                 }
 
+                if(Directive_name.equals("@click")){
+                    generation_object.code_generation_click(elementId,directive.getValueAsExpression().getExpressionForJS());
+                }
+
+                if(Directive_name.equals("@doubleclick")){
+                    generation_object.code_generation_doubleclick(elementId,directive.getValueAsExpression().getExpressionForJS());
+                }
+
                 if(Directive_name.equals("cp-model")){
                     generation_object.code_generation_cpmodel(elementId,directive.getValueAsString());
                 }
@@ -382,7 +391,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
                 switchExists.push(true);
                 switchElement = true;
 
-                String switchValue = ((Directive) node).getName();
+                String switchValue = ((Directive) node).getValueAsString();
                 int switchCasesCount = 0 ;
 
 

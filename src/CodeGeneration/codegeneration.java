@@ -18,7 +18,7 @@ public class codegeneration {
 
     public int mustachesNumber = 1;
     private StringBuilder sb;
-
+    String addToRender = "";
     public void created_generated_file(String htmlfile_path, String generatedfile_path) throws IOException {
         File source = new File(htmlfile_path);
         File dest = new File(generatedfile_path);
@@ -131,6 +131,29 @@ public class codegeneration {
         write_on_file(" document.getElementById('" + id + "').addEventListener(\"input\", function(event){" + "\n", generatedfile);
         write_on_file("     " + cpapp_value + "." + cp_modelvalue + "= event.target.value;" + "\n",generatedfile);
         write_on_file(" });" + "\n",generatedfile);
+        write_on_file("     " + cpapp_value + "." + cp_modelvalue + "= document.getElementById('" + id + "').value;" + "\n",generatedfile);
+        write_on_file("</script>" + "\n", generatedfile);
+
+    }
+
+    public void code_generation_click(String id, String exp) {
+
+        write_on_file("\n", generatedfile);
+        write_on_file("<script>" + "\n", generatedfile);
+        write_on_file(" document.getElementById('" + id + "').addEventListener(\"click\", function(event){" + "\n", generatedfile);
+        write_on_file("     " + exp + ";\n",generatedfile);
+        write_on_file(" });" + "\n",generatedfile);
+        write_on_file("</script>" + "\n", generatedfile);
+
+    }
+
+    public void code_generation_doubleclick(String id, String exp) {
+
+        write_on_file("\n", generatedfile);
+        write_on_file("<script>" + "\n", generatedfile);
+        write_on_file(" document.getElementById('" + id + "').addEventListener(\"dblclick\", function(event){" + "\n", generatedfile);
+        write_on_file("     " + exp + ";\n",generatedfile);
+        write_on_file(" });" + "\n",generatedfile);
         write_on_file("</script>" + "\n", generatedfile);
 
     }
@@ -197,6 +220,7 @@ public class codegeneration {
         write_on_file("             mustaches[i]();",generatedfile);
         write_on_file("\n",generatedfile);
         write_on_file("         }",generatedfile);
+        write_on_file(addToRender,generatedfile);
         write_on_file("\n",generatedfile);
         write_on_file("     },1000);",generatedfile);
         write_on_file("\n",generatedfile);
@@ -220,6 +244,7 @@ public class codegeneration {
         write_on_file("<script>" + "\n", generatedfile);
         write_on_file(" cpShowStaticFunction('" + id + "'," + cp_showcondition + ");" + "\n",generatedfile);
         write_on_file("</script>" + "\n", generatedfile);
+        addToRender += "        cpShowStaticFunction('" + id + "'," + cp_showcondition + ");" + "\n";
     }
 
     public void code_generation_cphide(String id, String cp_showcondition) {
@@ -227,12 +252,15 @@ public class codegeneration {
         write_on_file("<script>" + "\n", generatedfile);
         write_on_file(" cpHideStaticFunction('" + id + "'," + cp_showcondition + ");" + "\n",generatedfile);
         write_on_file("</script>" + "\n", generatedfile);
+        addToRender += "        cpHideStaticFunction('" + id + "'," + cp_showcondition + ");" + "\n";
     }
+
     public void code_generation_cpif(String id, String cp_showcondition) {
         write_on_file("\n", generatedfile);
         write_on_file("<script>" + "\n", generatedfile);
         write_on_file(" cpIfStaticFunction('" + id + "'," + cp_showcondition + ");" + "\n",generatedfile);
         write_on_file("</script>" + "\n", generatedfile);
+        addToRender += "        cpIfStaticFunction('" + id + "'," + cp_showcondition + ");" + "\n";
     }
 
     public void code_generation_static() {
@@ -240,7 +268,6 @@ public class codegeneration {
         code_generation_static_cpshow();
         code_generation_static_cphide();
         code_generation_static_cpif();
-        code_generation_static_render();
     }
 
     public void code_generation_mustache(String id,String defaultText, List<MustachNode> mustaches) {
@@ -256,12 +283,12 @@ public class codegeneration {
         for(int i=0;i<mustaches.size();i++){
         if(mustaches.get(i).getMethod().equals("upper"))
         {
-            write_on_file("     defaultText= defaultText.replace("+'"'+"{{"+mustaches.get(i).getExpressionAsString()+"}}"+'"'+","+cpapp_value+"."+mustaches.get(i).getOperand()+".toUpperCase()"+");",generatedfile);
+            write_on_file("     defaultText= defaultText.replace("+'"'+"{{"+mustaches.get(i).getExpressionAsString()+"}}"+'"'+","+cpapp_value+"."+mustaches.get(i).getOperand()+"?.toUpperCase()"+");",generatedfile);
             write_on_file("\n",generatedfile);
         }
         else if(mustaches.get(i).getMethod().equals("lower"))
             {
-                write_on_file("     defaultText= defaultText.replace("+'"'+"{{"+mustaches.get(i).getExpressionAsString()+"}}"+'"'+","+cpapp_value+"."+mustaches.get(i).getOperand()+".toLowerCase()"+");",generatedfile);
+                write_on_file("     defaultText= defaultText.replace("+'"'+"{{"+mustaches.get(i).getExpressionAsString()+"}}"+'"'+","+cpapp_value+"."+mustaches.get(i).getOperand()+"?.toLowerCase()"+");",generatedfile);
                 write_on_file("\n",generatedfile);
             }
         else if(mustaches.get(i).getMethod().equals("currency"))
@@ -276,7 +303,7 @@ public class codegeneration {
             }
 
         }
-        else if(mustaches.get(i).getMethod().equals("Date"))
+        else if(mustaches.get(i).getMethod().equals("date"))
         {
             mustaches.get(i).setExpressionAsString(mustaches.get(i).getExpressionAsString().replaceAll("\"",str));
             for (int j=0;j<mustaches.get(i).getParameter_value().size();j++) {
@@ -298,6 +325,7 @@ public class codegeneration {
         write_on_file("\n",generatedfile);
         write_on_file(" };",generatedfile);
         write_on_file("\n",generatedfile);
+        write_on_file(" mustacheChange"+mustachesNumber+"();\n",generatedfile);
         write_on_file(" mustaches.push(mustacheChange"+mustachesNumber+");",generatedfile);
         write_on_file("\n",generatedfile);
         write_on_file("</script>" + "\n", generatedfile);
@@ -309,7 +337,7 @@ public class codegeneration {
                 "   function jsSwitch(){" +
                 "       let originalElement = document.getElementById(\"" + elementId + "\");\n" +
                 "       let cases = originalElement.children;\n" +
-                "       let switchValue = " +cpapp_value+"."+ switchValue + "\n" +
+                "       let switchValue = " +cpapp_value+"."+ switchValue + ";\n" +
                 "       for ( let i = 0 ; i < cases.length ; i++ ){\n" +
                 "       if(!(cases[i].hasAttribute(\"cp-switch-case\") || cases[i].hasAttribute(\"cp-switchDefault\"))){\n" +
                 "       console.log(cases[i])" +

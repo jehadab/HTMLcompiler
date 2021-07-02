@@ -460,6 +460,7 @@ fragment EVENT_NAME
 	| 'mousedown'
 	| 'mouseup'
 	| 'change'
+	| 'doubleclick'
 	;
 	
 fragment LETTER

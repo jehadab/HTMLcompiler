@@ -1,49 +1,60 @@
 
-<html cp-app="forthyear">
+<!DOCTYPE html>
+<html lang="en" id = "html1725154839" >
 
-<head >
-    <title>Sample</title>
+<head id = "head1670675563" >
+    <title id = "title723074861" >Sample 7 everything</title>
 </head>
 
-<body>
+<body cp-app="forthyear" id = "body2055281021" >
 
-<!--
-<div id="some-id" cp-show='x.var1[1] == "HI MAn" && axr == 5'>hi man</div>
-<div id="some-id2" cp-hide='myTest == "HI MAn"'>hi man2</div>
-
-<input id="myTestInput" type="text" cp-model="x.var1[1]" />
-<input id="myTestInput2" type="text" cp-model="x.var2" />
-<input id="myTestInput3" type="text" cp-model="myTest" />
-<input id="myTestInput4" type="text" cp-model="y[6]" />
-<input id="myTestInput3" type="text" cp-model="myTest" />
-
-<p id="myTestInput3">this is my text: {{myTest}} and some text {{x.var1[1]}}</p>
-<p id="myTestInput3">{{myTest}}</p> -->
-<div id="div2" cp-if="axr > 30">
-    <p id="myTestInput3">{{result() < 20 ? axr : x}}</p>
+<div id = "div1304836502" >
+    <span id = "span225534817" >Id</span> <input type="number" cp-model="newObj.newId"  id = "input1878246837" /> <br  id = "br929338653" />
+    <span id = "span1259475182" >Name</span> <input type="text" cp-model="newObj.newName"  id = "input1300109446" /> <br  id = "br1020371697" />
+    <span id = "span789451787" >Date</span> <input type="date" cp-model="newObj.newDate"  id = "input1950409828" /> <br  id = "br1229416514" />
+    <button @click="addSt()" id = "button2016447921" >Add</button>
 </div>
 
+<div cp-show="newObj.newId  id = "div1554547125" > 8" >
+    <span id = "span1414644648" >the new St id: {{newAddedSt.newId}}</span>
+    <span id = "span640070680" >the new St Name: {{newAddedSt.newName | lower}}</span>
+    <span id = "span1510467688" >the new St Date: {{newAddedSt.newDate | date:'dd/mm/yyyy'}}</span> <!-- any date format you want  -->
+</div>
 
-<p id="p2">{{myTest | lower}}</p>
-</body>
-</html>
+<table id = "table1995265320" >
+    <thead id = "thead746292446" >
+    <th cp-for="k,v in obj[0]" id = "th1072591677" >{{k}}</th>
+    </thead>
+    <tr cp-for="st in obj" id = "tr1523554304" >
+        <td cp-for="s in st" id = "td1175962212" >{{s}}</td>
+    </tr>
+</table>
 
-<!-- it's already there -->
+
 <script>
-    function forthyear (){
-        this.axr = 25;
-        this.myTest = "HI MAn";
+        function forthyear() {
+            let scope = this;
+            scope.newObj = {};
+            scope.newAddedSt = {};
+            scope.obj = [
+                { id: 1, name: "St1", birthdate: new Date() },
+                { id: 2, name: "St2", birthdate: new Date() },
+                { id: 3, name: "St3", birthdate: new Date() },
+                { id: 4, name: "St4", birthdate: new Date() },
+                { id: 5, name: "St5", birthdate: new Date() },
+                { id: 6, name: "St6", birthdate: new Date() },
+            ]
+            scope.addSt = function () {
+                scope.newAddedSt = Object.assign({}, scope.newObj)
+                scope.obj.push(Object.assign({}, scope.newObj));
+                scope.newObj = {};
+            }
+        };
 
-        this.x = 12;
+        var forthyear = new forthyear();
 
-        this.y = ["hi","hello",5];
+    </script>
 
-        this.result = function(){
-            return 25;
-        }
+</body>
 
-    };
-
-    var forthyear = new forthyear();
-
-</script>
+</html>
