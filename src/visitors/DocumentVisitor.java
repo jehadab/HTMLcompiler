@@ -346,6 +346,10 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
                     generation_object.code_generation_cphide(elementId,directive.getValueAsExpression().getExpressionForJS());
                 }
 
+                if(Directive_name.equals("cp-if")){
+                    generation_object.code_generation_cpif(elementId,directive.getValueAsExpression().getExpressionForJS());
+                }
+
                 if(Directive_name.equals("cp-model")){
                     generation_object.code_generation_cpmodel(elementId,directive.getValueAsString());
                 }
@@ -431,7 +435,9 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
             attributes = getAttributes((ElementAttributesContext) ctx.getChild(2));
 
         /*----------------------------- Semantic Check ------------------------*/
-        //semanticCheck(tagName,attributes,ctx.start.getLine());
+        if(tagName.equals("ul") || tagName.equals("ol")) ulolNumber++;
+
+        semanticCheck(tagName,attributes,ctx.start.getLine());
         /*----------------------------- Semantic Check ------------------------*/
 
         /*------------------------------ Code Generation ---------------------*/

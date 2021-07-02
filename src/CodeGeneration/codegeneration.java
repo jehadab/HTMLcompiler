@@ -82,6 +82,29 @@ public class codegeneration {
         write_on_file("</script>" + "\n", generatedfile);
     }
 
+    public void code_generation_static_cpif()
+    {
+        write_on_file("\n", generatedfile);
+        write_on_file("<script>" + "\n", generatedfile);
+        write_on_file(" function cpIfStaticFunction(id, conditionResult){" + "\n", generatedfile);
+        write_on_file("     if(conditionResult)" + "\n", generatedfile);
+        write_on_file("     {" + "\n", generatedfile);
+        write_on_file("         for (var i = 0; i < document.getElementById(id).children.length; i++) {" + "\n", generatedfile);
+        write_on_file("             var element =  document.getElementById(id).children[i];" + "\n", generatedfile);
+        write_on_file("             element.hidden = false;" + "\n", generatedfile);
+        write_on_file("         }" + "\n", generatedfile);
+        write_on_file("     }" + "\n", generatedfile);
+        write_on_file("     else" + "\n", generatedfile);
+        write_on_file("     {" + "\n", generatedfile);
+        write_on_file("         for (var i = 0; i < document.getElementById(id).children.length; i++) {" + "\n", generatedfile);
+        write_on_file("             var element =  document.getElementById(id).children[i];" + "\n", generatedfile);
+        write_on_file("             element.hidden = true;" + "\n", generatedfile);
+        write_on_file("         }" + "\n", generatedfile);
+        write_on_file("     }" + "\n", generatedfile);
+        write_on_file(" }" + "\n", generatedfile);
+        write_on_file("</script>" + "\n", generatedfile);
+    }
+
     public void code_generation_static_cphide()
     {
         write_on_file("\n", generatedfile);
@@ -138,11 +161,18 @@ public class codegeneration {
         write_on_file(" cpHideStaticFunction('" + id + "'," + cp_showcondition + ");" + "\n",generatedfile);
         write_on_file("</script>" + "\n", generatedfile);
     }
+    public void code_generation_cpif(String id, String cp_showcondition) {
+        write_on_file("\n", generatedfile);
+        write_on_file("<script>" + "\n", generatedfile);
+        write_on_file(" cpIfStaticFunction('" + id + "'," + cp_showcondition + ");" + "\n",generatedfile);
+        write_on_file("</script>" + "\n", generatedfile);
+    }
 
     public void code_generation_static() {
         code_generation_static_arrays();
         code_generation_static_cpshow();
         code_generation_static_cphide();
+        code_generation_static_cpif();
         code_generation_static_render();
     }
 

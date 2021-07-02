@@ -43,30 +43,79 @@ Document: {
 							type: Normal,
 						},
 						ElementNode: {
+							name: div,
+							type: Normal,
+							children: [
+								ElementNode: {
+									name: p,
+									type: Normal,
+									children: [
+										MustachNode: {
+											Exp(TernaryConditionalExpression): {
+												firstOprand(LessThanComparisionExpression): {
+													leftOprand(FunctionCallExpression): {
+														function(ReferenceExpression): {
+															reference: result,
+														},
+													},
+													rightOprand(NumberLiteral): {
+														value: 20.0,
+													},
+												},
+												secondOprand(ReferenceExpression): {
+													reference: axr,
+												},
+												thirdOprand(ReferenceExpression): {
+													reference: x,
+												},
+											},
+										}
+									],
+									attributes: [
+										AttributeNode: {
+											attribute: id,
+											value: "myTestInput3",
+										}
+									],
+								},
+							],
+							attributes: [
+								AttributeNode: {
+									attribute: id,
+									value: "div2",
+								},
+								Directive: {
+									type: cp-if,
+									value(MoreThanComparisionExpression): {
+										leftOprand(ReferenceExpression): {
+											reference: axr,
+										},
+										rightOprand(NumberLiteral): {
+											value: 30.0,
+										},
+									},
+								}
+							],
+						},
+						ElementNode: {
 							name: p,
 							type: Normal,
 							children: [
 								MustachNode: {
-									Exp(TernaryConditionalExpression): {
-										firstOprand(LessThanComparisionExpression): {
-											leftOprand(FunctionCallExpression): {
-												function(ReferenceExpression): {
-													reference: result,
-												},
-											},
-											rightOprand(NumberLiteral): {
-												value: 20.0,
-											},
+									Exp(FilterStatement): {
+										Oprand(ReferenceExpression): {
+											reference: myTest,
 										},
-										secondOprand(PostDecrementExpression): {},
-										thirdOprand(PostDecrementExpression): {},
+										FilterMethod(ReferenceExpression): {
+											reference: lower,
+										},
 									},
 								}
 							],
 							attributes: [
 								AttributeNode: {
 									attribute: id,
-									value: "myTestInput3",
+									value: "p2",
 								}
 							],
 						},

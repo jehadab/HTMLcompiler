@@ -19,7 +19,12 @@
 
 <p id="myTestInput3">this is my text: {{myTest}} and some text {{x.var1[1]}}</p>
 <p id="myTestInput3">{{myTest}}</p> -->
-<p id="myTestInput3">{{result() < 20 ? (x> 15 ? '1-1' : '1-2') : (x < 15 ? '2-1' : '2-2' )}}</p>
+<div id="div2" cp-if="axr > 30">
+    <p id="myTestInput3">{{result() < 20 ? axr : x}}</p>
+</div>
+
+
+<p id="p2">{{myTest | lower}}</p>
 </body>
 </html>
 
@@ -64,6 +69,25 @@ mustaches = [];
 </script>
 
 <script>
+ function cpIfStaticFunction(id, conditionResult){
+     if(conditionResult)
+     {
+         for (var i = 0; i < document.getElementById(id).children.length; i++) {
+             var element =  document.getElementById(id).children[i];
+             element.hidden = false;
+         }
+     }
+     else
+     {
+         for (var i = 0; i < document.getElementById(id).children.length; i++) {
+             var element =  document.getElementById(id).children[i];
+             element.hidden = true;
+         }
+     }
+ }
+</script>
+
+<script>
  function render(){
      setInterval( function (){
          for(var i=mustaches.length - 1 ; i>=0; i--){
@@ -73,10 +97,23 @@ mustaches = [];
  }render();</script>
 
 <script>
+ cpIfStaticFunction('div2',forthyear.axr>30.0);
+</script>
+
+<script>
  var mustacheChange1 = function (event) {
-     defaultText="{{result()<20?(x>15?'1-1':'1-2'):(x<15?'2-1':'2-2')}}";
-     defaultText= defaultText.replace("{{result()<20?(x>15?'1-1':'1-2'):(x<15?'2-1':'2-2')}}",forthyear.result()<20.0?(forthyear.x>15.0?"1-1":"1-2"):(forthyear.x<15.0?"2-1":"2-2"));
+     defaultText="{{result()<20?axr:x}}";
+     defaultText= defaultText.replace("{{result()<20?axr:x}}",forthyear.result()<20.0?forthyear.axr:forthyear.x);
      document.getElementById('myTestInput3').innerHTML =defaultText;
  };
  mustaches.push(mustacheChange1);
+</script>
+
+<script>
+ var mustacheChange2 = function (event) {
+     defaultText="{{myTest|lower}}";
+     defaultText= defaultText.replace("{{myTest|lower}}",forthyear.myTest.toLowerCase());
+     document.getElementById('p2').innerHTML =defaultText;
+ };
+ mustaches.push(mustacheChange2);
 </script>

@@ -19,7 +19,12 @@
 
 <p id="myTestInput3">this is my text: {{myTest}} and some text {{x.var1[1]}}</p>
 <p id="myTestInput3">{{myTest}}</p> -->
-<p id="myTestInput3">{{result() < 20 ? (x> 15 ? '1-1' : '1-2') : (x < 15 ? '2-1' : '2-2' )}}</p>
+<div id="div2" cp-if="axr > 30">
+    <p id="myTestInput3">{{result() < 20 ? axr : x}}</p>
+</div>
+
+
+<p id="p2">{{myTest | lower}}</p>
 </body>
 </html>
 
