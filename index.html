@@ -15,23 +15,21 @@
     <button @click="addSt()" id = "button2016447921" >Add</button>
 </div>
 
-<div cp-if="newAddedSt.Id" id = "div666988784" >
+<div cp-if="newAddedSt.newId" id = "div666988784" >
     <span id = "span1414644648" >the new St id: {{newAddedSt.newId}}</span>
-    <span id = "span640070680" >the new St Name: {{newAddedSt.newId | lower}}</span>
-    <span id = "span1510467688" >the new St Date: {{newAddedSt.newId | date:'dd/mm/yyyy'}}</span> <!-- any date format you want  -->
+    <span id = "span640070680" >the new St Name: {{newAddedSt.newName | lower}}</span>
+    <span id = "span1510467688" >the new St Date: {{newAddedSt.newDate | date:'yyyy/dd/mm h:m:s'}}</span> <!-- any date format you want  -->
 </div>
 
 <table id = "table1995265320" >
     <thead id = "thead746292446" >
-        <th cp-for="k,v in obj[0]" id = "th1072591677" >{{k}}</th>
+    <th cp-for="k,v in obj[0]" id = "th1072591677" >{{k}}</th>
     </thead>
     <tr cp-for="st in obj" id = "tr1523554304" >
         <td cp-for="s in st" id = "td1175962212" >{{st[s]}}</td>
     </tr>
 </table>
-<ul cp-for="st in obj"  id = "ul1725154839" >
-    <li cp-for="k,v in st" id = "li1670675563" >{{k}} = {{v}}</li>
-</ul>
+
 
 <script>
         function forthyear() {

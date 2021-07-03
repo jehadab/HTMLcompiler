@@ -268,7 +268,7 @@ Document: {
 														reference: newAddedSt,
 													},
 													method(AccessByProperty): {
-														property: newId,
+														property: newName,
 													},
 												},
 												FilterMethod(ReferenceExpression): {
@@ -298,7 +298,7 @@ Document: {
 														reference: newAddedSt,
 													},
 													method(AccessByProperty): {
-														property: newId,
+														property: newDate,
 													},
 												},
 												FilterMethod(ReferenceExpression): {
@@ -306,7 +306,7 @@ Document: {
 												},
 												parameters: [
 													StringLiteral: {
-														value: dd/mm/yyyy,
+														value: yyyy/dd/mm h:m:s,
 													}
 												],
 											},
@@ -332,7 +332,7 @@ Document: {
 											reference: newAddedSt,
 										},
 										method(AccessByProperty): {
-											property: Id,
+											property: newId,
 										},
 									},
 								},
@@ -453,63 +453,6 @@ Document: {
 								AttributeNode: {
 									attribute: id,
 									value: "table1995265320",
-								}
-							],
-						},
-						ElementNode: {
-							name: ul,
-							type: Normal,
-							children: [
-								ElementNode: {
-									name: li,
-									type: Normal,
-									children: [
-										MustachNode: {
-											Exp(ReferenceExpression): {
-												reference: k,
-											},
-										},
-										TextNode: {
-											textValue:  = ,
-										},
-										MustachNode: {
-											Exp(ReferenceExpression): {
-												reference: v,
-											},
-										}
-									],
-									attributes: [
-										Directive: {
-											type: cp-for,
-											value(ObjectLoopStatement): {
-												valueVariable: v,
-												keyVariable: k,
-												loopOn(ReferenceExpression): {
-													reference: st,
-												},
-											},
-										},
-										AttributeNode: {
-											attribute: id,
-											value: "li1670675563",
-										}
-									],
-								},
-							],
-							attributes: [
-								Directive: {
-									type: cp-for,
-									value(ArrayLoopStatement): {
-										loopVariable: st,
-										indexed: false,
-										loopOn(ReferenceExpression): {
-											reference: obj,
-										},
-									},
-								},
-								AttributeNode: {
-									attribute: id,
-									value: "ul1725154839",
 								}
 							],
 						},

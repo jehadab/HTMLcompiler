@@ -69,6 +69,12 @@ public class FilterStatement extends Expression {
 		}
     	if(filter_method.equals("lower")) return expression.getExpressionForJS() +"?.toLowerCase()";
     	if(filter_method.equals("upper")) return expression.getExpressionForJS() +"?.toUpperCase()";
+    	if(filter_method.equals("date"))
+		{
+			StringLiteral stringLiteral = (StringLiteral) parameters.get(0);
+			String res = stringLiteral.getString();
+			return "date_parse("+"new Date("+expression.getExpressionForJS()+"),'"+res+"')";
+		}
 		return expression.getExpressionForJS();
 	}
 }

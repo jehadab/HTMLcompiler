@@ -238,6 +238,25 @@ public class codegeneration {
         write_on_file("</script>",generatedfile);
     }
 
+    public void code_generation_static_date_parse()
+    {
+        write_on_file("\n",generatedfile);
+        write_on_file("<script>",generatedfile);
+        write_on_file("\n",generatedfile);
+        write_on_file(" var date_parse = function(date,format){\n",generatedfile);
+        write_on_file("     if(!(date instanceof Date))return format;\n",generatedfile);
+        write_on_file("     format = format.replace('yyyy',date.getFullYear());\n",generatedfile);
+        write_on_file("     format = format.replace('mm',date.getMonth() + 1);\n",generatedfile);
+        write_on_file("     format = format.replace('dd',date.getDate());\n",generatedfile);
+        write_on_file("     format = format.replace('h',date.getHours());\n",generatedfile);
+        write_on_file("     format = format.replace('m',date.getMinutes());\n",generatedfile);
+        write_on_file("     format = format.replace('s',date.getSeconds());\n",generatedfile);
+        write_on_file("     return format;\n",generatedfile);
+        write_on_file(" }\n",generatedfile);
+        write_on_file("\n",generatedfile);
+        write_on_file("</script>",generatedfile);
+    }
+
     public void code_generation_cpshow(String id, String cp_showcondition) {
         write_on_file("\n", generatedfile);
         write_on_file("<script>" + "\n", generatedfile);
@@ -267,6 +286,7 @@ public class codegeneration {
         code_generation_static_cpshow();
         code_generation_static_cphide();
         code_generation_static_cpif();
+        code_generation_static_date_parse();
     }
 
     public void code_generation_mustache(String id,String defaultText, List<MustachNode> mustaches) {
@@ -280,7 +300,7 @@ public class codegeneration {
         write_on_file("     defaultText=\""+defaultText+"\";",generatedfile);
         write_on_file("\n",generatedfile);
         for(int i=0;i<mustaches.size();i++){
-        if(mustaches.get(i).getMethod().equals("upper"))
+       /* if(mustaches.get(i).getMethod().equals("upper"))
         {
             write_on_file("     defaultText= defaultText.replace("+'"'+"{{"+mustaches.get(i).getExpressionAsString()+"}}"+'"'+","+cpapp_value+"."+mustaches.get(i).getOperand()+"?.toUpperCase()"+");",generatedfile);
             write_on_file("\n",generatedfile);
@@ -307,7 +327,7 @@ public class codegeneration {
             mustaches.get(i).setExpressionAsString(mustaches.get(i).getExpressionAsString().replaceAll("\"",str));
             for (int j=0;j<mustaches.get(i).getParameter_value().size();j++) {
                 String value = mustaches.get(i).getParameter_value().get(j);
-                write_on_file("     defaultText= defaultText.replace(" + '"' + "{{" + mustaches.get(i).getExpressionAsString() + "}}" + '"' + "," +'"'+value+'"'+");", generatedfile);
+                write_on_file("     defaultText= defaultText.replace(" + '"' + "{{" + mustaches.get(i).getExpressionAsString() + "}}" + '"' + "," +'"'+mustaches.get(i).getExpressionAsExpression().getExpressionForJS()+'"'+");", generatedfile);
                 write_on_file("\n", generatedfile);
                 /// i really do not know if the yarget is to store the date formatter in the variable in the cpa-pp
                 write_on_file(cpapp_value+"."+mustaches.get(i).getOperand()+"="+'"'+mustaches.get(i).getParameter_value().get(j)+'"'+";",generatedfile);
@@ -317,7 +337,9 @@ public class codegeneration {
          else {
             write_on_file("     defaultText= defaultText.replace("+'"'+"{{"+mustaches.get(i).getExpressionAsString()+"}}"+'"'+","+mustaches.get(i).getExpressionAsExpression().getExpressionForJS()+");",generatedfile);
             write_on_file("\n",generatedfile);
-         }
+         }*/
+            write_on_file("     defaultText= defaultText.replace("+'"'+"{{"+mustaches.get(i).getExpressionAsString()+"}}"+'"'+","+mustaches.get(i).getExpressionAsExpression().getExpressionForJS()+");",generatedfile);
+            write_on_file("\n",generatedfile);
 
         }
         write_on_file("     document.getElementById('"+id+"')"+"."+"innerHTML =defaultText;",generatedfile);
