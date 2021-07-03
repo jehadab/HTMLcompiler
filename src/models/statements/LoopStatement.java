@@ -9,4 +9,8 @@ public abstract class LoopStatement extends Statement {
 	protected LoopStatement(ValueExpression objectToLoopOn) {
 		this.objectToLoopOn = objectToLoopOn;
 	}
+
+	public ValueExpression getObjectToLoopOn() {
+		return objectToLoopOn;
+	}
 }

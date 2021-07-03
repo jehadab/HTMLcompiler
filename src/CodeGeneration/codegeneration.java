@@ -1,5 +1,6 @@
 package CodeGeneration;
 
+import SymboleTable.Scope;
 import models.nodes.MustachNode;
 
 import java.io.*;
@@ -8,7 +9,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,7 +22,9 @@ public class codegeneration {
     public int mustachesNumber = 1;
     private StringBuilder sb;
     String addToRender = "\n";
+    public static Stack<String> addToFor = new Stack<String>();
     private int switchNumber = 1;
+    public int for_number = 0;
 
     public void created_generated_file(String htmlfile_path, String generatedfile_path) throws IOException {
         File source = new File(htmlfile_path);
@@ -55,7 +60,6 @@ public class codegeneration {
 //        generateIdToElements();
 //        System.out.println("File Copied");
     }
-
 
     public void generateIdToElements() {
         Path sourcePath = Paths.get(".\\index.html");
@@ -198,11 +202,21 @@ public class codegeneration {
         write_on_file("\n",generatedfile);
         write_on_file("     setInterval( function (){",generatedfile);
         write_on_file("\n",generatedfile);
-        write_on_file("         for(var i=mustaches.length - 1 ; i>=0; i--){",generatedfile);
+        write_on_file("         for(var i=new_elements.length - 1 ; i>=0; i--){\n",generatedfile);
         write_on_file("\n",generatedfile);
-        write_on_file("             mustaches[i]();",generatedfile);
+        write_on_file("             new_elements[i].remove();\n",generatedfile);
         write_on_file("\n",generatedfile);
-        write_on_file("         }",generatedfile);
+        write_on_file("         }\n",generatedfile);
+        write_on_file("         for(var i=mustaches.length - 1 ; i>=0; i--){\n",generatedfile);
+        write_on_file("\n",generatedfile);
+        write_on_file("             mustaches[i]();\n",generatedfile);
+        write_on_file("\n",generatedfile);
+        write_on_file("         }\n",generatedfile);
+        write_on_file("         for(var i=renders.length - 1 ; i>=0; i--){\n",generatedfile);
+        write_on_file("\n",generatedfile);
+        write_on_file("             renders[i]();\n",generatedfile);
+        write_on_file("\n",generatedfile);
+        write_on_file("         }\n",generatedfile);
         write_on_file(addToRender,generatedfile);
         write_on_file("\n",generatedfile);
         write_on_file("     },1000);",generatedfile);
@@ -217,7 +231,9 @@ public class codegeneration {
         write_on_file("\n",generatedfile);
         write_on_file("<script>",generatedfile);
         write_on_file("\n",generatedfile);
-        write_on_file("mustaches = [];",generatedfile);
+        write_on_file("mustaches = [];\n",generatedfile);
+        write_on_file("renders = [];\n",generatedfile);
+        write_on_file("new_elements = [];\n",generatedfile);
         write_on_file("\n",generatedfile);
         write_on_file("</script>",generatedfile);
     }
@@ -363,4 +379,151 @@ public class codegeneration {
         write_on_file("</script>" + "\n", generatedfile);
     }
 
+    public void code_generation_cpforarrayloop(String id,String objectToLoopIn,String loopVariable)
+    {
+        String fixedid = id.replaceAll("-","_");
+        write_on_file("\n", generatedfile);
+        write_on_file("<script>" + "\n", generatedfile);
+        write_on_file(" var cpfor" + fixedid +"= function(){\n",generatedfile);
+        write_on_file("     let originalElement"+fixedid+" = document.getElementById('"+id+"');"+ "\n",generatedfile);
+        write_on_file("     let container"+fixedid+" = originalElement"+fixedid+".parentElement;"+ "\n",generatedfile);
+        write_on_file("     let tmparrayboolean" + fixedid + " = 0;"+ "\n",generatedfile);
+        write_on_file("     if(Array.isArray("+objectToLoopIn+")){"+ "\n",generatedfile);
+        write_on_file("         "+objectToLoopIn+".forEach (("+loopVariable+") => {"+ "\n",generatedfile);
+        write_on_file("             let elem = originalElement"+fixedid+".cloneNode(false);"+ "\n",generatedfile);
+        write_on_file("             elem.id = '"+ id +"' + (++tmparrayboolean" + fixedid + ");"+ "\n",generatedfile);
+        write_on_file(addToFor.peek()+ "\n",generatedfile);
+        write_on_file("             elem.hidden= false;"+ "\n",generatedfile);
+        write_on_file("             container"+fixedid+".appendChild(elem);"+ "\n",generatedfile);
+        write_on_file("             new_elements.push(elem);"+ "\n",generatedfile);
+        write_on_file("         });"+ "\n",generatedfile);
+        write_on_file("      }else if(Number.isInteger("+objectToLoopIn+")){"+ "\n",generatedfile);
+        write_on_file("         for (var "+loopVariable+" = 0;"+loopVariable+"<" + objectToLoopIn + ";"+loopVariable+"++) {"+ "\n",generatedfile);
+        write_on_file("             let elem = originalElement"+fixedid+".cloneNode(false);"+ "\n",generatedfile);
+        write_on_file("             elem.id = '"+ id +"' + (++tmparrayboolean" + fixedid + ");"+ "\n",generatedfile);
+        write_on_file(addToFor.peek()+ "\n",generatedfile);
+        write_on_file("             elem.hidden= false;"+ "\n",generatedfile);
+        write_on_file("             container"+fixedid+".appendChild(elem);"+ "\n",generatedfile);
+        write_on_file("             new_elements.push(elem);"+ "\n",generatedfile);
+        write_on_file("         }"+ "\n",generatedfile);
+        write_on_file("      }else{"+ "\n",generatedfile);
+        write_on_file("         for (var "+loopVariable+" in "+ objectToLoopIn +") {"+ "\n",generatedfile);
+        write_on_file("             let elem = originalElement"+fixedid+".cloneNode(false);"+ "\n",generatedfile);
+        write_on_file("             elem.id = '"+ id +"' + (++tmparrayboolean" + fixedid + ");"+ "\n",generatedfile);
+        write_on_file(addToFor.peek()+ "\n",generatedfile);
+        write_on_file("             elem.hidden= false;"+ "\n",generatedfile);
+        write_on_file("             container"+fixedid+".appendChild(elem);"+ "\n",generatedfile);
+        write_on_file("             new_elements.push(elem);"+ "\n",generatedfile);
+        write_on_file("         }"+ "\n",generatedfile);
+        write_on_file("      }"+ "\n",generatedfile);
+        write_on_file("      originalElement"+fixedid+".hidden = true;"+ "\n",generatedfile);
+        write_on_file(" }"+ "\n",generatedfile);
+        write_on_file(" renders.push(cpfor" + id.replaceAll("-","_") + ");"+ "\n",generatedfile);
+        //write_on_file(" cpfor" + id.replaceAll("-","_") + "();"+ "\n",generatedfile);
+        write_on_file("</script>" + "\n", generatedfile);
+        addToFor.pop();
+    }
+
+    public void code_generation_cpforarrayloop_insidefor(String id,String objectToLoopIn,String loopVariable)
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        String fixedid = id.replaceAll("-","_");
+        stringBuilder.append("     let originalElement"+fixedid+" = document.getElementById('"+id+"');"+ "\n");
+        stringBuilder.append("     let container"+fixedid+" = elem;"+ "\n");
+        stringBuilder.append("     let tmparrayboolean" + fixedid + " = 0;"+ "\n");
+        stringBuilder.append("     if(Array.isArray("+objectToLoopIn+")){"+ "\n");
+        stringBuilder.append("         "+objectToLoopIn+".forEach (("+loopVariable+") => {"+ "\n");
+        stringBuilder.append("             let elem = originalElement"+fixedid+".cloneNode(false);"+ "\n");
+        stringBuilder.append("             elem.id = '"+ id +"' + (++tmparrayboolean" + fixedid + ");"+ "\n");
+        stringBuilder.append(addToFor.peek()+ "\n");
+        stringBuilder.append("             elem.hidden= false;"+ "\n");
+        stringBuilder.append("             container"+fixedid+".appendChild(elem);"+ "\n");
+        stringBuilder.append("             new_elements.push(elem);"+ "\n");
+        stringBuilder.append("         });"+ "\n");
+        stringBuilder.append("      }else if(Number.isInteger("+objectToLoopIn+")){"+ "\n");
+        stringBuilder.append("         for (var "+loopVariable+" = 0;"+loopVariable+"<" + objectToLoopIn + ";"+loopVariable+"++) {"+ "\n");
+        stringBuilder.append("             let elem = originalElement"+fixedid+".cloneNode(false);"+ "\n");
+        stringBuilder.append("             elem.id = '"+ id +"' + (++tmparrayboolean" + fixedid + ");"+ "\n");
+        stringBuilder.append(addToFor.peek()+ "\n");
+        stringBuilder.append("             elem.hidden= false;"+ "\n");
+        stringBuilder.append("             container"+fixedid+".appendChild(elem);"+ "\n");
+        stringBuilder.append("             new_elements.push(elem);"+ "\n");
+        stringBuilder.append("         }"+ "\n");
+        stringBuilder.append("      }else{"+ "\n");
+        stringBuilder.append("         for (var "+loopVariable+" in "+ objectToLoopIn +") {"+ "\n");
+        stringBuilder.append("             let elem = originalElement"+fixedid+".cloneNode(false);"+ "\n");
+        stringBuilder.append("             elem.id = '"+ id +"' + (++tmparrayboolean" + fixedid + ");"+ "\n");
+        stringBuilder.append(addToFor.peek()+ "\n");
+        stringBuilder.append("             elem.hidden= false;"+ "\n");
+        stringBuilder.append("             container"+fixedid+".appendChild(elem);"+ "\n");
+        stringBuilder.append("             new_elements.push(elem);"+ "\n");
+        stringBuilder.append("         }"+ "\n");
+        stringBuilder.append("      }"+ "\n");
+        stringBuilder.append("      originalElement"+fixedid+".hidden = true;"+ "\n");
+        addToFor.pop();
+        String add = addToFor.peek();
+        add += stringBuilder.toString();
+        addToFor.pop();
+        addToFor.add(add);
+    }
+
+    public void code_generation_mustache_for(String elementId, String defaultText, List<MustachNode> mustaches) {
+        String add = addToFor.peek();
+        add += "         defaultText=\""+defaultText+"\";\n";
+        for(int i=0;i<mustaches.size();i++){
+            add += "         defaultText= defaultText.replace("+'"'+"{{"+mustaches.get(i).getExpressionAsString()+"}}"+'"'+","+mustaches.get(i).getExpressionAsExpression().getExpressionForJS()+");\n";
+        }
+        add += "         elem"+"."+"innerHTML =defaultText;";
+        addToFor.pop();
+        addToFor.add(add);
+    }
+
+
+    public void code_generation_cpforarrayobject(String id, String objectToLoopIn, String keyVar, String valVar) {
+        String fixedid = id.replaceAll("-","_");
+        write_on_file("\n", generatedfile);
+        write_on_file("<script>" + "\n", generatedfile);
+        write_on_file(" var cpfor" + fixedid +"= function(){\n",generatedfile);
+        write_on_file("     let originalElement"+fixedid+" = document.getElementById('"+id+"');"+ "\n",generatedfile);
+        write_on_file("     let container"+fixedid+" = originalElement"+fixedid+".parentElement;"+ "\n",generatedfile);
+        write_on_file("     let tmparrayboolean" + fixedid + " = 0;"+ "\n",generatedfile);
+        write_on_file("     for (var "+keyVar+" in "+ objectToLoopIn +") {"+ "\n",generatedfile);
+        write_on_file("         let "+valVar+" = "+objectToLoopIn+"["+keyVar+"];"+ "\n",generatedfile);
+        write_on_file("         let elem = originalElement"+fixedid+".cloneNode(false);"+ "\n",generatedfile);
+        write_on_file("         elem.id = '"+ id +"' + (++tmparrayboolean" + fixedid + ");"+ "\n",generatedfile);
+        write_on_file(addToFor.peek()+ "\n",generatedfile);
+        write_on_file("         elem.hidden= false;"+ "\n",generatedfile);
+        write_on_file("         container"+fixedid+".appendChild(elem);"+ "\n",generatedfile);
+        write_on_file("         new_elements.push(elem);"+ "\n",generatedfile);
+        write_on_file("     }"+ "\n",generatedfile);
+        write_on_file("     originalElement"+fixedid+".hidden = true;"+ "\n",generatedfile);
+        write_on_file(" }"+ "\n",generatedfile);
+        write_on_file(" renders.push(cpfor" + id.replaceAll("-","_") + ");"+ "\n",generatedfile);
+        //write_on_file(" cpfor" + id.replaceAll("-","_") + "();"+ "\n",generatedfile);
+        write_on_file("</script>" + "\n", generatedfile);
+        addToFor.pop();
+    }
+
+    public void code_generation_cpforarrayobject_insidefor(String id, String objectToLoopIn, String keyVar, String valVar) {
+        StringBuilder stringBuilder = new StringBuilder();
+        String fixedid = id.replaceAll("-","_");
+        stringBuilder.append("     let originalElement"+fixedid+" = document.getElementById('"+id+"');"+ "\n");
+        stringBuilder.append("     let container"+fixedid+" = elem;"+ "\n");
+        stringBuilder.append("     let tmparrayboolean" + fixedid + " = 0;"+ "\n");
+        stringBuilder.append("         for (var "+keyVar+" in "+ objectToLoopIn +") {"+ "\n");
+        stringBuilder.append("             let "+valVar+" = "+objectToLoopIn+"["+keyVar+"]"+ "\n");
+        stringBuilder.append("             let elem = originalElement"+fixedid+".cloneNode(false);"+ "\n");
+        stringBuilder.append("             elem.id = '"+ id +"' + (++tmparrayboolean" + fixedid + ");"+ "\n");
+        stringBuilder.append(addToFor.peek()+ "\n");
+        stringBuilder.append("             elem.hidden= false;"+ "\n");
+        stringBuilder.append("             container"+fixedid+".appendChild(elem);"+ "\n");
+        stringBuilder.append("             new_elements.push(elem);"+ "\n");
+        stringBuilder.append("         }"+ "\n");
+        stringBuilder.append("      originalElement"+fixedid+".hidden = true;"+ "\n");
+        addToFor.pop();
+        String add = addToFor.peek();
+        add += stringBuilder.toString();
+        addToFor.pop();
+        addToFor.add(add);
+    }
 }

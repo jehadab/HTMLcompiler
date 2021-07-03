@@ -141,6 +141,10 @@ public class Visitor<T> extends HTMLParserBaseVisitor<T> {
 						isVariableExist(arrayLoopStatement.getLoopVariable(), scopesStack.peek(), line_number);
 						if (arrayLoopStatement.getIndexVariable() != null)
 							isVariableExist(arrayLoopStatement.getIndexVariable(), scopesStack.peek(), line_number);
+					}else{
+						ObjectLoopStatement objectLoopStatement = (ObjectLoopStatement) directive.getValue();
+						isVariableExist(objectLoopStatement.getKeyVariable(), scopesStack.peek(), line_number);
+						isVariableExist(objectLoopStatement.getValueVariable(), scopesStack.peek(), line_number);
 					}
 				}
 			}

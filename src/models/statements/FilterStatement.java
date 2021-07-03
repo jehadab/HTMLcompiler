@@ -4,6 +4,7 @@ import java.util.List;
 
 import models.AbstractASTNode;
 import models.expression.Expression;
+import models.expression.value.literal.StringLiteral;
 import models.util.Formatter;
 
 public class FilterStatement extends Expression {
@@ -60,6 +61,14 @@ public class FilterStatement extends Expression {
 
 	@Override
 	public String getExpressionForJS() {
-		return null;
+    	Expression expression = (Expression) oprand;
+    	if(filter_method.equals("currency"))
+		{
+			StringLiteral stringLiteral = (StringLiteral) parameters.get(0);
+			return "'"+stringLiteral.getString()+"'+" + expression.getExpressionForJS();
+		}
+    	if(filter_method.equals("lower")) return expression.getExpressionForJS() +"?.toLowerCase()";
+    	if(filter_method.equals("upper")) return expression.getExpressionForJS() +"?.toUpperCase()";
+		return expression.getExpressionForJS();
 	}
 }

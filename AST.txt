@@ -18,7 +18,7 @@ Document: {
 							type: Normal,
 							children: [
 								TextNode: {
-									textValue: Sample 6 events,
+									textValue: Sample 7 everything,
 								}
 							],
 							attributes: [
@@ -41,213 +41,496 @@ Document: {
 					type: Normal,
 					children: [
 						ElementNode: {
-							name: span,
+							name: div,
 							type: Normal,
 							children: [
-								TextNode: {
-									textValue: My Number:,
-								}
-							],
-							attributes: [
-								AttributeNode: {
-									attribute: id,
-									value: "span895328852",
-								}
-							],
-						},
-						ElementNode: {
-							name: input,
-							type: SelfClosed,
-							attributes: [
-								AttributeNode: {
-									attribute: id,
-									value: "myShowItems",
+								ElementNode: {
+									name: span,
+									type: Normal,
+									children: [
+										TextNode: {
+											textValue: Id,
+										}
+									],
+									attributes: [
+										AttributeNode: {
+											attribute: id,
+											value: "span225534817",
+										}
+									],
 								},
-								AttributeNode: {
-									attribute: type,
-									value: "text",
-								},
-								Directive: {
-									type: cp-model,
-									value(ReferenceExpression): {
-										reference: mult,
-									},
-								},
-								AttributeNode: {
-									attribute: value,
-									value: "4",
-								}
-							],
-						},
-						ElementNode: {
-							name: br,
-							type: SelfClosed,
-							attributes: [
-								AttributeNode: {
-									attribute: id,
-									value: "br1304836502",
-								}
-							],
-						},
-						ElementNode: {
-							name: button,
-							type: Normal,
-							children: [
-								TextNode: {
-									textValue:  Click me for count,
-								}
-							],
-							attributes: [
-								Directive: {
-									type: @click,
-									value(FunctionCallExpression): {
-										function(ReferenceExpression): {
-											reference: clickTimesFun,
+								ElementNode: {
+									name: input,
+									type: SelfClosed,
+									attributes: [
+										AttributeNode: {
+											attribute: type,
+											value: "number",
 										},
-									},
-								},
-								AttributeNode: {
-									attribute: id,
-									value: "button225534817",
-								}
-							],
-						},
-						ElementNode: {
-							name: button,
-							type: Normal,
-							children: [
-								TextNode: {
-									textValue:  Click me for(factorial* 2)"> Click me for multiplices,
-								}
-							],
-							attributes: [
-								Directive: {
-									type: @click,
-									value(FunctionCallExpression): {
-										function(ReferenceExpression): {
-											reference: clickMultipllices,
-										},
-										parameters: [
-											ReferenceExpression: {
-												reference: mult,
+										Directive: {
+											type: cp-model,
+											value(AccessExpression): {
+												object(ReferenceExpression): {
+													reference: newObj,
+												},
+												method(AccessByProperty): {
+													property: newId,
+												},
 											},
-											ReferenceExpression: {
-												reference: clickTimes,
-											}
-										],
-									},
+										},
+										AttributeNode: {
+											attribute: id,
+											value: "input1878246837",
+										}
+									],
 								},
+								ElementNode: {
+									name: br,
+									type: SelfClosed,
+									attributes: [
+										AttributeNode: {
+											attribute: id,
+											value: "br929338653",
+										}
+									],
+								},
+								ElementNode: {
+									name: span,
+									type: Normal,
+									children: [
+										TextNode: {
+											textValue: Name,
+										}
+									],
+									attributes: [
+										AttributeNode: {
+											attribute: id,
+											value: "span1259475182",
+										}
+									],
+								},
+								ElementNode: {
+									name: input,
+									type: SelfClosed,
+									attributes: [
+										AttributeNode: {
+											attribute: type,
+											value: "text",
+										},
+										Directive: {
+											type: cp-model,
+											value(AccessExpression): {
+												object(ReferenceExpression): {
+													reference: newObj,
+												},
+												method(AccessByProperty): {
+													property: newName,
+												},
+											},
+										},
+										AttributeNode: {
+											attribute: id,
+											value: "input1300109446",
+										}
+									],
+								},
+								ElementNode: {
+									name: br,
+									type: SelfClosed,
+									attributes: [
+										AttributeNode: {
+											attribute: id,
+											value: "br1020371697",
+										}
+									],
+								},
+								ElementNode: {
+									name: span,
+									type: Normal,
+									children: [
+										TextNode: {
+											textValue: Date,
+										}
+									],
+									attributes: [
+										AttributeNode: {
+											attribute: id,
+											value: "span789451787",
+										}
+									],
+								},
+								ElementNode: {
+									name: input,
+									type: SelfClosed,
+									attributes: [
+										AttributeNode: {
+											attribute: type,
+											value: "date",
+										},
+										Directive: {
+											type: cp-model,
+											value(AccessExpression): {
+												object(ReferenceExpression): {
+													reference: newObj,
+												},
+												method(AccessByProperty): {
+													property: newDate,
+												},
+											},
+										},
+										AttributeNode: {
+											attribute: id,
+											value: "input1950409828",
+										}
+									],
+								},
+								ElementNode: {
+									name: br,
+									type: SelfClosed,
+									attributes: [
+										AttributeNode: {
+											attribute: id,
+											value: "br1229416514",
+										}
+									],
+								},
+								ElementNode: {
+									name: button,
+									type: Normal,
+									children: [
+										TextNode: {
+											textValue: Add,
+										}
+									],
+									attributes: [
+										Directive: {
+											type: @click,
+											value(FunctionCallExpression): {
+												function(ReferenceExpression): {
+													reference: addSt,
+												},
+											},
+										},
+										AttributeNode: {
+											attribute: id,
+											value: "button2016447921",
+										}
+									],
+								},
+							],
+							attributes: [
 								AttributeNode: {
 									attribute: id,
-									value: "button1878246837",
+									value: "div1304836502",
 								}
 							],
 						},
 						ElementNode: {
-							name: button,
+							name: div,
 							type: Normal,
 							children: [
-								TextNode: {
-									textValue:  walk over me,
-								}
+								ElementNode: {
+									name: span,
+									type: Normal,
+									children: [
+										TextNode: {
+											textValue: the new St id: ,
+										},
+										MustachNode: {
+											Exp(AccessExpression): {
+												object(ReferenceExpression): {
+													reference: newAddedSt,
+												},
+												method(AccessByProperty): {
+													property: newId,
+												},
+											},
+										}
+									],
+									attributes: [
+										AttributeNode: {
+											attribute: id,
+											value: "span1414644648",
+										}
+									],
+								},
+								ElementNode: {
+									name: span,
+									type: Normal,
+									children: [
+										TextNode: {
+											textValue: the new St Name: ,
+										},
+										MustachNode: {
+											Exp(FilterStatement): {
+												Oprand(AccessExpression): {
+													object(ReferenceExpression): {
+														reference: newAddedSt,
+													},
+													method(AccessByProperty): {
+														property: newId,
+													},
+												},
+												FilterMethod(ReferenceExpression): {
+													reference: lower,
+												},
+											},
+										}
+									],
+									attributes: [
+										AttributeNode: {
+											attribute: id,
+											value: "span640070680",
+										}
+									],
+								},
+								ElementNode: {
+									name: span,
+									type: Normal,
+									children: [
+										TextNode: {
+											textValue: the new St Date: ,
+										},
+										MustachNode: {
+											Exp(FilterStatement): {
+												Oprand(AccessExpression): {
+													object(ReferenceExpression): {
+														reference: newAddedSt,
+													},
+													method(AccessByProperty): {
+														property: newId,
+													},
+												},
+												FilterMethod(ReferenceExpression): {
+													reference: date,
+												},
+												parameters: [
+													StringLiteral: {
+														value: dd/mm/yyyy,
+													}
+												],
+											},
+										}
+									],
+									attributes: [
+										AttributeNode: {
+											attribute: id,
+											value: "span1510467688",
+										}
+									],
+								},
+								CommentNode: {
+									comment: <!-- any date format you want  -->,
+									type: Normal,
+								},
 							],
 							attributes: [
 								Directive: {
-									type: @mousemove,
-									value(FunctionCallExpression): {
-										function(ReferenceExpression): {
-											reference: mousemove,
+									type: cp-if,
+									value(AccessExpression): {
+										object(ReferenceExpression): {
+											reference: newAddedSt,
+										},
+										method(AccessByProperty): {
+											property: Id,
 										},
 									},
 								},
 								AttributeNode: {
 									attribute: id,
-									value: "button929338653",
+									value: "div666988784",
 								}
 							],
 						},
 						ElementNode: {
-							name: span,
+							name: table,
 							type: Normal,
 							children: [
-								TextNode: {
-									textValue: you clicked ,
+								ElementNode: {
+									name: thead,
+									type: Normal,
+									children: [
+										ElementNode: {
+											name: th,
+											type: Normal,
+											children: [
+												MustachNode: {
+													Exp(ReferenceExpression): {
+														reference: k,
+													},
+												}
+											],
+											attributes: [
+												Directive: {
+													type: cp-for,
+													value(ObjectLoopStatement): {
+														valueVariable: v,
+														keyVariable: k,
+														loopOn(AccessExpression): {
+															object(ReferenceExpression): {
+																reference: obj,
+															},
+															method(AccessByIndex): {
+																index(NumberLiteral): {
+																	value: 0.0,
+																},
+															},
+														},
+													},
+												},
+												AttributeNode: {
+													attribute: id,
+													value: "th1072591677",
+												}
+											],
+										},
+									],
+									attributes: [
+										AttributeNode: {
+											attribute: id,
+											value: "thead746292446",
+										}
+									],
 								},
-								MustachNode: {
-									Exp(ReferenceExpression): {
-										reference: clickTimes,
-									},
-								}
+								ElementNode: {
+									name: tr,
+									type: Normal,
+									children: [
+										ElementNode: {
+											name: td,
+											type: Normal,
+											children: [
+												MustachNode: {
+													Exp(AccessExpression): {
+														object(ReferenceExpression): {
+															reference: st,
+														},
+														method(AccessByIndex): {
+															index(ReferenceExpression): {
+																reference: s,
+															},
+														},
+													},
+												}
+											],
+											attributes: [
+												Directive: {
+													type: cp-for,
+													value(ArrayLoopStatement): {
+														loopVariable: s,
+														indexed: false,
+														loopOn(ReferenceExpression): {
+															reference: st,
+														},
+													},
+												},
+												AttributeNode: {
+													attribute: id,
+													value: "td1175962212",
+												}
+											],
+										},
+									],
+									attributes: [
+										Directive: {
+											type: cp-for,
+											value(ArrayLoopStatement): {
+												loopVariable: st,
+												indexed: false,
+												loopOn(ReferenceExpression): {
+													reference: obj,
+												},
+											},
+										},
+										AttributeNode: {
+											attribute: id,
+											value: "tr1523554304",
+										}
+									],
+								},
 							],
 							attributes: [
 								AttributeNode: {
 									attribute: id,
-									value: "span1259475182",
+									value: "table1995265320",
 								}
 							],
 						},
 						ElementNode: {
-							name: span,
+							name: ul,
 							type: Normal,
 							children: [
-								TextNode: {
-									textValue: you calculated the multiplices ,
+								ElementNode: {
+									name: li,
+									type: Normal,
+									children: [
+										MustachNode: {
+											Exp(ReferenceExpression): {
+												reference: k,
+											},
+										},
+										TextNode: {
+											textValue:  = ,
+										},
+										MustachNode: {
+											Exp(ReferenceExpression): {
+												reference: v,
+											},
+										}
+									],
+									attributes: [
+										Directive: {
+											type: cp-for,
+											value(ObjectLoopStatement): {
+												valueVariable: v,
+												keyVariable: k,
+												loopOn(ReferenceExpression): {
+													reference: st,
+												},
+											},
+										},
+										AttributeNode: {
+											attribute: id,
+											value: "li1670675563",
+										}
+									],
 								},
-								MustachNode: {
-									Exp(ReferenceExpression): {
-										reference: mults,
-									},
-								}
 							],
 							attributes: [
-								AttributeNode: {
-									attribute: id,
-									value: "span1300109446",
-								}
-							],
-						},
-						ElementNode: {
-							name: span,
-							type: Normal,
-							children: [
-								TextNode: {
-									textValue: you moved your mouse over the button ,
-								},
-								MustachNode: {
-									Exp(ReferenceExpression): {
-										reference: overtimes,
+								Directive: {
+									type: cp-for,
+									value(ArrayLoopStatement): {
+										loopVariable: st,
+										indexed: false,
+										loopOn(ReferenceExpression): {
+											reference: obj,
+										},
 									},
-								}
-							],
-							attributes: [
+								},
 								AttributeNode: {
 									attribute: id,
-									value: "span1020371697",
+									value: "ul1725154839",
 								}
 							],
-						},
-						CommentNode: {
-							comment: <!-- D id USD $ -->,
-							type: Normal,
 						},
 						ScriptNode: {
 							content: <script>
 						        function forthyear() {
 						            let scope = this;
-						            this.clickTimes = 0;
-						            this.mults = 0;
-						            this.overtimes = 0;
-						
-						            this.clickTimesFun = function () {
-						                scope.clickTimes++;
-						            }
-						
-						            this.clickMultipllices = function (mult, times) {
-						                scope.mults = mult * times;
-						            }
-						
-						            this.mousemove = function () {
-						                scope.overtimes++
+						            scope.newObj = {};
+						            scope.newAddedSt = {};
+						            scope.obj = [
+						                { id: 1, name: "St1", birthdate: new Date() },
+						                { id: 2, name: "St2", birthdate: new Date() },
+						                { id: 3, name: "St3", birthdate: new Date() },
+						                { id: 4, name: "St4", birthdate: new Date() },
+						                { id: 5, name: "St5", birthdate: new Date() },
+						                { id: 6, name: "St6", birthdate: new Date() },
+						            ]
+						            scope.addSt = function () {
+						                scope.newAddedSt = Object.assign({}, scope.newObj)
+						                scope.obj.push(Object.assign({}, scope.newObj));
+						                scope.newObj = {};
 						            }
 						        };
 						
@@ -257,15 +540,15 @@ Document: {
 						},
 					],
 					attributes: [
-						AttributeNode: {
-							attribute: id,
-							value: "b",
-						},
 						Directive: {
 							type: cp-app,
 							value(ReferenceExpression): {
 								reference: forthyear,
 							},
+						},
+						AttributeNode: {
+							attribute: id,
+							value: "body895328852",
 						}
 					],
 				},

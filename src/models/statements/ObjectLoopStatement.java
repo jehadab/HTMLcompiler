@@ -26,4 +26,11 @@ public class ObjectLoopStatement extends LoopStatement {
 		return formatter;
 	}
 
+	public String getKeyVariable() {
+		return keyVariable;
+	}
+
+	public String getValueVariable() {
+		return valueVariable;
+	}
 }

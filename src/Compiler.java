@@ -36,6 +36,7 @@ public class Compiler {
 //		    showGUI(pt, parser);
 			DocumentVisitor visitor = new DocumentVisitor();
 			AbstractASTNode document = visitor.visit(pt);
+			System.out.println( document.toString());
 			FileWriter resultFile = new FileWriter(ASTPath);
 			resultFile.write(document.toString());
 			resultFile.close();

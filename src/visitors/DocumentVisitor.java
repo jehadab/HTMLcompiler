@@ -48,6 +48,8 @@ import models.expression.value.literal.StringLiteral;
 import models.nodes.*;
 import models.statements.*;
 
+import static CodeGeneration.codegeneration.addToFor;
+
 public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     protected static Stack<Boolean> switchExists;
@@ -298,10 +300,12 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
     @Override
     public AbstractASTNode visitNormalElement(NormalElementContext ctx) {
-        boolean isElementDirective = false;
+        boolean isForLoop = false;
+        boolean isForObject = false;
         ElementDirective_number = 0;
         String tagName = ctx.getChild(1).getText();
         String tagClose;
+        String objectToLoopOn = "",loopVar = "",keyVar="",valVar="";
 
         if (ctx.getChild(2) instanceof ElementAttributesContext) {
             tagClose = ctx.getChild(6).getText();
@@ -333,6 +337,25 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
                 if (Directive_name.equals("cp-app")) {
                     generation_object.cpapp_value = Element_Directive_Value;
+                }
+
+                if (Directive_name.equals("cp-for")) {
+                    if(directive.getValue() instanceof ArrayLoopStatement) {
+                        ArrayLoopStatement arrayLoopStatement = (ArrayLoopStatement) directive.getValue();
+                        generation_object.for_number++;
+                        isForLoop = true;
+                        addToFor.add("");
+                        objectToLoopOn = arrayLoopStatement.getObjectToLoopOn().getExpressionForJS();
+                        loopVar = arrayLoopStatement.getLoopVariable();
+                    }else{
+                        ObjectLoopStatement objectLoopStatement = (ObjectLoopStatement) directive.getValue();
+                        generation_object.for_number++;
+                        isForObject = true;
+                        addToFor.add("");
+                        objectToLoopOn = objectLoopStatement.getObjectToLoopOn().getExpressionForJS();
+                        keyVar = objectLoopStatement.getKeyVariable();
+                        valVar = objectLoopStatement.getValueVariable();
+                    }
                 }
 
                 if(Directive_name.equals("cp-show")){
@@ -376,6 +399,7 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
             contents = getContent((ElementContentContext) ctx.getChild(4));
             defaultText = ctx.getChild(4).getText();
         }
+
         List<MustachNode> mustaches = new ArrayList<>();
 
         for (int i = 0; i < contents.size(); i++) {
@@ -417,8 +441,18 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 //                    System.err.println("Invalid switch");
         }
 
-        if(!mustaches.isEmpty())generation_object.code_generation_mustache(elementId, defaultText, mustaches);
-
+        if(!mustaches.isEmpty()) {
+            if(generation_object.for_number > 0) generation_object.code_generation_mustache_for(elementId, defaultText, mustaches);
+            else generation_object.code_generation_mustache(elementId, defaultText, mustaches);
+        }
+        if(isForLoop) {
+            if(generation_object.for_number >  1)generation_object.code_generation_cpforarrayloop_insidefor(elementId, objectToLoopOn, loopVar);
+            else generation_object.code_generation_cpforarrayloop(elementId, objectToLoopOn, loopVar);
+        }
+        if(isForObject) {
+            if(generation_object.for_number >  1)generation_object.code_generation_cpforarrayobject_insidefor(elementId, objectToLoopOn, keyVar, valVar);
+            else generation_object.code_generation_cpforarrayobject(elementId, objectToLoopOn, keyVar, valVar);
+        }
         if (switchElement){
             switchExists.pop();
 
@@ -433,6 +467,9 @@ public class DocumentVisitor extends Visitor<AbstractASTNode> {
 
                 if (Directive_name.equals("cp-app")) {
                     cppapp_number--;
+                }
+                if (Directive_name.equals("cp-for")) {
+                    generation_object.for_number--;
                 }
                 if (Directive_name.equals("cp-for")) {
                     scopesStack.pop();
